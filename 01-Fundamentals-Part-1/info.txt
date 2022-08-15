@@ -1,0 +1,32 @@
+01-Fundamentals-Part-1
+
+Prva stvar koju treba da napomenmo jesu vrednosti. Sta je zapravo vrednost? Vrednost je neka informacija. Vrednost je npr string 'jonas', vrednost moze da budem takodje i broj 23. Najznacajnija stvar koju mozemo da radimo sa vrednostima jeste sto mozemo da ih skladistimo u promenljive. Na promenljive mozemo da gledamo kao neke kutije u koje mozemo da stavljamo stvari, textove, brojeve...
+
+let firstName = 'Jonas'
+
+Ovo ce zapravo napraviti promenljivu firstName u memoriji racunara koji korisitmo i u tom delu memorije bice uskladistena vrednost stringa 'Jonas'. Ime firstName se ponasa kao neki opis promenljive, ako zelimo da koristimo vrednost 'Jonas' referenciramo cemo ga preko imena promenljive firstName.
+
+console.log(firstName)
+
+Kad god javascript vidi ovu promenljjivu firstName on ce da zameni firstName za vrednost 'Jonas' koja je uskladistena u memoriji pod promenljivom firstName.
+
+Konvencija za imenovanje promenljiva u javascriptu jeste da se koristi takozvani 'camelCase'. To znaci da prva rec pocinje malim slovom ali svaka sledeca rec koju imamo u nazivu pocinje velikim slovom. Npr: 
+firstName, firstNamePerson, lastName, lastNamePerson itd.
+Druge popularne notacije za imenovanje promenljivih jesu 'snake_case'. Dakle sve reci pocinju malim slovom, ali izmedju reci ide donja crta _ . Npr: 
+first_name, first_name_person, last_name, last_name_person itd.
+
+Mnogo bitnije od imenovanja promenljivih sa odredjenom notacijom jesu pravila koja moraju da se postuju prilikom imenovanja promenljivih. 
+1) Ime promenljive ne moze da pocinje brojem, broj sme da se sadrzi u imenu promenljive samo ne sme da bude prvi, dakle: 3year, 21yearsOld, 7days... ovo je nepravilno!
+2) Imena promenljivih mogu da sadrze samo slova, brojeve, dolar znak ($) i underscore (_). Npr ako pokusamo da imenujemo promenljivu sa name&LastName ovo ce biti nepravilo. Ime promenljive moze da pocne npr dolar znakom $something.
+3) Prilikom imenovanja promenljivih ne mozemo da koristimo neke kljucne reci koje javascript koristi u svojoj sintaksi. Npr: new, function, for, while...
+4) Ovo je zapravo konvencija, dakle javascript nece izbaciti gresku ako pokusamo ovo u kodu ali to svakako ne bi trebali da radimo, a to je da ne imenujemo promenljijve prvim slovom velikim. Dakle ovako: Person, Dog, Cat, Milk... ovo bi trebali da izbegavamo! Imenovanje promenljiva velikim pocetnim slovom ima veze sa objektno orejentisanim programiranjem!
+5) Promenljive napisane sve velikim slovima uglavnom predstavljaju konstante koje znamo da nece da se menjaju. Npr: let PI = 3.1415, let COUNT..., let SIZE itd...
+6) Jos jedno pravilo koje je jako bitno ako zelite da imate cist kod jeste da ime promenljive stvarno treba da bude opisno, dakle samim citanjem promenljive treba da nam bude jasno sta ta promenljiva drzi u svojoj memoriji. Npr: 
+
+let myFirstJob = 'Programmer'
+
+...ovo je mnogo bolje napisati od ovog npr:
+
+let job1 = 'Programmer'
+
+Prva opcija dosta bolje opisuje sta ta promenljiva sadrzi u sebi!
