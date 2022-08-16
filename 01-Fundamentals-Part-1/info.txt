@@ -1,6 +1,7 @@
 01-Fundamentals-Part-1
 
-Prva stvar koju treba da napomenmo jesu vrednosti. Sta je zapravo vrednost? Vrednost je neka informacija. Vrednost je npr string 'jonas', vrednost moze da budem takodje i broj 23. Najznacajnija stvar koju mozemo da radimo sa vrednostima jeste sto mozemo da ih skladistimo u promenljive. Na promenljive mozemo da gledamo kao neke kutije u koje mozemo da stavljamo stvari, textove, brojeve...
+1) Vrednosti i varijable:
+Prva stvar koju treba da napomenmo jesu vrednosti. Sta je zapravo vrednost? Vrednost je neka informacija. Vrednost je npr string 'jonas', vrednost moze da budem takodje i broj 23. Najznacajnija stvar koju mozemo da radimo sa vrednostima jeste sto mozemo da ih skladistimo u promenljive. Na promenljive mozemo da gledamo kao neke kutije u koje mozemo da stavljamo stvari, textove, brojeve...Dakle prvo toj kutiji dajemo ime a zatim joj stavljamo vrednost koju ce da sadrzi.
 
 let firstName = 'Jonas'
 
@@ -18,8 +19,8 @@ first_name, first_name_person, last_name, last_name_person itd.
 Mnogo bitnije od imenovanja promenljivih sa odredjenom notacijom jesu pravila koja moraju da se postuju prilikom imenovanja promenljivih. 
 1) Ime promenljive ne moze da pocinje brojem, broj sme da se sadrzi u imenu promenljive samo ne sme da bude prvi, dakle: 3year, 21yearsOld, 7days... ovo je nepravilno!
 2) Imena promenljivih mogu da sadrze samo slova, brojeve, dolar znak ($) i underscore (_). Npr ako pokusamo da imenujemo promenljivu sa name&LastName ovo ce biti nepravilo. Ime promenljive moze da pocne npr dolar znakom $something.
-3) Prilikom imenovanja promenljivih ne mozemo da koristimo neke kljucne reci koje javascript koristi u svojoj sintaksi. Npr: new, function, for, while...
-4) Ovo je zapravo konvencija, dakle javascript nece izbaciti gresku ako pokusamo ovo u kodu ali to svakako ne bi trebali da radimo, a to je da ne imenujemo promenljijve prvim slovom velikim. Dakle ovako: Person, Dog, Cat, Milk... ovo bi trebali da izbegavamo! Imenovanje promenljiva velikim pocetnim slovom ima veze sa objektno orejentisanim programiranjem!
+3) Prilikom imenovanja promenljivih ne mozemo da koristimo neke kljucne reci koje javascript koristi u svojoj sintaksi. Npr: new, function, for, while, break, continue...
+4) Ovo je zapravo konvencija, dakle javascript nece izbaciti gresku ako pokusamo ovo u kodu ali to svakako ne bi trebali da radimo, a to je da ne imenujemo promenljijve prvim slovom velikim. Dakle ovako: Person, Dog, Cat, Milk... ovo bi trebali da izbegavamo! Imenovanje promenljiva velikim pocetnim slovom ima veze sa objektno orejentisanim programiranjem i koristi se prilikom imenovana Klasa!
 5) Promenljive napisane sve velikim slovima uglavnom predstavljaju konstante koje znamo da nece da se menjaju. Npr: let PI = 3.1415, let COUNT..., let SIZE itd...
 6) Jos jedno pravilo koje je jako bitno ako zelite da imate cist kod jeste da ime promenljive stvarno treba da bude opisno, dakle samim citanjem promenljive treba da nam bude jasno sta ta promenljiva drzi u svojoj memoriji. Npr: 
 
@@ -30,3 +31,71 @@ let myFirstJob = 'Programmer'
 let job1 = 'Programmer'
 
 Prva opcija dosta bolje opisuje sta ta promenljiva sadrzi u sebi!
+
+
+2) Tipovi podataka:
+U svakom programskom jeziku vrednosti mogu da budu razliciti tipovi podataka, u zavisnosti od toga sta mi zelimo da odredjena promenljiva drzi u svojoj memoriji! Vec smo videli brojeve i stringove ali zapravo postoji jos tipova podataka. U javascript svaka vrednost je ili objekat ili primitvna vrednost.
+
+Objekat: 
+
+let me = {
+    name: 'Jonas'
+}
+
+Primitvne vrednosti: 
+
+let firstName = 'Joans'
+let age = 27
+
+Primitivni tipovi podataka: Postoji tacno sedam primitivh tipova podataka. To su: brojevi, stringovi, boolean, undefined, null, symbol, bigInt.
+
+1) Broj kao tip podataka: brojevi uvek imaju decimale cak i ako ih mi ne vidimo ili ne definisemo (decimale zovemo brojeve posle zareza)
+
+Na primer ako imamo broj: 
+
+let age = 23 je isto kao da imamo 23.0
+
+Bilo da ih pisemo sa zarezom kao decimale bilo da ih pisemo kao cele brojeve i jedan i drugi primer spadaju pod brojeve. Za razliku od drugih programskih jezika gde postoji poseban tip podataka za cele brojeve i poseban tip podataka za brojeve sa zarezom odnosno decimale.
+
+
+2) String kao tip podataka je prosto receno niz karaktera (slova). Oni se najcesce koriste za tekst. Oni uvek idu pod navodnicima. Mozemo da koristimo i duple i jednostruke navodnike. 
+
+let str = 'word' 
+let str2 = "word"
+
+... i jedno i drugo je pravnilo.
+
+
+3) Boolean tip podataka je logicni tip podataka. On moze da ima samo dve vrednosti a to su TRUE ili FALSE. Boolean vrednost je uvek ili true ili false. Koristi se za donosenje odluka u kodu.
+
+let decision = true
+let decision2 = false
+
+
+4) Undefined kao tip podataka jeste vrednost koja je uzeta od strane promenljive ali jos uvek nije definisana. Promenljiva koja jos uvek nije definisna je prosto promenljiva koju smo deklarisali ali joj jos uvek nismo dodelili vrednost. Undefined mozemo da gledamo kao prazna vrenodst! Npr: 
+
+let children;
+
+..promenljiva je deklarisana ali nema jos uvek nikakvu vrednost. children promenljiva ce u ovom slucaju da bude undefined.
+
+
+5) Null kao tip podataka ima slicno znacenje kao undefined i takodje oznacava praznu vrednost, ali se koristi u drugacijim slucajevima. 
+
+
+6) Symbol kao tip podataka jeste predstavljen 2015 godine sa dolazkom ES2015 (ES6). Symbol definise vrednost koja je unikatna i ne moze da bude promenjena. Ovaj tip podatka nije previse koristan.
+
+
+7) BigInt kao tip podataka je predstavljen sa ES2020. On sluzi za velike brojeve koje ne mozemo da predstavimo sa obicnim brojem kao tipom podataka. Na bigInt mozemo da gledamo kao na jos jedan tip za brojeve. 
+
+Jos jedna bitna stvar vezana za tipove jeste da javascript ima nesto sto se zove dinamicki tipovi. Ovo znaci da kada kreiramo novu promenljivu ne moramo manuelno da definisemo tip podataka koju drzi ta promenljiva. U mnogim drugim programskim jezicima ovo bi morali da radimo, ali ne i u javascriptu. Javascript automatski odredjuje tip podataka neke vrednosti kada je ona uskladistena u promenljivoj. Ova razlika izmedju promenljive i vrednosti je vrlo bitna. U javascript vrednost ima tip, a ne promenljiva! Promenljive (varijabla) prosto skladisti vrednost u memorji, a ta vrednost ima tip. 
+Sve ovo prosto znaci da ako definisemo neku promenljivu ovako: 
+
+let age = 23
+
+... mi kasnije u kodu mozemo da definisemo age da drzi neki drugi tip podataka npr: 
+
+age = 'twenty three'
+
+... kao u ovom slucaju string.
+
+// nastavi od 05:10
