@@ -1,6 +1,6 @@
 01-Fundamentals-Part-1
 
-1) Vrednosti i varijable:
+01) Vrednosti i varijable:
 Prva stvar koju treba da napomenmo jesu vrednosti. Sta je zapravo vrednost? Vrednost je neka informacija. Vrednost je npr string 'jonas', vrednost moze da budem takodje i broj 23. Najznacajnija stvar koju mozemo da radimo sa vrednostima jeste sto mozemo da ih skladistimo u promenljive. Na promenljive mozemo da gledamo kao neke kutije u koje mozemo da stavljamo stvari, textove, brojeve...Dakle prvo toj kutiji dajemo ime a zatim joj stavljamo vrednost koju ce da sadrzi.
 
 let firstName = 'Jonas'
@@ -20,7 +20,7 @@ Mnogo bitnije od imenovanja promenljivih sa odredjenom notacijom jesu pravila ko
 1) Ime promenljive ne moze da pocinje brojem, broj sme da se sadrzi u imenu promenljive samo ne sme da bude prvi, dakle: 3year, 21yearsOld, 7days... ovo je nepravilno!
 2) Imena promenljivih mogu da sadrze samo slova, brojeve, dolar znak ($) i underscore (_). Npr ako pokusamo da imenujemo promenljivu sa name&LastName ovo ce biti nepravilo. Ime promenljive moze da pocne npr dolar znakom $something.
 3) Prilikom imenovanja promenljivih ne mozemo da koristimo neke kljucne reci koje javascript koristi u svojoj sintaksi. Npr: new, function, for, while, break, continue...
-4) Ovo je zapravo konvencija, dakle javascript nece izbaciti gresku ako pokusamo ovo u kodu ali to svakako ne bi trebali da radimo, a to je da ne imenujemo promenljijve prvim slovom velikim. Dakle ovako: Person, Dog, Cat, Milk... ovo bi trebali da izbegavamo! Imenovanje promenljiva velikim pocetnim slovom ima veze sa objektno orejentisanim programiranjem i koristi se prilikom imenovana Klasa!
+4) Ovo je zapravo konvencija, dakle javascript nece izbaciti gresku ako pokusamo ovo u kodu ali to svakako ne bi trebali da radimo, a to je da ne imenujemo promenljijve prvim slovom velikim. Dakle ovako: Person, Dog, Cat, Milk... ovo bi trebali da izbegavamo! Imenovanje promenljiva velikim pocetnim slovom ima veze sa objektno orjentisanim programiranjem i koristi se prilikom imenovana Klasa!
 5) Promenljive napisane sve velikim slovima uglavnom predstavljaju konstante koje znamo da nece da se menjaju. Npr: let PI = 3.1415, let COUNT..., let SIZE itd...
 6) Jos jedno pravilo koje je jako bitno ako zelite da imate cist kod jeste da ime promenljive stvarno treba da bude opisno, dakle samim citanjem promenljive treba da nam bude jasno sta ta promenljiva drzi u svojoj memoriji. Npr: 
 
@@ -33,7 +33,7 @@ let job1 = 'Programmer'
 Prva opcija dosta bolje opisuje sta ta promenljiva sadrzi u sebi!
 
 
-2) Tipovi podataka:
+02) Tipovi podataka:
 U svakom programskom jeziku vrednosti mogu da budu razliciti tipovi podataka, u zavisnosti od toga sta mi zelimo da odredjena promenljiva drzi u svojoj memoriji! Vec smo videli brojeve i stringove ali zapravo postoji jos tipova podataka. U javascript svaka vrednost je ili objekat ili primitvna vrednost.
 
 Objekat: 
@@ -47,7 +47,7 @@ Primitvne vrednosti:
 let firstName = 'Joans'
 let age = 27
 
-Primitivni tipovi podataka: Postoji tacno sedam primitivh tipova podataka. To su: brojevi, stringovi, boolean, undefined, null, symbol, bigInt.
+Primitivni tipovi podataka: Postoji tacno sedam primitivnih tipova podataka. To su: brojevi, stringovi, boolean, undefined, null, symbol, bigInt.
 
 1) Broj kao tip podataka: brojevi uvek imaju decimale cak i ako ih mi ne vidimo ili ne definisemo (decimale zovemo brojeve posle zareza)
 
@@ -55,7 +55,7 @@ Na primer ako imamo broj:
 
 let age = 23 je isto kao da imamo 23.0
 
-Bilo da ih pisemo sa zarezom kao decimale bilo da ih pisemo kao cele brojeve i jedan i drugi primer spadaju pod brojeve. Za razliku od drugih programskih jezika gde postoji poseban tip podataka za cele brojeve i poseban tip podataka za brojeve sa zarezom odnosno decimale.
+Bilo da ih pisemo sa zarezom kao decimale bilo da ih pisemo kao cele brojeve i jedan i drugi primer spadaju pod tip broj. Za razliku od drugih programskih jezika gde postoji poseban tip podataka za cele brojeve i poseban tip podataka za brojeve sa zarezom odnosno decimale.
 
 
 2) String kao tip podataka je prosto receno niz karaktera (slova). Oni se najcesce koriste za tekst. Oni uvek idu pod navodnicima. Mozemo da koristimo i duple i jednostruke navodnike. 
@@ -66,13 +66,13 @@ let str2 = "word"
 ... i jedno i drugo je pravnilo.
 
 
-3) Boolean tip podataka je logicni tip podataka. On moze da ima samo dve vrednosti a to su TRUE ili FALSE. Boolean vrednost je uvek ili true ili false. Koristi se za donosenje odluka u kodu.
+3) Boolean tip podataka je logicki tip podataka. On moze da ima samo dve vrednosti a to su TRUE ili FALSE. Boolean vrednost je uvek ili true ili false. Koristi se za donosenje odluka u kodu.
 
 let decision = true
 let decision2 = false
 
 
-4) Undefined kao tip podataka jeste vrednost koja je uzeta od strane promenljive ali jos uvek nije definisana. Promenljiva koja jos uvek nije definisna je prosto promenljiva koju smo deklarisali ali joj jos uvek nismo dodelili vrednost. Undefined mozemo da gledamo kao prazna vrenodst! Npr: 
+4) Undefined kao tip podataka jeste vrednost koja je uzeta od strane promenljive ali jos uvek nije definisana. Promenljiva koja jos uvek nije definisna je prosto promenljiva koju smo deklarisali ali joj jos uvek nismo dodelili vrednost. Na undefined mozemo da gledamo kao na praznu vrednost! Npr: 
 
 let children;
 
@@ -98,4 +98,195 @@ age = 'twenty three'
 
 ... kao u ovom slucaju string.
 
-// nastavi od 05:10
+
+Komentari: komentare u javascript ostavljamo da bi prosto receno komentarisali kod. Postoje dve vrste komentare, to su komentari u jednoj liniji i komentari i vise linija. 
+
+// comment 
+
+...kada javascript dodje do ovog reda koda on ce ovo potpuno ignorisati! Moguce je da pisemo i komentare u vise reodova /* */. Sve izmedju ovih znakova bice ignorisano od strane javascripta.
+
+/* ovo se 
+   nece izvirsiti
+   nikada */
+
+Komentari su korisni ponekad da bi opisali deo koda, da opisemo neku funkciju sta tacno radi, ili da bi priblizili funkcionalnost kolegi koji ce u buducnosti da procita nas kod.
+
+
+Postoji jedan zgodan operator (bas kao i +, -) koji se zove typeof. Mozemo da ga koristimo da bi videli koji tip podataka drzi neka promenlijva. Npr: 
+
+console.log(typeof 'string') // it returns string
+console.log(typeof true) // it returns boolean
+
+...postoji jedna mala greska kod typeof operatora a to je kada probamo da ocitamo tip od null vratice nam objekat 
+
+console.log(typeof null) // it returns object
+
+
+Deklarisanje promenljivih: Do sada smo uglavno koristili let kljucnu rec za deklarisanje promenljivih ali je bitno da znamo da postoje jos dva nacina da deklarisemo promenljivu, a to su: var, const (i naravno let). var kljucna rec je koriscena od pocetka nastanka javascript jezika dok su let i const ubacene 2015e sa ES2015 ili ti ES6. Izmedju ovih nacina deklarisanja promenljivih postoje odredjene razlike. 
+Kljucnu rec let koristimo kada znamo da ce nasa promenljiva da promeni vrednost ili cak tip podataka. Sa let mozemo da deklarisemo i praznu promenljivu bez da joj dodeljujemo vrednost i tek kasnije u kodu da joj dodelimo vrednost.
+
+let year;
+let age = 30;
+age = 31; // it will work perfect!
+
+S druge strane sve promenljive koje deklarisemo sa const kljucnom recju ne mogu da menjaju vrednost. Ako probamo da dodelimo jednu jednu vrednost promenljivoj koju smo deklarisali sa const i kasnije u kodu pokusamo da joj promenimo vrednost javascript ce izbaciti gresku. Npr:
+
+const birthYear = 1991;
+birthYear = 1990; // it returns an error: Uncaught TypeError: Assignment to constant variable.
+
+...takodje promenljive deklarisane sa const ne mogu da budu undefined tj moramo uvek da im dodeli neku inicijalnu vrednost.
+
+const job; // Uncaught SyntaxError: Missing intializer in const declartaion
+
+Za koju kljucnu rec se odluciti prilikom deklarisanja promenljivih? Recimo da uvek koristimo const kljucnu rec, ali ako znamo da ce neka promenlljiva da promeni svoju vrednost onda koristimo let!
+
+Treci nacin za deklarisanje promenljivih u javascriptu jeste var. Ova kljucna rec bi trebala da se izbegava! Var je stari nacin deklarisanja promenljivih, dakle koriscen je sve do 2015e godine. Na prvi pogled var se ponasa isto kao i let kljucna rec, medjutim u pozadini postoji razlika. Npr mozemo da deklarisemo jednu vrednost i kasnije da je zamenimo sa drugom vrednoscu.
+
+var job = 'programmer';
+job = 'teacher';
+
+...postoje neke glasine da mozemo da radimo i bez ovih kljucnih reci i da napisemo samo:
+
+lastName = 'Meza';
+console.log(lastName) // it returns Meza
+
+...medjutim ovo je jako losa ideja zato sto ovo ne pravi promenljivu u trenutnom opsegu (scope-u), vec ce javascript da kreira novi properti na globalnom objektu! Zakljucak uvek koristite const ili let kljucnu rec za deklarisanje promenljivih!
+
+
+Operatori: operatori nam pomazu da kombinujemo vise vrednosti odjednom, kao i da radimo razlicite operacije sa vrednostima. Imamo matematicke operatore imamo uporedjujuce operatore, operatore dodeljivanja itd.
+
+1) Matematicki (aritmeticki) operatori su +, -, *, /, **
+
+**  jeste operator eksponencijacije (2 ** 3) znaci 2 * 2 * 2
++   jeste operator sabiranja (takodje moze da poslusi za spajanje stringova)
+-   jeste operator oduzimanja
+/   operator deljenja
+*   operator mnozenja
+
+
+2) Operatori dodeljivanja =, +=, -=, /=, *=, ++, --
+
+Operator =
+let x = 10 + 5;
+
+...ovde imamo dva operatora jedan je + drugi je =
+vrednost 15 ce biti dodeljena varijabli x, zato sto se + operator izvrsava prvi i zatim se ta sabrana vrednost dodeljuje promenljivoj x. To pravilo je zasnovano na prioritetu operatora. 
+
+Operator +=
+x += 10; 
+... ovo prosto znaci da x = x + 5
+
+Ostali operatori -=, /=, *= rade na istom principu:
+x -= 10;
+x = x - 10
+
+x /= 10;
+x = x / 10
+
+Takodje postoje operatori ++ i --
+x++
+...ovo se cita kao x = x + 1
+
+x--
+...ovo se cita kao x = x - 1
+
+Uporedjujuci operatori: >, <, >=, <=
+Njih koristimo kako bi proizveli boolean vrednosti (true ili false)
+
+let x = 10
+let y = 12
+
+console.log(x > y) // vratice false
+
+Pitanje koje se postavlja jeste sta ako imamo vise operatora, kako ce javascript da zna sta prvo treba da izvrsi i da izracuna. Npr:
+
+const now = 2022
+
+console.log(now - 1991 > now - 2018) 
+... ovo ima veze sa prioritetom operatora.
+
+
+Prioritet operatora: Javascript ima vrlo dobro definisan redosled prioriteta operatora. Vise o tome na ovom linku:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+
+Naravno da nije potrebno da ucimo tabelu prioriteta napamet, samo je bitno da razumemo da postoji prioritet operatora. 
+
+now - 1991 > now - 2018 
+
+ovde ce prvo da se izvrsi now - 1991 odmah zatim now - 2018 i na kraj tek >
+Prioritet operatora - (minus) je veci od prioriteta uporedjujuceg operatora > (vece od)
+
+let x, y;
+
+x = y = 25 - 10 - 5;
+console.log(x, y)
+
+Na ovom primeru mozemo da vidimo da imamo dva razlicita operatora, to su - (minus) i operator dodeljivanja (=). Ako pogledamo prioritet operatora videcemo da je minus jako visi u tabeli tako da ce prvo on da se izvrsi, takodje u tabeli mozemo da vidimo za svaki operator kako se izvrsava, tj s koje strane pocinje njegovo izvrsavanje. Da li ide s leva na desno ili obrnuto. Npr operator minus se izvrsiava s leva na desno, u ovom slucaju 25 - 10 - 5. Medjutim operator jednakosti = se izvrsava z desna na levo. Ako pogledamo primer odozgo znaci javascript ce prvo izracunati da je 25 - 10 - 5  10 a zatim ce tu vrednost 10 da dodeli z desna na levo promenljivoj y i onda ce opet ta vrednost y da bude dodeljenja z desna na levo promenljivoj x.
+
+
+Type Conversion and Coercion:
+
+1) Type Conversion:
+Posto u javascript uvek radimo sa razlicitim tipovima podataka, jako je bitno da razumemo kako mozemo da ih menjamo iz string-a u broj, obrnutno itd. Type Conversion je zapravo kada mi manuelno menjamo tip podataka. To je slucaj kada js sam konvertuje tip podataka u drugi za nas, iza scene. Ako probamo da dodamo string i broj:
+
+'1991' + 18 
+
+...javascript ce iza scene da konvertuje broj 18 u string i dobijeni rezultat bice '199118'. Medjutim ako radimo sa bilo kojim drugim matematickim operatorom -, *, / js ce da pokusa da konvertuje string u broj i da proba da odradi matematicku operaciju. 
+
+'1991' - 18
+
+...ovde ce js da konvertuje string '1991' u broj i dobijeni rezultat bice 1973 kao broj tip podatka.
+
+Medjutim sta ako je taj string neka rec 'something'? 
+
+'something' - 18
+
+...js ce i dalje konvertovati 'something' u broj medjutim posto ova rec jasno ne moze da se prebaci u broj vratice NaN (not a number) kao tip podataka.
+
+Videli smo da kada imamo situaciju stringa i broja i pokusamo da ih saberemo js ce sam taj broj da prebaci u string kako bi mogao da ih spoji, jer svakako ne moze da sabira dva razlicita tipa podataka. Kako da mi sami prebacimo string u broj, bez da pustamo da js sam to radi za nas iza scene. Mozemo da koristmo Number() funckiju kojoj prosledimo taj zeljeni string koji zelimo da se prebaci u broj. Rezultat pozivanja ove Number funckije bice broj napravljen od tog prosledjenog stringa. Naravno ako prosledimo string koji ne moze da se ocita kao broj (neka rec ili bilo sta drugo sto nije broj) Number() funkcija ce vratiti NaN.
+Ako probamo da proverimo tip NaN videcemo da to vraca number tip podataka. NaN prosto znaci da broj nije validan. 
+
+console.log(typeof NaN) // number
+
+Kao sto mozemo da konvertujemo stringove u brojeve isto tako mozemo da radimo i obrnut proces, da konvertujemo brojeve u stringove. Koristimo String() funkciju.
+
+console.log(String(23)) // '23'
+
+Javascript moze da konvertuje samo u tri tipa podatka: u string, broj ili boolean. Ne mozemo da konvertujemo nesto u undefined ili null.
+
+2) Type Coercion: Ovo se desava kad god operator ima dva razlicita tipa podakta. Dakle u tim situacijama js sam menja tip podatka kako bi mogo da odradi matematicku operaciju. Ukoliko sabiramo string i broj on ce broj konvertovati u string i rezultat ce biti spojeni stringovi:
+
+'1000' + 10  =  '100010'
+
+...medjutim sa ostalim matematickim operatorima -, *, / js ce string konvertovati u broj:
+
+'1000' - 10 = 990
+
+...ukoliko ne moze da konvertuje string u broj rezultat operacije bice NaN
+
+'something' * 10 = NaN
+
+
+Truthy i falsy vrednosti: Kao sto smo rekli do sada jedan od tipova podataka u javascriptu jeste boolean tip podataka. On moze da bude true ili false, i to su jedine dve vrednosti boolean tipa. U js postoji tacno 5 falsy vrednosti a to su: 0, '', undefined, null, NaN. Naravno ovde spada i false ali ona je sama po sebi falsy tako da je nismo ukljucili u prethodni niz. Dakle kada prevedmo ove pet vrednosti u boolean one ce biti false. Sve ostale vrednosti ce biti truthy odnosno true, bilo koji broj koji nije 0 ili bilo koji string koji nije prazan bice true.
+Da bi pretvorili neku vrednost u boolean vrednost mozemo da koristimo Boolean() funckiju
+
+console.log(Boolean('')) // return false
+console.log(Boolean(0)) // return false
+console.log(Boolean(undefined)) // return false
+console.log(Boolean(2)) // return true
+
+... takodje mozemo da koristimo dupli uzvicnik (!!) ispred tipa podataka i on ce to prevesti u boolean vrednost
+
+console.log(!!'word') // return true
+console.log(!!0) // return false
+
+Medjutim ono sto bi trebali da znamo jeste da javascript vrsi za nas type coercion tj prevodi tip podataka u boolean kad god koristimo logical operatore ili imamo neki uslov tipa:
+
+if(uslov) do something
+
+...ovaj uslov ce biti preveden u boolean tip podataka
+
+
+Equality operators == vs ===
+Bas kao i opreatori uporedjivanja i equality operatori ce vratiti true ili false vrenodsti, boolean vrednost. === vraca true samo ako su obe strane iste.
+Postoje dva equality operatora to su strict equality (===) i loose equality (==), razlika je sto strict equality ne vrsi type coercion, dok == operator vrsi type coerction, to znaci da ce on prevesti jedan tip podataka u drugi da bi napravio uporedjivanje. 
