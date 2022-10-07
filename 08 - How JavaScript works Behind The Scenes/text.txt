@@ -111,5 +111,42 @@ This kljucna rec je specijalna varijabla koja se kreira za svaki execution conte
 3) Sledeci na listi su arrow funkcije. Arrow funkcije ne dobijaju svoju this kljucnu rec. This kljucna rec ce u arrow funkciji da ima vrednost od roditeljske funkcije ili od globalnog opsega. U tehnickom smislu ovo se zove lexical this.
 4) I na kraju ako je funckija pozvana kao event listener, onda ce this kljucna rec uvek da pokazuje ka DOM elementu na koji je zakacena handler funkcija. 
 
+Ukoliko koristimo this kljucnu rec u globalnom opsegu ona ce pokazivati na globalni window objekat, bilo da smo u strict modu ili ne!
+
 This nikada nece da pokazuje ka samoj funkciji, takodje this nikada nece da pokazuje ka varijablnom okruzenju funkcije!
-Postoje jos neki nacini na koje mozemo da pozovemo funkcije ali o tome nesto kasnije. new, call, apply, bind metode
+Postoje jos neki nacini na koje mozemo da pozovemo funkcije ali o tome nesto kasnije. new, call, apply, bind metode.
+
+
+PRIMITIVES VS OBJECTS (Primitive vs Reference Types):
+Na pocetku da kazemo da u primitvne tipove spadaju: number, string, boolean, undefined, null, symbol, bigInt. Sve ostalo su objekti: object literals, arrays, functions i jos dosta toga.
+Kada pricamo o memoriji i o upravljanju memorijom, primitvne tipove zovemo upravo tako, dok objekte zovemo reference type, zbog ralicitog nacina na koji se skladiste u memoriji.
+Jos jednom da se podsetimo da da se js engine sastoji od callstack-a i heap-a. U heap delu su uskladisteni svi objekti. Dok se primitivni tipovi skladiste u call stack-u tacnije u execution contextu u kom su deklarisni (execution context se pravi za svaku funkciju). 
+
+Primitivni tipovi:
+let age = 30;
+let oldAge = age;
+age = 31;
+console.log(age) // 31
+console.log(oldAge) // 30
+
+Kada mi definisemo npr promenljivu let age = 30 sta se zapravo desava u js enginu i u kompijuterskoj memoriji. Prvo ce javascript da stvori jedinstven identifikator sa imenom varijable (u ovom slucaju age). Onda ce deo memorije da bude dodeljen tom identifikatoru sa odredjenom adresom (npr 0001) i konacno vrednost 30 ce da bude uskladistena na toj memoriskoj lokaciji. Znaci u ovom slucaju vrednost 30 ce da bude uskladistena na memorijskoj adresi 0001. Jako bitno da razumemo jeste da ce identifikator (age) da pokazuje ka memorijskoj adresi 0001 a ne na vrednost 30. Mi u praksi kazemo da age promenljiva drzi vrednost 30 ali to zapravo nije tacno. Age je jednak memorijskoj adresi koja drzi vrednost 30. 
+Na sledecoj liniji koda mi definisemo novu promenljivu oldAge. Ako znamo da identifikator pokazuje ka memoriskoj adresi taj novi identifikator oldAge sada pokazuje ka istoj memorijskoj adresi 0001 jer smo mu dodelili vrednost promenljive age. Tako da identifikator oldAge pokazuje ka memorijskoj adresi 0001 koja drzi vrednost 30. Medjutim u trecoj liniji koda mi redefinisemo promenljivu age na 31. Memorijska adresa 0001 nece postati 31 jer bi to promenilo i oldAge promenljivu, posto obe pokazuju ka istoj memoriskoj lokaciji. Ono sto ce da se desi jeste da ce novi deo memorije da bude kreiran (npr 0002) i sada ce identifikator age da pokazuje ka toj novoj adresi u memoriji 0002 koja u sebi drzi vrednost 31. Zato na kraju kada prikazemo u konzoli obe vrednosti dobijamo da oldAge ima vrednost 30 a age ima vrednost 31.
+
+Referente vrednosti (objekti):
+const me = {
+  name: 'Jonas',
+  age: 30
+}
+
+const friend = me;
+friend.age = 27;
+
+console.log(me) // { name: 'Jonas', age: 27 }
+console.log(friend) // { name: 'Jonas', age: 27 }
+
+U primeru iznad vidimo da smo promenljivoj friend dodelili vrednost objekta me. Ispod toga menjamo friend objekat i njegovo svojstvo (age) u 27. Kada prikazemo u konzoli oba objekta tj obe promenljive videcemo da su i kod jednog i kod drugog objekta promenjene vrednosti za age, iako mi nismo menjali vrednost kod objekta me. Zasto je to tako? 
+Kada kreiramo neki objekat kao sto je ovaj me on se skladisti u heap-u (jednom od delova js engina). U heap-u postoji memorijska adresa (npr D30F) i sama vrednost objekta. Kada smo kreirali ovaj novi objekat me pravi se identifikator sa tim imenom (me) koji zapravo ne pokazuje odma na memorijsku adresu u heap-u gde se skladisti objekat. Umesto toga taj identifikator me pokazuje na novu memorijsku adresu (0003 npr) u call stack-u. Taj novi deo memorije 0003 upucuje na objekat koji se nalazi u heap-u, koristeci memorijsku adresu (D30F iz heap-a) kao njegovu vrednost. Drugim recima taj deo memorije 0003 iz call stack-a sadrzi referencu memorijske lokacije iz heap-a D30F koja ustvari drzi vrednost samog objekat me. Zato objekte nazivamo referentne vrednosti. Ako se pitate zasto ova komplikacija i zato sto se objekti skladiste u heap-u a ne u call stack-u kao obicne primitvne vrednosti, pa zato sto objekti mogu da budu jako kompleksni i jako obimni da bi se sladistili u call stack-u. Taj heap se ponasa kao beskonacan prostor za objekte, dok stack sadrzi samo referencu gde se taj objekat nalazi u heap-u, kako bi mogo da ga pronadje kad bude potreban. 
+Dalje u kodu se desava da mi pravimo novi objekat friend, kom dodeljujemo vrednost me objekta. Pravi se novi identifikator friend koji ce da pokazuje ka istoj memorijskoj adresi u call stack-u 0003 (bas kao i me identifikator), ta adresa zadrzi referencu memorijske lokacije u heap-u (D30F) koja drzi vrednost samog objekta. Friend objekat je zapravo sada isti objekat kao i me objekat.
+U sledecoj liniji koda (vidi primer iznad) mi menjamo age svojstvo u friend objektu na vrednost 27. Objekat se pronalazi u heap-u i menja se njegovo svojstvo age na 27. Sada kada prikazemo u konzoli friend objekat vidimo da je njegovo svojstvo age promenjeno u 27. Ali ako pogledamo i me objekat videcemo da se i njegovo svojstvo age promenilo u 27, jer kao sto smo rekli me i friend sada pokazuju ka ka istoj memorijskoj lokaciji 0003 koja cuva referencu D30F kao vrednost, a ta referenca zapravo upucuje na memorijsku lokaciju u heap-u D30F u kom je uskladisten sam objekat. 
+Ono sto je zanimljivo ovde jeste da smo mi definisali friend objekat sa const kljucnom recju za koje vazi pravilo da ne mozemo da menjamo vrednost. Medjutim to vazi za primitivne tipove, jer mi u ovom slucaju referentih vrednosti tacnije objekta nismo promenili sta cuva memorijska adresa 0003, a to je memorijska lokacija D30F u heap-u. Samo smo promenili svojsvo u tom objektu dok to na sta pokazuje memorijska adresa iz call stack-a 0003 ostaje ista referenta vrednost D30F. 
+Sta god promenili u jednom ili drugom objektu (me or friend) to ce se reflektovati na oba objekta. Jer zapravo to su samo dva razlicita identifikatora me i friend koja pokazuju ka istoj memorijskoj adresi 0003 koja cuva referencu memorijske lokacije u heap-u (D30F) koja u sebi cuva samu vrednost objekta. 
