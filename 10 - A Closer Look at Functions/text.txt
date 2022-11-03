@@ -1,0 +1,24 @@
+10 A CLOSER LOOK AT functions
+
+DEFAULT PARAMETRI:
+Pre dolazka ES6 koristili bi short circuiting da dodelimo neku vrednost parametru ukoliko on nije definisan (tj undefined) ali sa dolazkom ES6 sada to mozemo uciniti odmah gde pisemo parametre jednostavnim dodeljivanjem vrednost preko = operatora. Za default vrednosti parametara mozemo da pisemo bilo koji expression pa cak mozemo da koristimo i druge parametre ali samo one koji su definisani pre tog kom dodeljujemo vrednosti. 
+Kada pozivamo funkciju i krenemo da prosledjujemo argumente (koje cemo da koristimo preko parametara gde smo definisali funkciju) ne mozemo da preskacemo argumente, npr funkcija prima tri parametara a mi da definisemo prvi i treci a da izostavimo drugi. To nije moguce jer js mapira prvi argument sa prvim parametrom, drugi argument sa drugim parametrom i tako dalje... Jedan zgodan trik ako hocemo vec da izostavimo vrednost nekog parametara (ili jednostavno hocemo da se ucita njegova default vrednost) mozemo da mu prosledimo vrednost undefined, to je isto kao da nismo prosledili nista za taj parametar.
+
+
+FIRST-CLASS AND HIGHER-ORDER FUNCTIONS:
+Javascript je jezik koji poseduje first class functions, sto u tehnickom prevodu znaci da su funkcije first-class citizens. To u praski znaci da su funkcije tretirane isto kao obicne vrednosti. Zasto javascript funkcionise ovako? Pa zato sto su funkcije samo jos jedan tip objekta. A posto su objekti vrednosti i funkcije su vrednosti. Posto su funkcije vrednosti mozemo da radimo svakakve stvari sa njima kao npr da ih skladistimo u promenljive ili cak u svojstva objekta (kao metode). Takodje mozemo da prosledjujemo funkcije kao argumente drugim funkcijama. Npr kada pozovemo addEventListener funkciju nad nekim DOM elementom i onda kao drugi argument te addEventListener funkcije prosledimo funkciju. Jos jedna jako mocna stvar u js-u jeste sto mozemo da vracamo funkcije iz neke funkcije.
+Posto smo rekli da su funkcije zapravo jos jedan tip objekta, to znaci da i funkcije mogu da imaaju metode koje mozemo da pozivamo nad njima (bind, apply...).
+Posto javascript ima first-class functions to nam omogucava da pisemo higher-order functions. Higher order funkcija je ili funkcija koja prima drugu funkciju kao argument ili je funkcija koja vraca drugu funkciju. Prvi slucaj funkicije koja prima drugu funckiju kao argument jeste upravo ista metoda koju smo gore spomenuli addEventListener. Dakle ona kao drugi argument prima call back funkijcu koja ce da se izvrsi kad se desi odredjeni event. Te funkcije koje prosledjujemo kao argumente drugim funkcijama obicno nazivamo callback funkcije. To prosto znaci da ce te callback funkcije da budu pozvane kasnije od strane higher-order funkcije. 
+Drugi slucaj higher-order funkcije jeste kada funkcija vraca drugu funckiju. Primer:
+
+function count() {
+  let counter = 0;
+
+  return function() {
+    counter++
+  }
+}
+
+U ovom slucaju count funkcije jeste higher-order funckija posto vraca drugu funkciju. 
+
+Postoji dosta nejasnoca izmedju termina first-class functions i higher-order functions. Te dve stvari nisu iste, one znace razlicite stvari. First-class functions je samo feature koju neki programski jezik ili ima ili nema. Sve sto to znaci jeste da su funckije samo vrednosti. Ne postoje first-class funcions u praksi! Higher-order funcions postoje u praksi kao sto se vidi gore u primeru, a to je moguce zato sto je jezik podrzava first-class functions.
