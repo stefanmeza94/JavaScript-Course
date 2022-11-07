@@ -22,3 +22,28 @@ function count() {
 U ovom slucaju count funkcije jeste higher-order funckija posto vraca drugu funkciju. 
 
 Postoji dosta nejasnoca izmedju termina first-class functions i higher-order functions. Te dve stvari nisu iste, one znace razlicite stvari. First-class functions je samo feature koju neki programski jezik ili ima ili nema. Sve sto to znaci jeste da su funckije samo vrednosti. Ne postoje first-class funcions u praksi! Higher-order funcions postoje u praksi kao sto se vidi gore u primeru, a to je moguce zato sto je jezik podrzava first-class functions.
+
+
+CLOSURES:
+Ono sto je bitno na pocetku da kazemo da mi ne kreiramo manuelno closure, drugim recima to nije feature jezika. Closure se prosto desava automatski u odredjenim situacijama. Od nas se samo ocekuje da prepoznamo te situacije. Evo primera:
+
+const secureBooking = function() {
+  let passengerCount = 0;
+
+  return function() {
+    passengerCount++;
+    console.log(passengerCount)
+  }
+}
+
+const booker = secureBooking();
+
+Kako ce se tacno izvrsiti ovaj kod u call stacku? Prvo se obrazuje globalni execution context. U njemu ce biti registravana secureBooking funkcija za sada. Kada dodjemo do linije koda gde je pozvana secureBooking funckija obrazuje se novi execution context za secureBooking funkciju. U njenom varijablnom okruzenju se nalazi passengerCount promenljiva, ali zbog scope chain-a ima pristup i roditeljskom scope sto je u ovom slucaju globalni execution context. Sledece sto se desava jeste da secureBooking funkcija vraca novu funkciju koju smo mi smesitli u booker promenljivu. Sada je i ta booker promenljiva registrovana u globanom execution contextu. Cim je secureBooking funkcija zavrsila izvrsavanje njen execution context odpada iz call stacka, dakle nema ga vise. Medjutim ako mi sada pozovemo booker funkciju par puta:
+
+booker() // it return 1
+booker() // it return 2
+booker() // it return 3
+
+...videcemo da booker funkcija nekako ima pristup passengerCount promenljivoj jer moze da je povecava. Ali kako je ovo moguce? Ako je execution context secureBooking funkicje opadao sa call stacka, plus booker funkcija je registrovana u globalnom execution contextu i ne moze da ima pristup unutrasnjim scopovima, jer scope chain funkcionise u kontra smeru (unutrasnje funckije ce uvek imate pristup roditeljskom scopu). Dakle rekli smo da booker funkcija nekako nastavlja da ima pristup passengerCount promenljivoj. To je upravo closure. Closure cini da funkcija pamti varijabalno okruzenje u kom je nastala. U ovom slucaju iznad booker funkcija je nastala u scope-u (opsegu) secureBooking funkcije sto znaci da ce vracena funkicja (booker) zauvek da ima pristup varijablnom okruzenju secureBooking funkcije iako je ona zavrisla svoje izvrsavanje i ne postji vise u call stack-u. Jos jednom mesto rodjenja booker funkcije je upravo varijablno okruzenje secureBooking funkcije. Sto znaci da ce booker funkcija zauvek da ima pristup svim promenljivama koje su se nalazile u scope-u secureBooking funkcije, u ovom slucaju passengerCount promenljive. Booker funkcija pamti sve promenljive u scopu u kom je nastala. 
+Definicija closure-a bi isla ovako: Svaka funkcija ce imati pristup varijablnom okruzenju execution contexta u kom je funkcija nastala. Booker funkcija je nastala u execution contextu secureBooking funkcije, koji je odavno ispao sa call stack-a. Booker funkcija ce da ima pristup tom varijablnom okruzenju secureBooking funkcije preko closure-a. Na taj nacin ce booker funkcija da ima pristup passengerCount promenljivoj i moci ce da manipulise njom. Ova konekcija se naziva closure.
+Closure u ovom slucaju jeste varijablno okruzenje koje je zakaceno za funkciju, bas kao sto je bilo u vreme kada je ova (booker) funkcija nastala. To varijablno okruzenje secureBooking funkcije ostaje sa booker funkcijom zauvek, tako da ce booker funkcija moci zauvek da koristi varijablno okruzenje secureBooking funkcije iako je njen execution context odavno nestao iz call stack-a. OVO ISTO VAZI I ZA ARGUMENTE. CLOSURES ima prednost u odnosu na scope chain, dakle ako bi se neka promenljiva passengerCount nasla u globalnom ospegu, booker funckija bi i dalje prvo koristila passengerCount iz closure-a. 
