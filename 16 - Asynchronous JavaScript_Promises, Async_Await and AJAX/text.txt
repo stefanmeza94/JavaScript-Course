@@ -1,1 +1,44 @@
 ASYNCHRONOUS JAVASCRIPT PROMISES ASYNC_AWAIT AND AJAX
+
+Da bi razumeli sta je to asinhroni kod, prvo moramo da razumemo sta je to sinhroni kod. Vecina koda koju smo do sada pisali jeste bila sinhroni kod. Sinhrono prosto znaci da se kod izvrsava liniju po liniju, tacno onako kako smo definisali u kodu. U primeru ispod, kako prva linija koda krene sa izvrsavanjem, ona ce se izvrisiti u execution threadu (to je deo execution contexta koji inace izvrsava kod u kompijuterskom procesoru). Zatim je sledeca linija koda izvrsena, odmah potom sledeca linija (alert). Svaka linija koda uvek ceka da prethodna linija zavrsi izvrsavanje. Ovo moze da stvori probleme, kada jedna linija koda zahteva puno vremena da se izvrsi. Kao sto imamo u primeru ispod alert('Text set') imamo ovaj alert statement koji kreira alert prozor. Kao sto znamo do sada ovaj alert prozor  blokira dalje izvrsavanje koda. Nista nece funkcionisati na stranici sve dok ne stisnemo OK button u alert prozoru. Tek ce tada kod nastaviti da se izvrsava. Tako da je ovaj alert statement vrlo dobar primer nekog procesa koji traje duze vremena i koji samim tim blokira izvrsavanje ostatka koda. 
+
+const p = document.querySelector('.p');
+p.textContent = 'My name is Jonas!';
+alert('Text set');
+p.style.color = 'red';
+
+Ovim smo pokazali zato sto je sinhroni kod los. Blokiranje daljeg izvrsavanja koda nije dobro po UX. Sinhroni kod je sasvim okej u vecini slucajeva, medjutim zamislite da morate da cekate na izvrsavanje nekog timera od pet sekundi da istekne. Za to vreme nista na stranici ne bi radilo. Upravo tu upada u pomoc asinhroni kod. Sledeci primer pokazuje taj timer od pet sekundi. 
+
+const p = document.querySelector('.p');
+setTimeout(function() {
+    p.textContent = 'My name is Jonas!';
+}, 5000)
+p.style.color = 'red';
+
+Prva linija koda je i dalje sinhrona, tako da ce se izvristi odmah i execution context odmah prelazi na drugu liniju koda. Ali ovde dolazimo do setTimeout funkcije. Ona ce da startuje timer ali na asinhroni nacin. To znaci da ce taj timer da tece u pozadini bez sprecavanja i blokiranja ostatka koda ispod njega. Takodje ovde u timeru registrujemo call back funkciju koja nece biti izvrsena sada vec tek nakon sto timer zavrsi odbrojavanje u pozadini. Ova callback funkcija je upravo asinhroni javascript. Asinhroni je zato sto ce se izvristi tek nakon sto se taj task koji je pokrenut u pozadini zavrsi. To znaci da se registruje callback funkcija (timer se pokrece u pozadini) a nas kod nastavlja odmah sa izvrsavanjem sledece linije koda p.style.color = 'red' bez bilo kakvog blokiranja i zadrzavanja. Tako da glavni kod nije blokiran a izvrsavanje NE CEKA na asinhroni timer da zavrsi svoj poso. To je velika razlika izmedju sinhronog i asinhronog koda. Kada timer konacno zavrsi odbrojavanje od pet sekundi callback funkcija ce konacno biti izvrsena. Dakle ta callback funkcija ce biti izvrsena na kraj ovog koda iako se u kodu ne nalazi na kraju. Asinhron bukvalno znaci da se ne desava u isto vreme. Kao sto smo videli u ovom primeru morali smo da koristimo callback funkciju kako bi primenili to asihrono ponasanje. Medjutim TO NE ZNACI da callback funkcije automatski cine kod asinhronim. Npr array metoda MAP prihvata callback funkciju, medjutim to je ne cini kod asinhronim. Samo specifisne funkcije rade na asinhroni nacin (timeri na primer).
+
+
+Evo jos jedan primer asinhronog koda:
+
+const img = document.querySelector('.dog');
+img.src = 'dog.jpg';
+img.addEventListener('load', function() {
+    img.classList.add('fadeIn');
+})
+p.style.width = '300px';
+
+Prve dve linije se izvrsavaju sinhrono, jedna za drugom. U drugoj liniji postavljamo src atribut slici koju smo selektovali u prvoj liniji koda. Ova operacija je zapravo asinhrona. Setovanje src atributa na bilo kojoj slici je asinhrona operacija. Jer to zapravo ucitava sliku u pozadini, dok ostatak koda nastavlja da se izvrsava. Ovo naravno ima smila jer zamislite da je slika ogromna, naravno da ne bi voleli da cekamo na nas kod da se ucita cela slika, zato je setovanje src atributa u js asinhrono. Nakon sto se slika ucitala, 'load' event ce da bude emitovan od strane javascripta, tako da mozemo da osluskujemo taj load event i da vrsimu neku akciju usled ucitavanja slike. To je upravo ono sto se desava ovde u kodu. To radimo upravo na trecoj liniji koda. Koristimo addEventListener da bi registrovali callback funkciju za load event. Bas kao u prethodnom primeru obezbedili smo callback funkciju koja ce da bude izvrsena tek kada se slika ucita. Upravo to cini ovaj kod non-blocking. Umesto da blokiramo kod izvrsvanje odmah nastavlja dalje u kodu. I tek kada se slika kompletno ucita, prikazuje se na stranici i load event je emitovan. Posto mi slusamo taj event nasa callback funkcija je konacno izvrsena. Jos jedna bitna stvar da napomenmo jeste da addEventListener ne cini kod asinhronim, bas kao i call back funkcije koje same po sebi ne cine kod asinhronim! Na primer event listener koji osluskuje click na nekon buttonu ne radi nikakav poso u pozadini, prosto ceka na click da se desi, tako da tu ne postoji nikakav asinhroni kod. U primeru iznad sve sto cini kod asinhronim jeste sto se ona ucitava asinhrono i mi osluskujemo taj load event preko addEventListener funkcije i cekamo da se desi. Naravno da postoje jos mnogo primera asinhronog ponasanja u javascriptu. AJAX pozivi se smatraju vrv medju najpopularnijim asinhronim kodom u javascriptu. 
+
+Sta je to AJAX zapravo?
+AJAX je skracenica za Asynchronous Javascript And XML. On nam omogucava da komunicramo sa remote serverima na asinhroni nacin. U praksi mi radimo ajax pozive u nasem kodu kako bi zahtevali neke podatke od nekog web servera dinamicno, bez reloadovanja stranice. 
+Kako zapravo AJAX funckonise? Recimo da imamo nasu javascript aplikaciju koja je pokrenuta u pretrazivacu, sto se drugim recima naziva klijent. Mi zelimo od nase aplikacije da dostavimo neke podatke od web servera, recimo podatke o nekim drzavama. Uz pomoc AJAX mozemo da radimo HTTP request (zahteve) prema serveru koji poseduje ove podatke koji nama trebaju. Zatim ce server da posalje response (odgovor) koji sadrzi te podatke koje smo mi od njega prvobitno trazili. Ova proces od klijenta do servera i nazad se desava asinhrono u pozadini. Naravno postoje razliciti tipovi request-a kao sto su GET request da bi dobili podatke, POST request da posaljem neke podatke na server, PATCH/PUT request da editujemo neke postojece podatke itd. 
+
+Kada smo pitali srever da nam posalje neke podatke ovaj server obicno sadrzi nesto sto se zove web API. Ovaj web api sadrzi podatke koje smo mi zatrazili. Ali sta je zapravo API?
+
+API je skracenica za Application Programming Interface. API je deo softvera koji moze da se koristi od strane dugog dela softvera, sto prakticno omogucava da aplikacije komunicairaju medjusobno i da razmenjuju informacije. To nije slucaj samo sa web developmentom vec generalno sa programiranjem. U javascript i uopste u web developmentu postoji bezbroj api-a, kao sto je DOM API, geolocation API, fetch API itd. Oni se nazivaju api-ima jer su samostalni delovi softvera koji omogucavaju drugim delovimam softvera da komuniciraju izmedju sebe.  
+
+E sada da pricamo o API-ima za koje smo mi zainterosavni u web developmentu. Drugacije ih nazivamo "Online" API. Online api je aplikacija koja je pokrenuta negde na serveru koja prima zahteve za podatke zatim vadi ovde podatke iz neke baze podataka i najzad salje ih nazad klijenu. Ove "Online" apie prosto zovemo samo API, cak moze da se cuje i naziv WEB API. Naravno mi mozemo da naparvimo sami neki WEB API ali to bi zahtevalo backend development, dakle development sa serverima, bazama podataka i ostalo...
+
+Na frontu mi smo zainterosavni za koriscenje 3rd-party API-a, dakle API-e koje drugi developeri cine dostupnim za nas potpuno besplatno (u vecini slucajeva). Postoje api-i za svasta nesto, tipa: podaci o vremenu, podaci o drzavama i gradovima, podaci o letovima, api-i za slanje mejlova i poruka...
+
+Na kraju da spomenemo format podatka api-a. Kao sto smo rekli AJAX je skracenica za Asynchronous Javascript and XML, XML je zapravo fomrat podataka koji je pre koriscen za slanje podatka na webu. Medjutim ovih dana ni jedan api ne koristi vise XML format podataka. Umesto toga vecina api-a danas koristi JSON format podataka. To je prakticno javascript objekat ali konvertovan u string. To ga cini vrlo pogodnim za slanje izmedju klijenta i servera, kao i da se vrlo lako korsti u javascriptu kada podaci dodju do klijenta. 
