@@ -41,3 +41,26 @@ E sada da pricamo o API-ima za koje smo mi zainterosavni u web developmentu. Dru
 Na frontu mi smo zainterosavni za koriscenje 3rd-party API-a, dakle API-e koje drugi developeri cine dostupnim za nas potpuno besplatno (u vecini slucajeva). Postoje api-i za svasta nesto, tipa: podaci o vremenu, podaci o drzavama i gradovima, podaci o letovima, api-i za slanje mejlova i poruka...
 
 Na kraju da spomenemo format podatka api-a. Kao sto smo rekli AJAX je skracenica za Asynchronous Javascript and XML, XML je zapravo fomrat podataka koji je pre koriscen za slanje podatka na webu. Medjutim ovih dana ni jedan api ne koristi vise XML format podataka. Umesto toga vecina api-a danas koristi JSON format podataka. To je prakticno javascript objekat ali konvertovan u string. To ga cini vrlo pogodnim za slanje izmedju klijenta i servera, kao i da se vrlo lako korsti u javascriptu kada podaci dodju do klijenta. 
+
+
+U javascriptu zapravo postoji mnogo nacina da se odradi AJAX poziv ka serveru. Najvise 'old school' nacin bi bio preko XMLHttpRequest funckije. Ovo je bas star nacina da zatrazimo nesto od servera, medjutim mozda ce vam zatrebati nekad u budcnosti i zato krecemo od njega. Druga stvar jeste da pokazemo kako su AJAX pozivi bili regulisani preko eventa icallback funkcija. Tek nakon doga precicemo na moderniji nacin cinjenja AJAX poziva koji obuhvata promise. 
+
+Prvo sto moramo da uradimo jeste da pozovemo konstrutkro funckiju i da uskladistivmo taj rezultat u neku promenljivu: 
+
+const request = new XMLHttpRequest();
+
+...zatim moramo da postavimo koji request zelimo i prema kom endpointu zelimo da saljemo request. To radimo tako sto pozivmao metodu open() nad requestom koji smo uskladistili kada smo pozvali XMLHttpRequest. Prvi argument open metode jeste vrsta requesta (get, post, delete, patch, put...) a drugi argument jeste endpoint koji gadjamo da bi dobili te podatke koje zelimo.
+
+request.open('GET', 'https://restcountries.com/v3.1/name/serbia');
+
+...treci korak bi bio slanje zahteva, to radimo pomocu metode send();
+
+request.send();
+
+...medjutim ono sto je interesantno ovde jeste da ako sada zelimo da dobijemo te podatke koje vraca server ne mozemo samo da uskladistimo request.send() u neku promenljivu. Razlog zasto to ne mozemo da uradimo jeste zato sto rezultat jos uvek nije tu u tom trenutku kada bi mi smestili rezultat request.send() u neku promenljivu! Taj AJAX poziv koji smo poslali se desava u pozadini, dok ostatak koda nastavlja da se izvrsava. Ono sto moramo da uradimo ovde jeste da registrujemo callback funkciju na request objektu za load event. Mi smo sa send() metodom poslali request ka serveru medjutim ono sto on radi jeste da ce da emituje load event koji mi mozemo da slusamo i cim ti podaci dodju do nas pokrenuce se callback funkcija koju smo definisali u addEventListeneru.
+
+request.addEventListener('load', function() {
+    console.log(this.responseText);
+})
+
+...kao sto vidimo dosta veliki setup samo oko jednog poziva, ali tako je bilo nekad kada se koristio XMLHttpRequest. Danas moderni javascript ima bolje nacine za pravljenje AJAX poziva ka serveru. 
