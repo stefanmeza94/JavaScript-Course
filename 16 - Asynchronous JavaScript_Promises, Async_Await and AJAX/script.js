@@ -118,3 +118,6 @@ setTimeout(() => {
 
 // callback hell moze da se prepozna po ovom trinaglu koji se pravi kako identujemo ka unutra svoj kod kroz callback funkcije. Resenje za taj callback hell jeste da koristmo nesto sto se zove promises.
 */
+
+const request = fetch("https://restcountries.com/v3.1/name/serbia");
+console.log(request);
