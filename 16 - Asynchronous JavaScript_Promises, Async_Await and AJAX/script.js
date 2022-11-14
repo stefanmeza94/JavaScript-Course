@@ -38,8 +38,7 @@ const getCountryData = function (country) {
 
 getCountryData("serbia");
 getCountryData("portugal");
-
-
+*/
 
 const renderCountry = function (data, className = "") {
   const html = `<article class="country ${className}">
@@ -64,6 +63,7 @@ const renderCountry = function (data, className = "") {
   countriesContainer.style.opacity = "1";
 };
 
+/*
 const getCountryAndNeighbor = function (country) {
   // AJAX call country 1
   const request = new XMLHttpRequest();
@@ -117,7 +117,42 @@ setTimeout(() => {
 }, 1000);
 
 // callback hell moze da se prepozna po ovom trinaglu koji se pravi kako identujemo ka unutra svoj kod kroz callback funkcije. Resenje za taj callback hell jeste da koristmo nesto sto se zove promises.
-*/
 
 const request = fetch("https://restcountries.com/v3.1/name/serbia");
 console.log(request);
+
+
+function getCountryData(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      renderCountry(data[0]);
+    });
+}
+
+getCountryData("portugal");
+*/
+
+function getCountryData(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const neighbor = data[0].borders?.[0];
+
+      renderCountry(data[0]);
+
+      if (!neighbor) return;
+
+      return fetch(
+        `https://restcountries.com/v3.1/alpha/${neighbor.toLowerCase()}`
+      );
+    })
+    .then((response) => response.json())
+    .then((data) => renderCountry(data[0], "neighbour"));
+}
+
+// cak iako ne vratimo nista iz .then() metode ona ce uvek vratiti promis. Medjutim ako ipak vratimo neku vrednost iz .then() metode ta vrednost ce postati fullfillment vrednost tog promisa! Ako bi iz druge .then() metode vratili npr broj 23 onda bi u trecoj .then() metodi response bio zapravo taj broj 23. Dakle sta god vratili iz .then() metode to sto vracamo postaje fulfillment vrednost tog promisa koji vraca.
+
+getCountryData("italy");
