@@ -3,6 +3,34 @@
 const btn = document.querySelector(".btn-country");
 const countriesContainer = document.querySelector(".countries");
 
+const renderCountry = function (data, className = "") {
+  const html = `<article class="country ${className}">
+                    <img class="country__img" src="${data.flags.png}" />
+                    <div class="country__data">
+                        <h3 class="country__name">${data.name.common}</h3>
+                        <h4 class="country__region">${data.region}</h4>
+                        <p class="country__row"><span>👫</span>${(
+                          Number(data.population) / 1000000
+                        ).toFixed(1)}M</p>
+                        <p class="country__row"><span>🗣️</span>${
+                          data.languages[
+                            data.name.common.slice(0, 3).toLowerCase()
+                          ]
+                        }</p>
+                        <p class="country__row"><span>💰</span>${
+                          data.currencies?.EUR?.name
+                        }</p>
+                    </div>
+                </article>`;
+  countriesContainer.insertAdjacentHTML("beforeend", html);
+  // countriesContainer.style.opacity = "1";
+};
+
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText("beforebegin", msg);
+  // countriesContainer.style.opacity = 1;
+};
+
 ///////////////////////////////////////
 /*
 
@@ -39,29 +67,6 @@ const getCountryData = function (country) {
 getCountryData("serbia");
 getCountryData("portugal");
 */
-
-const renderCountry = function (data, className = "") {
-  const html = `<article class="country ${className}">
-                    <img class="country__img" src="${data.flags.png}" />
-                    <div class="country__data">
-                        <h3 class="country__name">${data.name.common}</h3>
-                        <h4 class="country__region">${data.region}</h4>
-                        <p class="country__row"><span>👫</span>${(
-                          Number(data.population) / 1000000
-                        ).toFixed(1)}M</p>
-                        <p class="country__row"><span>🗣️</span>${
-                          data.languages[
-                            data.name.common.slice(0, 3).toLowerCase()
-                          ]
-                        }</p>
-                        <p class="country__row"><span>💰</span>${
-                          data.currencies?.EUR?.name
-                        }</p>
-                    </div>
-                </article>`;
-  countriesContainer.insertAdjacentHTML("beforeend", html);
-  countriesContainer.style.opacity = "1";
-};
 
 /*
 const getCountryAndNeighbor = function (country) {
@@ -133,11 +138,13 @@ function getCountryData(country) {
 }
 
 getCountryData("portugal");
-*/
 
 function getCountryData(country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then((response) => response.json())
+    .then(
+      (response) => response.json(),
+      (err) => alert(err)
+    )
     .then((data) => {
       const neighbor = data[0].borders?.[0];
 
@@ -155,4 +162,33 @@ function getCountryData(country) {
 
 // cak iako ne vratimo nista iz .then() metode ona ce uvek vratiti promis. Medjutim ako ipak vratimo neku vrednost iz .then() metode ta vrednost ce postati fullfillment vrednost tog promisa! Ako bi iz druge .then() metode vratili npr broj 23 onda bi u trecoj .then() metodi response bio zapravo taj broj 23. Dakle sta god vratili iz .then() metode to sto vracamo postaje fulfillment vrednost tog promisa koji vraca.
 
-getCountryData("italy");
+
+*/
+
+function getCountryData(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const neighbor = data[0].borders?.[0];
+
+      renderCountry(data[0]);
+
+      if (!neighbor) return;
+
+      return fetch(
+        `https://restcountries.com/v3.1/alpha/${neighbor.toLowerCase()}`
+      );
+    })
+    .then((response) => response.json())
+    .then((data) => renderCountry(data[0], "neighbour"))
+    .catch((error) => {
+      renderError(`Something went wrong 💥💥💥. ${error.message}`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
+}
+
+btn.addEventListener("click", function () {
+  getCountryData("italy");
+});

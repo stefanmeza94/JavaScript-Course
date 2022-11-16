@@ -106,10 +106,10 @@ Nesto vise o TCP/IP protokolima. Rekli smo da su to protokoli koji definisu kako
 
 
 PROMISES:
-Do sada smo koristili XMLHttpRequest za pravljenje asinhronih odnosno AJAX poziva ka serveru, gde smo morali da konfigurisemo taj poziv sa .open() metodom, zatim da koristimo .send() metodu da posaljemo taj AJAX poziv i na kraju da regulismo odgovor tako sto cemo da slusamo load event na tom zahtevu i da odredimo callback funkciju koja ce da se postara za odgovor servera. Medjutim postji dosta laksi nacin a to je da koristimo fetch() funkciju. Ta fetch funkcija odmah vraca promise. Medjutim sta je to promise? Formalna definicija promisa jeste da je to objekat koji se koristi kao neki cuvar mesta za buduci rezultat asinhrone operacije. Manje formalna definicija bi bila da je promis kontejner za asinhrono isporucenu vrednost, ili jednostavno promise je kontejner za buducu vrednost. Odlican primer za buducu vrednost jeste odgovor AJAX poziva. Kada startujemo AJAX poziv u tom trenutku jos uvek ne postoji vrednost, ali znamo da ce u nekom trenutku u buducnosti ta vrednost doci do nas, tako da mozemo da koristimo promise da regulisemo ovu buducu vrenost. E sad koja je prednost koriscenja promisa? Zapravo postoje dva razloga za koriscenja promisa. Prvo koristeci promise vise ne moramo da se oslanjamo na evente i callback funkcije koje ce da regulisu asinhronu operaciju. Drugi razlog zasto su promisi bolji jeste da mozemo da ih vezujemo jedan za drugim i tako da imamo vise asinhronih operacija bez da gnezdimo jednu callback funkciju u drugu i tako pravimo callback hell. Promisi su predstavljeni 2015e godine sa dolazkom ES6 standarda. Posto promisi rade sa asinhronim operacijama oni su osetljivi na vreme, dakle menjaju se vremenom. To znaci da promis moze da bude u vise stanja! To se zove zivotni put (life cicle) promisa. Na samom pocetku kazemo da je promise u pending fazi. Ovo je slucaj kada vrednost od asinhronog poziva jos uvek nije dostpuna. U ovom trenutku asinhroni zadatak jos uvek radi svoj poso u pozadini. Kada se taj asinhroni task konacno zavrsi kazemo da je promise settled. E sad postoje dva razlicita tipa settled promisa. Prvi je fulfilled (ispunjen) promis a drugi je rejected (odbijen) promise. Ispunjen (fulfilled) promis je promis koji je uspesno rezultirao u vrednost koju smo ocekivali. Npr ako koristimo promis da potrazimo podtake od servera, fulfilled (ispunjen) promis ce uspesno dostaviti te podatke do nas i sada su dostpune da koristimo te podatke koje smo trazili od servera. Na drugu stranu rejected (odbijeni) promis znaci da se desila neka greska tokom asinhrone operacije. Ako opet pogledamo primer gde zahtevamo neke podatke od servera, greska bi bila kada je user offline i ne moze da se konektuje na api server. Naravno mi u kodu koristeci fetch funckiju mozemo da regulisemo i fulfilled (ispunjeni) promis kao i rejected (odbijeni) promis. Bitna stvar vezana za promise jeste da se promis uredjuje (bude settled) jednom. Odatle njegovo stanje ostaje tako zauvek, nece se vise menjati. Dakle promis je ili fulfilled ili rejected i nemoguce je da promenimo to stanje. Ova dva stanja settled promisa su jako bitna jer nam pomazu da konzumiramo promis. Mi konzumiramo promis kada imamo promis, npr promis koji vraca fetch funkcija kada dobavljamo neke podatke od servera. Da bi promis uopste postojao, on mora prvo da bude izgradjen, mora da bude kreiran. U slucaju fetch API-a, upravo fetch funkcija gradi taj promis i vraca ga nama da ga konzumiramo. U slucaju fetch funkcije mi nemoramo da pravimo sami promis vec ce ga za nas izgraditi fetch funkcija. U vecini slucaja mi cemo konzumirati promise, medjutim naravno da mozemo i sami da napravimo promis.  
+Do sada smo koristili XMLHttpRequest za pravljenje asinhronih odnosno AJAX poziva ka serveru, gde smo morali da konfigurisemo taj poziv sa .open() metodom, zatim da koristimo .send() metodu da posaljemo taj AJAX poziv i na kraju da regulisemo odgovor tako sto cemo da slusamo load event na tom zahtevu i da odredimo callback funkciju koja ce da se postara za odgovor servera. Medjutim postji dosta laksi nacin a to je da koristimo fetch() funkciju. Ta fetch funkcija odmah vraca promise. Medjutim sta je to promise? Formalna definicija promisa jeste da je to objekat koji se koristi kao neki cuvar mesta za buduci rezultat asinhrone operacije. Manje formalna definicija bi bila da je promis kontejner za asinhrono isporucenu vrednost, ili jednostavno promise je kontejner za buducu vrednost. Odlican primer za buducu vrednost jeste odgovor AJAX poziva. Kada startujemo AJAX poziv u tom trenutku jos uvek ne postoji vrednost, ali znamo da ce u nekom trenutku u buducnosti ta vrednost doci do nas, tako da mozemo da koristimo promise da regulisemo ovu buducu vrednost. E sad koja je prednost koriscenja promisa? Zapravo postoje dva razloga za koriscenja promisa. Prvo koristeci promise vise ne moramo da se oslanjamo na evente i callback funkcije koje ce da regulisu asinhronu operaciju. Drugi razlog zasto su promisi bolji jeste da mozemo da ih vezujemo jedan za drugim i tako da imamo vise asinhronih operacija bez da gnezdimo jednu callback funkciju unutar druge i tako pravimo callback hell. Promisi su predstavljeni 2015e godine sa dolazkom ES6 standarda. Posto promisi rade sa asinhronim operacijama oni su osetljivi na vreme, dakle menjaju se vremenom. To znaci da promis moze da bude u vise stanja! To se zove zivotni put (life cicle) promisa. Na samom pocetku kazemo da je promise u pending fazi. Ovo je slucaj kada vrednost od asinhronog poziva jos uvek nije dostpuna. U ovom trenutku asinhroni zadatak jos uvek radi svoj poso u pozadini. Kada se taj asinhroni task konacno zavrsi kazemo da je promise settled. E sad postoje dva razlicita tipa settled promisa. Prvi je fullfilled (ispunjen) promis a drugi je rejected (odbijen) promise. Ispunjen (fullfilled) promis je promis koji je uspesno rezultirao u vrednost koju smo ocekivali. Npr ako koristimo promis da potrazimo podtake od servera, fullfilled (ispunjen) promis ce uspesno dostaviti te podatke do nas i sada su dostpune da koristimo te podatke koje smo trazili od servera. Na drugu stranu rejected (odbijeni) promis znaci da se desila neka greska tokom asinhrone operacije. Ako opet pogledamo primer gde zahtevamo neke podatke od servera, greska bi bila kada je user offline i ne moze da se konektuje na api server. Naravno mi u kodu koristeci fetch funckiju mozemo da regulisemo i fullfilled (ispunjeni) promis kao i rejected (odbijeni) promis. Bitna stvar vezana za promise jeste da se promis uredjuje (bude settled) jednom. Odatle njegovo stanje ostaje tako zauvek, nece se vise menjati. Dakle promis je ili fullfilled ili rejected i nemoguce je da promenimo to stanje. Ova dva stanja settled promisa su jako bitna jer nam pomazu da konzumiramo promis. Mi konzumiramo promis kada imamo promis, npr promis koji vraca fetch funkcija kada dobavljamo neke podatke od servera. Da bi promis uopste postojao, on mora prvo da bude izgradjen, mora da bude kreiran. U slucaju fetch API-a, upravo fetch funkcija gradi taj promis i vraca ga nama da ga konzumiramo. U slucaju fetch funkcije mi nemoramo da pravimo sami promis vec ce ga za nas izgraditi fetch funkcija. U vecini slucaja mi cemo konzumirati promise, medjutim naravno da mozemo i sami da napravimo promis.  
 
 KONZUMIRANJE PROMISA:
-Kao sto smo rekli kada pozovemo fetch funkciju ona ce odmah vratiti promis. Medjutim taj promis kao sto smo rekli bice u pending fazi, odnosno taj asinhroni zadatak jos uvek traje u pozadini. U nekom trenutku taj promis bice settled. Kao sto znamo taj settled promis ima dva stanja. Prvi je u slucaju da je promis uspesan (fulfilled) a drugi je da je odbijen (rejected). Da pretpostavimo da je promis za sada bio uspesan i da mi imamo dostupnu vrednost koja dolazi od servera sa kojom mozemo da radimo, da bi rukovali tim podacimia odnosno fullfilled stanjem promisa mozemo da koristmo then() metodu. Ta then() metoda bice dostpuna na svim promisima. 
+Kao sto smo rekli kada pozovemo fetch funkciju ona ce odmah vratiti promis. Medjutim taj promis kao sto smo rekli bice u pending fazi, odnosno taj asinhroni zadatak jos uvek traje u pozadini. U nekom trenutku taj promis bice settled. Kao sto znamo taj settled promis ima dva stanja. Prvi je u slucaju da je promis uspesan (fullfilled) a drugi je da je odbijen (rejected). Da pretpostavimo da je promis za sada bio uspesan i da mi imamo dostupnu vrednost koja dolazi od servera sa kojom mozemo da radimo, da bi rukovali tim podacima odnosno fullfilled stanjem promisa mozemo da koristmo then() metodu. Ta then() metoda bice dostpuna na svim promisima. 
 
 fetch(`https://restcountries.com/v3.1/name/${country}`).then(function(response) {
     return response.json()
@@ -118,8 +118,8 @@ fetch(`https://restcountries.com/v3.1/name/${country}`).then(function(response) 
 })
 
 ...ako znamo da fetch funkcija vraca promis onda mozemo da nadovezemo metodu then() posto je ona dostupna na svemu sto vraca promis. 
-Unutar then() metode moramo da prosledimo callback funkciju koja zelimo da se izvrsi cim promis bude fulfilled (ispunjen). Ova callback funkcija koju odredjujemo unutar then() metode primice jedan argument kada je bude pozvao js i taj argument je rezultat tog fulfilled promisa. Ovo je nacin kako se nosimo sa fullfilled promisom. Odgovor servera koji zapravo trazimo bice unutar tog response argumenta pod svojstvom body. Medjutim mi jos uvek ne mozemo da radimo s tim podacima, tj ne mozemo da ih procitamo. Da bi mogli da procitamo te podatke ono sto moramo da uradimo prvo jeste da pozovemo .json() metodu na tom responsu. .json() metoda bice dostpuna na svim responsima fetch funkcije. E sad problem ovde jeste sto .json() metoda takodje asinhrona funkcija. To znaci da vraca novi promis. Ono sto moramo da uradimo jeste da vratimo novi promis iz then() metode (vidi primer gore). Ako sada .then() metoda vraca novi promis to znaci da moramo da ga regulisemo. To radimo opet sa .then() metodom, jer kao sto znamo .then() metoda je dostpuna na svemu sto vraca promis. Prica je opet ista, u toj drugoj .then() metodi moramo da definisemo callback funkciju koja ce da primi argument, koji ce zapravo da predstavlja podatke koje ocekujemo od servera. 
-Ono sto cini promise jako dobrim za koriscenje jeste sto mozemo da ih nadovezujemo jedan za drugim. Gore u primeru se vec vidi primer tog nadovezivanja. Ono sto je bitno da razumemo jeste da .then() metoda UVEK vraca promis, bez obzira na to da li mi vratili nesto iz nje ili ne. Ali ako ipak vratimo neku vrednosti iz .then() metode onda ce ta vrednost da postane fullfillment vrednost od vracenog promisa. 
+Unutar then() metode moramo da prosledimo callback funkciju koja zelimo da se izvrsi cim promis bude fulfilled (ispunjen). Ova callback funkcija koju odredjujemo unutar then() metode primice jedan argument kada je bude pozvao js i taj argument je rezultat tog fulfilled promisa. Ovo je nacin kako se nosimo sa ispunjenim promisom. Odgovor servera koji zapravo trazimo bice unutar tog response argumenta pod svojstvom body. Medjutim mi jos uvek ne mozemo da radimo s tim podacima, tj ne mozemo da ih procitamo. Da bi mogli da procitamo te podatke ono sto moramo da uradimo prvo jeste da pozovemo .json() metodu na tom responsu. .json() metoda bice dostpuna na svim responsima fetch funkcije. E sad problem ovde jeste sto .json() metoda takodje asinhrona funkcija. To znaci da vraca novi promis. Ono sto moramo da uradimo jeste da vratimo novi promis iz then() metode (vidi primer gore). Ako sada .then() metoda vraca novi promis to znaci da moramo da ga regulisemo. To radimo opet sa .then() metodom, jer kao sto znamo .then() metoda je dostpuna na svemu sto vraca promis. Prica je opet ista, u toj drugoj .then() metodi moramo da definisemo callback funkciju koja ce da primi argument, koji ce zapravo da predstavlja podatke koje ocekujemo od servera. 
+Ono sto cini promise jako dobrim za koriscenje jeste sto mozemo da ih nadovezujemo jedan za drugim. Gore u primeru se vec vidi primer tog nadovezivanja. Ono sto je bitno da razumemo jeste da .then() metoda UVEK vraca promis, bez obzira na to da li mi vratili nesto iz nje ili ne. Ali ako ipak vratimo neku vrednosti iz .then() metode onda ce ta vrednost da postane fullfillment (ispunjena) vrednost od vracenog promisa. 
 
 function getCountryData(country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
@@ -143,3 +143,88 @@ getCountryData("finland");
 
 U ovom slucaju prvo pozivamo prvu drzavu, cim dobijemo njene podatke, nalazimo jednu od border drzava i pravimo novi zahtev ka serveru sa tom borderom drzavom. Tako da ce sada js uvek izvrsiti poziv prve drzave pa tek onda poziv druge drzave. U drugoj .then() metodi izvukli smo neighbor drzavu i napravili novi fetch poziv, koji vracamo iz te druge .then() metode sto znaci da ona sada vraca promis koji mozemo dalje da regulisemo. 
 Naravno da ovde mozemo da nastavimo niz i da vezujemo dalje promise i da ih regulisemo sa .then() metodama!
+
+
+HANDLING REJECTED PROMISES:
+Do sada smo pretpostavili da je sve u redu sa nasim promisom, medjutim kao sto znamo pored ispunejnog promisa, posotji i rejected odnosno odbijeni promis. Ukoliko dodje do odbijenog promisa to takodje moramo da resimo u nasem kodu. Dakle promis u kom se desila greska jeste rejected (odbijeni) promis. Kako da se nosimo sa tim odbijenim promisom? 
+Jedini put kada ce promis da bude odbijen u slucaju fetch funckije jeste kada korisnik izbubi internet konekciju!
+Postoje dva nacina da se regulisu odbijeni (rejected) promisi. Prvi nacin jeste da se prosledi druga callback funkcija unutar .then() metode. Tako da ce prva callback funkcija unutar .then() metode da bude pozvana kada je promis fullfilled (uspesan), a druga callback funkcija bi bila pozvana ukoliko bi doslo do greske i nas promis bude odbijen (rejected). Ta druga callback funkcija koja ce da regulise odbijeni promis prima jedan argument a to je zapravo sam error koji se desio. Na taj nacin mozemo da uhvatimo error unutar naseg promisa i da ga prikazemo korisniku. Ono sto je bitno da razumemo ukoliko se desila neka greska prilikom fetchovanja podataka i nas promis bude odbijen, mi hvatamo tu gresku u drugoj callback funkciji .then() metode i tu prestaje nase nadovezivanja .then() metodama. 
+
+fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then((response) => response.json(), (error) => alert(error))
+
+...medjutim sta ako se greska nije desila u ovom prvom delu fetch funckije nego negde kasnije u kodu, kasnije u nasem povezivanju .then() metoda? Sta ako je ovaj prvi promis bio ispunjen a da promis druge fetch funkcije (koja poziva drugu drzav) bude odbijen usled neke greske? Tada bi morali da regulisemo gresku u .then() metodi posle tog drugog fetch poziva. 
+
+function getCountryData(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(
+      (response) => response.json(),
+      (err) => alert(err)
+    )
+    .then((data) => {
+      const neighbor = data[0].borders?.[0];
+
+      renderCountry(data[0]);
+
+      if (!neighbor) return;
+
+      return fetch(
+        `https://restcountries.com/v3.1/alpha/${neighbor.toLowerCase()}`
+      );
+    })
+    .then((response) => response.json(), (error) => alert(error))  // i ovde smo morali da definisemo drugu callback funkciju unutar .then() metode kako bi regulisali odbijeni
+    .then((data) => renderCountry(data[0], "neighbour"));             promis usled druge fetch funkcije koja poziva neighbor drzavu. 
+}
+
+Ovo postaje dosta naporno, da regulisemo greske na vise mesta. Na svu srecu postoji dosta bolje resenje za hvatanje i resavanje gresaka usled odbijenog promisa. Zapravo postoji nacin gde mozemo da regulismo error na jednom mestu. Umesto svih ovi callback funckija koje smo definisali kao druge argumente .then() metoda, mozemo da pozovemo .catch() funkciju i ona ce da uhvati gresku za nas, gde god da se desila u ovom nizu .then() metoda! Toj catch() funkciji takodje prosledimo callback funkciju koja ce da bude pozvna ukolko dodje do greske bilo gde u nasem lancu .then() metoda. Ta callback funkcija ce da primi error objekat kad argument, da ne bi prikazivali ceo error objekat, taj error objkeat u sebi ima message svojstvo koje mozemo da iskoristimo da prikazemo samo poruku a ne ceo error objekat.  
+
+function getCountryData(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const neighbor = data[0].borders?.[0];
+
+      renderCountry(data[0]);
+
+      if (!neighbor) return;
+
+      return fetch(
+        `https://restcountries.com/v3.1/alpha/${neighbor.toLowerCase()}`
+      );
+    })
+    .then((response) => response.json())
+    .then((data) => renderCountry(data[0], "neighbour"))
+    .catch((error) => alert(error)); 
+}
+
+...ova catch() metoda na kraju niza ce bukvalno uhvatiti bilo koju gresku koja se desilo bilo gde u ovom celom nizu promisa, bez obzira gde se greska desila. Cim neki promis bude obijen on biva prosledjen do kraja odnosno do catch() funkcije. 
+
+Na kraju postoji jos jedna metoda koju bi trebali da napomenemo a koja je isto dostpuna na svim promisima. Dakle pored .then() i .catch() metode postoji i treca koja se zove .finally() metoda. Ta finally() metoda bi uvek trebala da ide na kraju lanca posle svih .then() metoda kao i posle .catch() metode. Finally() metoda ce raditi zato sto i .catch() metoda vraca promis, sto nam govori da finally() metodu mozemo da pozovemo samo na necemu sto vraca promis. Finally() metodi isto tako definisemo callback funkijcu i ona ce uvek da bude pozvana ne vezano za to kakav je nas promis, da li je uspesan ili odbijen. Dakle .finally() metode ce uvek da bude pozvana! Za razliku od .then() metode koja ce da se pozove jedino ako je nas promis uspesan (fullfilled) a .catch() ce da bude pozvana samo ukoliko se desi neka greska. Finally metodu mozemo da koristimo ako znamo da nesto treba da se desi nevezano za to da li je nas promis bio uspesan ili ne. Npr to moze da bude da sakrijemo load spiner ukolko postoji na nasoj stranici. Dakle ako prikazemo neki spiner kada krenemo da fetcujemo podatke sa servera i onda na kraju da ga sakrijemo kada se operacija zavrsi. A to ce se desiti ne vezano za to da li je nas promis bio uspesan ili ne!
+
+function getCountryData(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const neighbor = data[0].borders?.[0];
+
+      renderCountry(data[0]);
+
+      if (!neighbor) return;
+
+      return fetch(
+        `https://restcountries.com/v3.1/alpha/${neighbor.toLowerCase()}`
+      );
+    })
+    .then((response) => response.json())
+    .then((data) => renderCountry(data[0], "neighbour"))
+    .catch((error) => {
+      renderError(`Something went wrong 💥💥💥. ${error.message}`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
+}
+
+btn.addEventListener("click", function () {
+  getCountryData("italy");
+});
