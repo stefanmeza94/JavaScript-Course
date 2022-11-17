@@ -163,13 +163,17 @@ function getCountryData(country) {
 // cak iako ne vratimo nista iz .then() metode ona ce uvek vratiti promis. Medjutim ako ipak vratimo neku vrednost iz .then() metode ta vrednost ce postati fullfillment vrednost tog promisa! Ako bi iz druge .then() metode vratili npr broj 23 onda bi u trecoj .then() metodi response bio zapravo taj broj 23. Dakle sta god vratili iz .then() metode to sto vracamo postaje fulfillment vrednost tog promisa koji vraca.
 
 
-*/
-
 function getCountryData(country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Country not found ${response.status}`);
+      }
+
+      return response.json();
+    })
     .then((data) => {
-      const neighbor = data[0].borders?.[0];
+      const neighbor = "blabla";
 
       renderCountry(data[0]);
 
@@ -179,7 +183,12 @@ function getCountryData(country) {
         `https://restcountries.com/v3.1/alpha/${neighbor.toLowerCase()}`
       );
     })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Neighbour country not found! ${response.status}`);
+      }
+      return response.json();
+    })
     .then((data) => renderCountry(data[0], "neighbour"))
     .catch((error) => {
       renderError(`Something went wrong 💥💥💥. ${error.message}`);
@@ -190,5 +199,46 @@ function getCountryData(country) {
 }
 
 btn.addEventListener("click", function () {
-  getCountryData("italy");
+  getCountryData("spain");
+});
+
+*/
+
+function getJSON(url, errorMsg = "Something went wrong") {
+  return fetch(url).then((response) => {
+    if (!response.ok) {
+      throw new Error(errorMsg);
+    }
+
+    return response.json();
+  });
+}
+
+function getCountryData(country) {
+  getJSON(`https://restcountries.com/v3.1/name/${country}`, "Country not found")
+    .then((data) => {
+      const neighbor = data[0].borders?.[0];
+
+      renderCountry(data[0]);
+
+      if (!neighbor) {
+        throw new Error(`There is no neighbour country for ${country}`);
+      }
+
+      return getJSON(
+        `https://restcountries.com/v3.1/alpha/${neighbor.toLowerCase()}`,
+        "Country not found"
+      );
+    })
+    .then((data) => renderCountry(data[0], "neighbour"))
+    .catch((error) => {
+      renderError(`Something went wrong 💥💥💥. ${error.message}`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
+}
+
+btn.addEventListener("click", function () {
+  getCountryData("australia");
 });

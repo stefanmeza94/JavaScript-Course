@@ -146,14 +146,14 @@ Naravno da ovde mozemo da nastavimo niz i da vezujemo dalje promise i da ih regu
 
 
 HANDLING REJECTED PROMISES:
-Do sada smo pretpostavili da je sve u redu sa nasim promisom, medjutim kao sto znamo pored ispunejnog promisa, posotji i rejected odnosno odbijeni promis. Ukoliko dodje do odbijenog promisa to takodje moramo da resimo u nasem kodu. Dakle promis u kom se desila greska jeste rejected (odbijeni) promis. Kako da se nosimo sa tim odbijenim promisom? 
+Do sada smo pretpostavili da je sve u redu sa nasim promisom, medjutim kao sto znamo pored ispunjenog promisa, posotji i rejected odnosno odbijeni promis. Ukoliko dodje do odbijenog promisa to takodje moramo da resimo u nasem kodu. Dakle promis u kom se desila greska jeste rejected (odbijeni) promis. Kako da se nosimo sa tim odbijenim promisom? 
 Jedini put kada ce promis da bude odbijen u slucaju fetch funckije jeste kada korisnik izbubi internet konekciju!
 Postoje dva nacina da se regulisu odbijeni (rejected) promisi. Prvi nacin jeste da se prosledi druga callback funkcija unutar .then() metode. Tako da ce prva callback funkcija unutar .then() metode da bude pozvana kada je promis fullfilled (uspesan), a druga callback funkcija bi bila pozvana ukoliko bi doslo do greske i nas promis bude odbijen (rejected). Ta druga callback funkcija koja ce da regulise odbijeni promis prima jedan argument a to je zapravo sam error koji se desio. Na taj nacin mozemo da uhvatimo error unutar naseg promisa i da ga prikazemo korisniku. Ono sto je bitno da razumemo ukoliko se desila neka greska prilikom fetchovanja podataka i nas promis bude odbijen, mi hvatamo tu gresku u drugoj callback funkciji .then() metode i tu prestaje nase nadovezivanja .then() metodama. 
 
 fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then((response) => response.json(), (error) => alert(error))
 
-...medjutim sta ako se greska nije desila u ovom prvom delu fetch funckije nego negde kasnije u kodu, kasnije u nasem povezivanju .then() metoda? Sta ako je ovaj prvi promis bio ispunjen a da promis druge fetch funkcije (koja poziva drugu drzav) bude odbijen usled neke greske? Tada bi morali da regulisemo gresku u .then() metodi posle tog drugog fetch poziva. 
+...medjutim sta ako se greska nije desila u ovom prvom delu fetch funckije nego negde kasnije u kodu, kasnije u nasem povezivanju .then() metoda? Sta ako je ovaj prvi promis bio ispunjen a da promis druge fetch funkcije (koja poziva drugu drzavu) bude odbijen usled neke greske? Tada bi morali da regulisemo gresku u .then() metodi posle tog drugog fetch poziva. 
 
 function getCountryData(country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
@@ -176,7 +176,7 @@ function getCountryData(country) {
     .then((data) => renderCountry(data[0], "neighbour"));             promis usled druge fetch funkcije koja poziva neighbor drzavu. 
 }
 
-Ovo postaje dosta naporno, da regulisemo greske na vise mesta. Na svu srecu postoji dosta bolje resenje za hvatanje i resavanje gresaka usled odbijenog promisa. Zapravo postoji nacin gde mozemo da regulismo error na jednom mestu. Umesto svih ovi callback funckija koje smo definisali kao druge argumente .then() metoda, mozemo da pozovemo .catch() funkciju i ona ce da uhvati gresku za nas, gde god da se desila u ovom nizu .then() metoda! Toj catch() funkciji takodje prosledimo callback funkciju koja ce da bude pozvna ukolko dodje do greske bilo gde u nasem lancu .then() metoda. Ta callback funkcija ce da primi error objekat kad argument, da ne bi prikazivali ceo error objekat, taj error objkeat u sebi ima message svojstvo koje mozemo da iskoristimo da prikazemo samo poruku a ne ceo error objekat.  
+Ovo postaje dosta naporno, da regulisemo greske na vise mesta. Na svu srecu postoji dosta bolje resenje za hvatanje i resavanje gresaka usled odbijenog promisa. Zapravo postoji nacin gde mozemo da regulismo error na jednom mestu. Umesto svih ovi callback funckija koje smo definisali kao druge argumente .then() metoda, mozemo da pozovemo .catch() funkciju i ona ce da uhvati gresku za nas, gde god da se desila u ovom nizu .then() metoda! Toj catch() funkciji takodje prosledimo callback funkciju koja ce da bude pozvana ukoliko dodje do greske bilo gde u nasem lancu .then() metoda. Ta callback funkcija ce da primi error objekat kad argument, da ne bi prikazivali ceo error objekat, taj error objekat u sebi ima message svojstvo koje mozemo da iskoristimo da prikazemo samo poruku a ne ceo error objekat.  
 
 function getCountryData(country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
@@ -228,3 +228,72 @@ function getCountryData(country) {
 btn.addEventListener("click", function () {
   getCountryData("italy");
 });
+
+
+THROWING ERROR MANUALLY:
+Gore smo prikazali kako da uhvatimo gresku ukolko promis bude odbijen. Medjutim dobra aplikacija ima i dobro resene greske koje mogu da nastanu usled njenog koriscenja. Sta ako u gornjem primeru pozovemo getCountryData('blabla') sa nekom zemljom koja ne postoji? Nasa .catch() funkcija ce uhvatiti gresku ali ona nece biti precizno odredjena. Kao sto smo rekli fetch funkcija vraca gresku samo ukolko korisnik nije konektovan na internet. Ukolko je greska kao u opisanom slucaju 404 (not found) jer ne mozemo da nadjemo drzavu 'blabla' to moramo sami da regulisemo i da napravimo nasu gresku za to!
+
+Ako zelimo da sami napravimo gresku to mozemo da ucinimo preko konstruktor funkcije ovako:
+
+throw new Error('ovde prosledjujemo message svojstvo');
+
+...new Error() je pozivanje konstruktor funkcije dok 'throw' kljucna rec odmah prekida izvrsavanje trenutne funkcije bas kao sto i return radi. Efekat kreiranja greske na ovaj nacin jeste da ce promis odmah da bude odbijen (reject). To znaci da ce trenutni blok .then() bloka odmah da bude prekinut i taj .then() ce da vrati odbijeni promis koji ce da bude uhvacen i catch bloku.
+
+SVAKA GRESKA UZROKOVACE DA PROMIS BUDE ODBIJEN (REJECT)!!!
+
+fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Country not found')  // ako smo throw new Error() definisali ovde u ovoj then metodi ona ce odmah vratiti odbijeni promis. Zatim ce taj odbijen promis
+      }                                          odmah da bude uhvacen u catch funkciji. 
+
+      return response.json();
+    }).catch(error => {
+      alert(error.message)
+    })
+
+Ta poruka koju smo prosledili kada smo konstruisali nas Error u ovom slucaju 'Country not found' bice prosledjena sve do catch bloka u njegovom parametru koji prima pod svojstvom error.message.
+
+Medjutim sta ako se greska nije desila u prvom fetch pozivu. Sta ako je tu sve u redu a tek u drugom fetch pozivu za neighbor drzavu postoji greska. To cemo onda handlovati u trecoj .then() metodi odmah ispod .then() metode koja vraca fetch() poziv za neighbor drzavu.
+
+function getCountryData(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Country not found ${response.status}`);
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      const neighbor = 'blabla';
+
+      renderCountry(data[0]);
+
+      if (!neighbor) return;
+
+      return fetch(
+        `https://restcountries.com/v3.1/alpha/${neighbor.toLowerCase()}`
+      );
+    })
+    .then((response) => response.json())
+    .then((data) => renderCountry(data[0], "neighbour"))
+    .catch((error) => {
+      renderError(`Something went wrong 💥💥💥. ${error.message}`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
+}
+
+...jos jedno mesto koje bi koristili da handlujemo gresku manuelno jeste ukolko ne postoji neibhour drzava (npr za ostrva). Mogli bi kod uslova:
+
+if (!neighbor) return 
+
+...umesto ovog mogli bi da napisemo nesto ovako:
+
+if (!neighbor) {
+  throw new Error(`There is no neibhour country for ${country}`)
+}
+
+...ovo bi predstavljalo mnogo jasniju gresku za korisnika.
