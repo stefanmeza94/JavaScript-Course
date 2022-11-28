@@ -202,7 +202,7 @@ btn.addEventListener("click", function () {
   getCountryData("spain");
 });
 
-*/
+
 
 function getJSON(url, errorMsg = "Something went wrong") {
   return fetch(url).then((response) => {
@@ -242,3 +242,5 @@ function getCountryData(country) {
 btn.addEventListener("click", function () {
   getCountryData("australia");
 });
+
+*/
