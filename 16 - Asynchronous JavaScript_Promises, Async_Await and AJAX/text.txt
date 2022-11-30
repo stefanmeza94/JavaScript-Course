@@ -352,3 +352,54 @@ Kada pravimo promis uvek moramo da se postaramo da on zavrsi u jednoj od ove dve
 lotteryPromis ce da bude promenljiva koja ce da sadrzi promis nad kojoj mozemo da pozovemo .then() metodu da bi konzumirali taj promis. Ta .then() metoda zatim prima kao argument kroz callback funkciju resolved vrednost (fulfilled vrednost). 
 
 lotteryPromis.then(res => console.log(res)).catch(err => console.log(err))
+
+U ovom slucaju res ce biti upravo onaj string koji smo prosledili resolve() funkciji dakle "You win the lottery", dok ce err unutar catch funkcije da bude upravo string koji smo prosledili reject() funkcji, dakle 'You lost your money'.
+
+
+KONZUMIRANJE PROMISA SA ASYNC_AWAIT:
+Sa dolazkom Ecma Script 2017 verzije postoji jos laksi nacin da konzumiramo promise. To je naravno sintaksa async_await. Kako se koristi? Krecemo od toga sto pravimo funkciju, ali to nece biti obicna funkcija vec async funkcija:
+
+const whereAmI = async function(country) {
+
+}
+
+...asinhronu funkciju pravimo tako sto joj dodeljujemo async kljucnu rec ispred function kljucne reci. To je sada asinhrona funkcija, dakle funkcija koja ce se pokretati u pozadini dok izvrsava kod koji se nalazi u njoj. Kada ova funkcija zavrsi sa izvrsavanjem koda u njoj ona automatski vraca promis! Ono sto je bitno jeste da sada unutar te funkcije mozemo da koristmo await kljucnu rec. Uz pomoc te await kljucne reci mi mozemo da sacekamo promis. Ovako:
+
+const whereAmI = async function(country) {
+  await = fetch('someurl');
+}
+
+...kao sto vidimo mi sa await mozemo da cekamo promis koji vraca fetch funkcija! Await ce stopirati izvrsavanje funkcije sve dok fetch funkcija ne zavrsi i ne vrati promis, u prevodu dok podaci ne dodju do nas. To sto ce stopirati funkciju nije lose jer je to asinhrona funkcija sada i izvrsavace se u pozadini, dakle nece blokirati onaj glavni tread izvrsavanja unutar callstack-a. I to je jos jedna jako dobar stvar kod async_await, sto cini nas kod da izgleda sinhrono dok je zapravo asinhrona operacija i izvrsava se u pozadini (odnosno u delu web api-a). Cim fetch funkcija zavrsi i bude vratila promis, mi ti mozemo da uskladistimo unutar neke promenljive. 
+
+const whereAmI = async function(country) {
+  const response = await fetch('someurl');
+}
+
+Ukoliko bi pokrenuli ovaj kod ispod:
+
+whereAmI('serbia');
+console.log('first')
+
+Konzola u kojoj pise 'first' bi se prva izvrsila jer je to u glavnom tredu callstack-a dok je whereAmI funkcija asinhrona sto zaci da ce se izvrsavati u pozadini u okruzenju web api-a i tek kada bude gotova, bice prebacena unutar microtasks queue odakle ce je event loop premestiti u callstack kad bude bio prazan i tek ce se tad izvrsiti. 
+
+Taj async_await je samo apstrakcija preko obicne .then() metode koje koristimo nad promisima. Naravno u pozadini iza async_await mi i dalje koristimo promise! S tim sto sa await-om koristimo drugaciji nacin da konzumiramo te promise. 
+
+const res = await fetch('someurl');
+console.log(res)
+
+ovo je isto kao da smo napisali 
+
+fetch('someurl').then(res => console.log(res))
+
+Sledeci korak bas kao kod obicnih fetch i then metoda moramo da primenimo .json() metodu nad fulfulled promisom da bi ocitali lepo te podatke koje nam salje server. Dakle ovako:
+
+const whereAmI = async function(country) {
+  const response = await fetch('someurl');
+  // kao sto primecujemo ovde opet moramo da koristimo await kljucnu rec jer .json() metoda takodje vraca promis koji mora da bude sacekan, sto upravo to radi await.
+  const data = await response.json();
+
+  // sada ovo izgleda mnogo lakse jer mozemo da sacekamo (await) rezultate i da ih odmah uskladistimo u promenljivu. 
+}
+
+Kao sto vidimo kljucne reci async_await cine kod dosta citiljivijim i takodje nam pomazu da izbegnemo sve one callback funkcije koje smo koristili kod .then() metoda!
+  
