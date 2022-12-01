@@ -30,7 +30,7 @@ Prve dve linije se izvrsavaju sinhrono, jedna za drugom. U drugoj liniji postavl
 
 Sta je to AJAX zapravo?
 AJAX je skracenica za Asynchronous Javascript And XML. On nam omogucava da komunicramo sa remote serverima na asinhroni nacin. U praksi mi radimo ajax pozive u nasem kodu kako bi zahtevali neke podatke od nekog web servera dinamicno, bez reloadovanja stranice. 
-Kako zapravo AJAX funckonise? Recimo da imamo nasu javascript aplikaciju koja je pokrenuta u pretrazivacu, sto se drugim recima naziva klijent. Mi zelimo da u nasoj aplikaciji dostavimo neke podatke od web servera, recimo podatke o nekim drzavama. Uz pomoc AJAX mozemo da radimo HTTP request (zahteve) prema serveru koji poseduje ove podatke koji nama trebaju. Zatim ce server da posalje response (odgovor) koji sadrzi te podatke koje smo mi od njega prvobitno trazili. Ova proces od klijenta do servera i nazad se desava asinhrono u pozadini. Naravno postoje razliciti tipovi request-a kao sto su GET request da bi dobili podatke, POST request da posaljem neke podatke na server, PATCH/PUT request da editujemo neke postojece podatke itd. 
+Kako zapravo AJAX funckonise? Recimo da imamo nasu javascript aplikaciju koja je pokrenuta u pretrazivacu, sto se drugim recima naziva klijent. Mi zelimo da u nasoj aplikaciji dostavimo neke podatke od web servera, recimo podatke o nekim drzavama. Uz pomoc AJAX mozemo da radimo HTTP request (zahteve) prema serveru koji poseduje ove podatke koji nama trebaju. Zatim ce server da posalje response (odgovor) koji sadrzi te podatke koje smo mi od njega prvobitno trazili. Ova proces od klijenta do servera i nazad se desava asinhrono u pozadini. Naravno postoje razliciti tipovi request-a kao sto su GET request da bi dobili podatke, POST request da posaljemo neke podatke na server, PATCH/PUT request da editujemo neke postojece podatke itd. 
 
 Kada smo pitali srever da nam posalje neke podatke ovaj server obicno sadrzi nesto sto se zove web API. Ovaj web api sadrzi podatke koje smo mi zatrazili. Ali sta je zapravo API?
 
@@ -237,7 +237,7 @@ Ako zelimo da sami napravimo gresku to mozemo da ucinimo preko konstruktor funkc
 
 throw new Error('ovde prosledjujemo message svojstvo');
 
-...new Error() je pozivanje konstruktor funkcije dok 'throw' kljucna rec odmah prekida izvrsavanje trenutne funkcije bas kao sto i return radi. Efekat kreiranja greske na ovaj nacin jeste da ce promis odmah da bude odbijen (reject). To znaci da ce trenutni blok .then() bloka odmah da bude prekinut i taj .then() ce da vrati odbijeni promis koji ce da bude uhvacen i catch bloku.
+...new Error() je pozivanje konstruktor funkcije dok 'throw' kljucna rec odmah prekida izvrsavanje trenutne funkcije bas kao sto i return radi. Efekat kreiranja greske na ovaj nacin jeste da ce promis odmah da bude odbijen (reject). To znaci da ce trenutni blok .then() bloka odmah da bude prekinut i taj .then() ce da vrati odbijeni promis koji ce da bude uhvacen u catch bloku.
 
 SVAKA GRESKA UZROKOVACE DA PROMIS BUDE ODBIJEN (REJECT)!!!
 
@@ -300,7 +300,7 @@ if (!neighbor) {
 
 
 ASYNCHRONOUS BEHIND THE SCENES: THE EVENT LOOP:
-Da bi krenuli sa ovom lekcijom moramo da se podsetimo javascript runtime-a. Dakle javascript runtime je prakticno kontejner koji ukljucuje sve razlicite delove koji su potrebni da bi se izvrsio javascript kod. Srce svakog javascript runtime-a jeste engine. Tu se zapravo kod izvrsava i gde se objekti smestaju u memoriji. Ono sto moramo opet da napomenemo jeste da javascript ima samo jedan thread izvrsavanja. To u prevodu znaci da moze da radi samo jednu stvar istvoremeno. Ne postoji opcija za multitasking! Drugi jezici poput jave mogu da izvrsavaju vise delova koda istvoremeno. Dalje unutar runtime-a imamo web api okruzenje. To su neki api-i koji su dostpuni enginu ali koji zapravo nisu deo samog javascript jezika (dom api, timers api, fetch api, geoloction api itd...). Sledeci deo javascript runtime-a jeste callback queue struktura podataka, koji sadrzi sve callback funkcije spremne za izvrsavanje (dakle callback funkcije koje su zakacine na neki event koji se desio). Na kraju kada se callstack isprazni event loop uzima callback funkcije iz callback queue-a i prebacuje ih u callstack kako bi mogle da se izvrse. Taj event loop omogucava aisnhrono ponasanje u javascript-u. To je razlog zasto mozemo da imamo non-blocking concurency model u javascriptu sto je samo fensi termin za to kako se jezik snalazi kada postoje vise stvari odjednom koje treba izvrsiti. Kako taj concurency model zapravo radi? I zasto je taj spomenuti event loop toliko bitan?
+Da bi krenuli sa ovom lekcijom moramo da se podsetimo javascript runtime-a. Dakle javascript runtime je prakticno kontejner koji ukljucuje sve razlicite delove koji su potrebni da bi se izvrsio javascript kod. Srce svakog javascript runtime-a jeste engine. Tu se zapravo kod izvrsava i gde se objekti smestaju u memoriji. Ono sto moramo opet da napomenemo jeste da javascript ima samo jedan thread izvrsavanja. To u prevodu znaci da moze da radi samo jednu stvar istvoremeno. Ne postoji opcija za multitasking! Drugi jezici poput jave mogu da izvrsavaju vise delova koda istvoremeno. Dalje unutar runtime-a imamo web api okruzenje. To su neki api-i koji su dostpuni enginu ali koji zapravo nisu deo samog javascript jezika (dom api, timers api, fetch api, geoloction api itd...). Sledeci deo javascript runtime-a jeste callback queue struktura podataka, koji sadrzi sve callback funkcije spremne za izvrsavanje (dakle callback funkcije koje su zakacene na neki event koji se desio). Na kraju kada se callstack isprazni event loop uzima callback funkcije iz callback queue-a i prebacuje ih u callstack kako bi mogle da se izvrse. Taj event loop omogucava aisnhrono ponasanje u javascript-u. To je razlog zasto mozemo da imamo non-blocking concurency model u javascriptu sto je samo fensi termin za to kako se jezik snalazi kada postoje vise stvari odjednom koje treba izvrsiti. Kako taj concurency model zapravo radi? I zasto je taj spomenuti event loop toliko bitan?
 
 Kao sto znamo do sada javascript engine je zamisljen tako da se izvrsava samo u jednom thread-u. Ali ako postoji samo jedan thread izvrsvanja u enginu kako se onda asinhroni kod izvrsava neblokirajuci ostatak koda? 
 
@@ -315,7 +315,7 @@ fetch('https://someurl.com/api')
 
 // more code...
 
-U prvoj liniji koda mi hvatamo img element, dakle pravi se execution context izvrsava se i on se sklanja iz callstack-a. U sledecoj liniji koda mi podesavamo src atribut toj slici koju smo selektovali u prvoj liniji koda. Kao sto znamo od ranije to ce poceti da ucitava sliku u pozadini (asinhrono). Sta je ta misteriozna pozadina u kojoj se izvrsava asinhroni kod? Kao sto znamo sve sto je vezano za DOM nije vezano za sam javascript jezik vec je deo web api-a. Sve vezano za DOM ce se pokrenuti u web api-u. Isto vazi i za timer-e, ajax pozive...bukvalno za sve asinhrone zadatake. SVI ASINHRONI ZADACI CE SE IZVRSAVATI U OKRUZENJU WEB API-A UNUTAR BROWSERA (posto ih on obezbedjuje javascript enginu). Kada bi se slika i njen src ucitavali sinhrono to bi se onda izvrsavalo u callstack-u js engina, blokirajuci ostatak koda. Ali kao sto znamo to bi bilo jako lose i zato je ucitavanje slike u javascriptu primenjeno na asinhroni nacin. Dakle ne desava se u callstack-u, odnosno u tom jednom threadu izvrsavanja, vec u orkuzenju web api-a (koji su deo run time-a). Ukoliko zelimo da uradimo nesto kada se ta slika ucita onda moramo da slusamo load event. To je upravo ono sto radimo na trecoj liniji koda (iznad). Dakle tu smo prikljucili event listener toj slici i osluskujemo load event te slike, ali isto tako prosledjujemo i call back funkciju. U ovom slucaju mi registrujemo tu callback funkciju unutar web api okruzenja upravo tamo gde se slika (asinhrono) ucitava i ta callback funkcija ce ostati tu (u web api okruzenju) sve dok se slika ne ucita. Posle toga mi pravimo AJAX poziv ka serveru uz pomoc fetch funkcije. Kao sto znamo i ta operacija ce se izvrsavati asinhrono u delu web api okruzenja. Na kraju koristimo .then() metodu da bi resili promis koji vraca fetch funkcija. I ovo ce registrovati callback unutar okruzenja web api-a i reagovace za buducu resenu radnju promisa. Taj callback (res => console.log(res)) je asociran sa promisom koji fetchuje podatke sa servera. Sa ovom poslednjom linijom smo izvrsili sav top level kod, dakle kod koji nije ni u jednoj callback funkciji. Za sada imamo sliku koja se ucitava kao i fetchovanje nekih podataka u delu web api-a koji se desvaju asinhrono. 
+U prvoj liniji koda mi hvatamo img element, dakle pravi se execution context izvrsava se i on se sklanja iz callstack-a. U sledecoj liniji koda mi podesavamo src atribut toj slici koju smo selektovali u prvoj liniji koda. Kao sto znamo od ranije to ce poceti da ucitava sliku u pozadini (asinhrono). Sta je ta misteriozna pozadina u kojoj se izvrsava asinhroni kod? Kao sto znamo sve sto je vezano za DOM nije vezano za sam javascript jezik vec je deo web api-a. Sve vezano za DOM ce se pokrenuti u web api-u. Isto vazi i za timer-e, ajax pozive...bukvalno za sve asinhrone zadatake. SVI ASINHRONI ZADACI CE SE IZVRSAVATI U OKRUZENJU WEB API-A UNUTAR BROWSERA (posto ih upravo browser obezbedjuje javascript enginu). Kada bi se slika i njen src ucitavali sinhrono to bi se onda izvrsavalo u callstack-u js engina, blokirajuci ostatak koda. Ali kao sto znamo to bi bilo jako lose i zato je ucitavanje slike u javascriptu primenjeno na asinhroni nacin. Dakle ne desava se u callstack-u, odnosno u tom jednom threadu izvrsavanja, vec u orkuzenju web api-a (koji su deo run time-a). Ukoliko zelimo da uradimo nesto kada se ta slika ucita onda moramo da slusamo load event. To je upravo ono sto radimo na trecoj liniji koda (iznad). Dakle tu smo prikljucili event listener toj slici i osluskujemo load event te slike, ali isto tako prosledjujemo i call back funkciju. U ovom slucaju mi registrujemo tu callback funkciju unutar web api okruzenja upravo tamo gde se slika (asinhrono) ucitava i ta callback funkcija ce ostati tu (u web api okruzenju) sve dok se slika ne ucita. Posle toga mi pravimo AJAX poziv ka serveru uz pomoc fetch funkcije. Kao sto znamo i ta operacija ce se izvrsavati asinhrono u delu web api okruzenja. Na kraju koristimo .then() metodu da bi resili promis koji vraca fetch funkcija. I ovo ce registrovati callback unutar okruzenja web api-a i reagovace za buducu resenu radnju promisa. Taj callback (res => console.log(res)) je asociran sa promisom koji fetchuje podatke sa servera. Sa ovom poslednjom linijom smo izvrsili sav top level kod, dakle kod koji nije ni u jednoj callback funkciji. Za sada imamo sliku koja se ucitava kao i fetchovanje nekih podataka u delu web api-a koji se desvaju asinhrono. 
 Recimo da je slika zavrsila uctaivanje, to znaci da se emitovao load event na toj slici. Ono sto se desava sledece jeste da ce callback za ovaj event da predje iz web api okruzenja unutar callback queue strukture podataka (taj callback queue je prakticno neka uredjena lista svih callback funkcija koje cekaju u redu da se izvrse). U trenutnom primeru mi u callback queue strukturi nemamo drugih callback funkcija, sem ove koju smo registrovali na load event kada je slika zavrsila asinhrono ucitavanje. Naravno da imamo drugih callback funkcija ona bi dosla na kraj ovog reda posle vec postojecih callback funkcija unutar callback queue-a i cekala bi svoj red za izvrsavanje. Medjutim zamislite da postavite timer na 5 sekundi i posle tih 5 sekundi timer-ova callback funkcija ce biti stavljena unutar callback queue-a. Zamislimo da je u toj callback queue vec bilo drugih callback funkcija koje su cekale svoj red izvrsavanja. Pretpostavimo isto da je svim tim callback funkciijama (koje su se nalazile pre callback funkcije timer funkcije) trebala 1 sekunda da se izvrse pre nego sto na red dodje callback funkcija timera. To znaci da bi se nasa callback funkcija iz timera pokrenula tek posle 6 sekundi, dakle ne posle 5 kao sto smo definisali unutar timer funkcije. Dakle tih 6 sekundi su 5 sekundi koje smo definisali timer funkciji i plus 1 sekunda koja bila potreba da se pokrenu sve prethodne callback funkcije unutar callback queue-a koje su cekale svoj red izvrsavanja. To znaci da vreme koje definisemo nasim timerima nije garantovana. To vreme nam samo garantuje da se callback funkcija nece pokrenutni pre tih 5 sekundi. Ali je moguce da se desi da se pokrene nakon tih pet sekundi i vise. Sve zavisi od stanja callback queue-a i koliko je vec pun sa callback funkcijama koje cekaju svoj red izvrsavanja. Taj callback queue ce sadrzati sve callback funkcije koje dolaze od dom evenata, kao sto su click, keypresses i ostalo. Naucili smo ranije da dom eventi nisu asinhroni, ali takodje koriste callback queue da bi zakacile svoje callback funkcije. 
 Sta radi taj event loop? Dakle on gleda unutar callstack-a da li je prazan ili ne. Ako jeste prazan onda ce uzeti prvu callback funkciju unutar callback queue-a i prebacice je unutar callstack-a kako bi mogla da se izvrsi. Dakle taj event loop je zato toliko bitan, jer je on glavna veza izmedju callback queue-a strukture podataka i callstack-a gde se zapravo izvrsava sav kod. Ako nastavimo nas primer odozgo videcemo da u web api okruzenju imamo jos jedan asinhroni zadatak koji se izvrsava, a to je fetch poziv, tacnije registvorana callback funkcija .then() metode, koja ceka da taj asinhroni zadatak bude zavrsen i da onda callback funkcija resi taj promis. Medjutim sa promisima je malo drugacije. Recimo da su podaci konacno dosli sa servera i da je fetch funkcija zavrsila. Callback funkcije koje imaju veze sa promisima (kakav je ova unutar .then metode) NE IDU UNUTAR CALLBACK QUEUE STRUKTURE PODATAKA. SVE CALLBACK FUNCKIJE KOJE IMAJU VEZE SA PROMISIMA IDU U STRUKTURU PODATAKA KOJA SE NAZIVA MICROTASKS QUEUE. Ono sto je specijalno za MICROTASKS QUEUE jeste sto ima prioritet nad CALLBACK QUEUE. To znaci da ce event loop prvo da prebaci sve callback funkcije iz MICROTASKS QUEUE-a u callstack da se izvrse pa tek zatim ce poceti da prebacuje callback funkcije iz CALLBACK QUEUE-a. Ako jedan microtasks napravi doda jos neki microtasks onda ce taj novi microtasks da bude izvrsen pre bilo koje callback funkcije unutar CALLBACK QUEUE-a. 
 
@@ -341,7 +341,7 @@ const lotteryPromis = new Promise(function(resolve, reject) {
   if (Math.random() >= 0.5) {
     resolve('You win the lottery')
   } else {
-    // dok s druge strane ako zelimo da promis oznacimo kao odibjen odnosno rejected promis onda koristimo reject() metodu. Unutar te reject() metode prosledjujemo error poruku koju cemo kasnije da uhvatimo unutar .catch() metodi. 
+    // dok s druge strane ako zelimo da promis oznacimo kao odbijen odnosno rejected promis onda koristimo reject() metodu. Unutar te reject() metode prosledjujemo error poruku koju cemo kasnije da uhvatimo unutar .catch() metode. 
 
     reject('You lost your money')
   }
@@ -357,7 +357,7 @@ U ovom slucaju res ce biti upravo onaj string koji smo prosledili resolve() funk
 
 
 KONZUMIRANJE PROMISA SA ASYNC_AWAIT:
-Sa dolazkom Ecma Script 2017 verzije postoji jos laksi nacin da konzumiramo promise. To je naravno sintaksa async_await. Kako se koristi? Krecemo od toga sto pravimo funkciju, ali to nece biti obicna funkcija vec async funkcija:
+Sa dolazkom Ecma Script 2017 verzije postoji jos laksi nacin da konzumiramo promise. To je naravno sintaksa async_await. Kako se koristi? Krecemo od toga sto pravimo funkciju, ali to nece biti obicna funkcija vec asinhrona funkcija:
 
 const whereAmI = async function(country) {
 
@@ -369,7 +369,7 @@ const whereAmI = async function(country) {
   await = fetch('someurl');
 }
 
-...kao sto vidimo mi sa await mozemo da cekamo promis koji vraca fetch funkcija! Await ce stopirati izvrsavanje funkcije sve dok fetch funkcija ne zavrsi i ne vrati promis, u prevodu dok podaci ne dodju do nas. To sto ce stopirati funkciju nije lose jer je to asinhrona funkcija sada i izvrsavace se u pozadini, dakle nece blokirati onaj glavni tread izvrsavanja unutar callstack-a. I to je jos jedna jako dobar stvar kod async_await, sto cini nas kod da izgleda sinhrono dok je zapravo asinhrona operacija i izvrsava se u pozadini (odnosno u delu web api-a). Cim fetch funkcija zavrsi i bude vratila promis, mi ti mozemo da uskladistimo unutar neke promenljive. 
+...kao sto vidimo mi sa await mozemo da cekamo promis koji vraca fetch funkcija! Await ce stopirati izvrsavanje funkcije sve dok fetch funkcija ne zavrsi i ne vrati promis, u prevodu dok podaci ne dodju do nas. To sto ce stopirati funkciju nije lose jer je to asinhrona funkcija sada i izvrsavace se u pozadini, dakle nece blokirati onaj glavni tread izvrsavanja unutar callstack-a. I to je jos jedna jako dobar stvar kod async_await, sto cini nas kod da izgleda sinhrono dok je zapravo asinhrona operacija i izvrsava se u pozadini (odnosno u delu web api-a). Cim fetch funkcija zavrsi i bude vratila promis, mi to mozemo da uskladistimo unutar neke promenljive. 
 
 const whereAmI = async function(country) {
   const response = await fetch('someurl');
@@ -402,4 +402,35 @@ const whereAmI = async function(country) {
 }
 
 Kao sto vidimo kljucne reci async_await cine kod dosta citiljivijim i takodje nam pomazu da izbegnemo sve one callback funkcije koje smo koristili kod .then() metoda!
-  
+Pitanje koje se postavlja kako resavamo greske kada koristimo async_await sintaksu? To radimo uz pomoc try_catch statement!
+
+
+ERROR HANDLING WITH TRY_CATCH:
+try_catch statement se koristi u regularnom javascriptu takodje, dakle postoji u jeziku vrv od pocetka postojanja javescripta. try_catch sintaksa nema nista sa asinhronim javascritom ali takodje mozemo da je koristimo za hvatanje gresaka u asinhronim funkcijama. 
+
+try {
+  let y = 3;
+  const x = 2;
+  x = 1;
+} catch(error) {
+  // now we can do something with this error
+  alert(err.message)
+}
+
+...catch blok ce sada imati pristup gresci koja se desila u try bloku! Tako da sada mozemo da koristimo tu gresku i da radimo nesto s njom. Ukoliko nije bilo gresaka unutar try bloka onda ce se taj blok izvristi i kod uopste nece uci u catch blok! Ovo je bio primer cisto da pokazemo da try_catch radi sa obicnim kodom. Sada sledi primer sa async_await sintaktom.
+
+const whereAmI = async function() {
+  try {
+    const pos = await fetch('some url');
+    const data = await pos.json();
+    
+    const res2 = await fetch('some other url');
+    const data2 = await res2.json();
+
+    renderCountry(data2[0])
+  } catch (error) {
+    console.log(`Something went wrong ${error.message}`)
+  }
+}
+
+Dakle koja god greska da se desi u ovom try bloku mi to hvatamo u catch bloku bas kao sto smo hvatali sa .catch() metodom kod obicne fetch funkcije. 
