@@ -434,3 +434,75 @@ const whereAmI = async function() {
 }
 
 Dakle koja god greska da se desi u ovom try bloku mi to hvatamo u catch bloku bas kao sto smo hvatali sa .catch() metodom kod obicne fetch funkcije. 
+
+Ukoliko bi pokusali da vratimo nesto iz ove asinhrone funkcije ovako:
+
+const whereAmI = async function() {
+  try {
+    const pos = await fetch('some url');
+    const data = await pos.json();
+    
+    const res2 = await fetch('some other url');
+    const data2 = await res2.json();
+
+    renderCountry(data2[0])
+
+    return 'Returned value from async function'
+  } catch (error) {
+    console.log(`Something went wrong ${error.message}`)
+  }
+}
+
+console.log('I will run first')
+const sentence = whereAmI();
+console.log(sentence) // Promise<pending>
+console.log('Finished')
+
+...u ovom delu koda gde smo pokusali da uskladistimo vrednost koju vraca asinhrona funkcija whereAmI() javascript jos uvek ne zna sta vraca ta asinhrona funkcija jer se ona izvrisava u pozadini, ali ako znamo da ona vraca promis to ujedno znaci da ce sentence promenljiva u sebi uskladistiti promis koji se nalazi u pending fazi, dakle jos uvek nije zavrsio svoj u pozadini. Ono sto je takodje bitno da razumemo jeste da ono sto smo vratili iz asinhrone funkcije, tacnije iz try bloka ovaj string 'Returned value from async function' to ce postati fulfilled vrednost tog promisa koji vraca whereAmI asinhrona funkcija, naravno kada zavrsi sa izvrzavanjem. 
+Sada se postavlja pitanje ako ne mozemo da vratimo vrednost iz asinhrone funkcije kako onda uzimamo i koristimo tu vrednost iz nje? Pa prosto, ako znamo da asinhrona funkcijaj vraca promis, mozemo da joj nadovezemo .then() metodu jer kao sto znamo .then() metoda bice dostpuna na svemu sto vraca promis. Dakle ovako:
+
+whereAmI().then(res => console.log(res)) // res argument unutar callback funkcije then() metode bice upravo fulfilled vrednost promisa koji vraca whereAmI asinhrona funkcija.
+
+...na ovaj nacin smo uspesno vratili vrednost iz funkcije.
+
+U ovom trenutku ukoliko se desi neka greska u try bloku (recimo da url prosledjen fetch funkciji bude los) javascript ce i dalje da prikaze u konzoli rezultat .then() metode tacnije prikazace undefined. To znaci da se izvirsila callback funkcija .then() metode, sto opet znaci da se pozvala .then() metoda, sto opet znaci da se pokrenula whereAmI() funkcija i da je vratila promis. To bi se desilo cak iako bi nadovezali .catch() metodu nad .then() metodom. Ukoliko bi zeleli da uhvatimo gresku i da je prikazemo morali bi da opet bacimo gresku unutar catch bloka asinhrone funkcije, ovako:
+
+const whereAmI = async function() {
+  try {
+    const pos = await fetch('some url');
+    const data = await pos.json();
+    
+    const res2 = await fetch('some other url');
+    const data2 = await res2.json();
+
+    renderCountry(data2[0])
+
+    return 'Returned value from async function'
+  } catch (error) {
+    console.log(`Something went wrong ${error.message}`)
+    
+    // Rejected promise returned from async function
+    return err;      // ovako rethrowujemo gresku koju sada mozemo da uhvatimo u .catch() funkciji ako nadovezujemo nad whereAmI() funkciju!
+  }
+}
+
+whereAmI().then(res => console.log(res)).catch(error => console.log(error))
+
+Slozicemo se da je ovo mixovanje nove i stare sintakse, naravno da sve ovo mozemo da odradimo samo preko async funckije. Ako znamo da whereAmI() vraca promis, mozemo da ga tretiramo kao i svaki drugi promis, tj sa await. 
+
+Pisemo immediately invoked function expression:
+
+(async function() {
+  try {
+    const stringResults = await whereAmI()
+    console.log(stringResults)
+  } catch(err) {
+    console.log(err)
+  } finally() {
+    console.log('3: Finished getting results')
+  }
+
+  // console.log('3: Finished getting results') 
+
+  // cak ne moramo da koristimo ni finally metodu, mogli smo ovaj poslednji console.log da ostavimo na dnu funkcije i on bi se svakako izvrsio, dakle van try i van catch bloka!
+})()
