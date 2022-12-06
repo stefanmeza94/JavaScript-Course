@@ -506,3 +506,6 @@ Pisemo immediately invoked function expression:
 
   // cak ne moramo da koristimo ni finally metodu, mogli smo ovaj poslednji console.log da ostavimo na dnu funkcije i on bi se svakako izvrsio, dakle van try i van catch bloka!
 })()
+
+
+RUNNING PROMISES IN PARALLEL:

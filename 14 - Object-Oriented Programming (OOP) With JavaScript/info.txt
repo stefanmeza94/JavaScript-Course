@@ -1,0 +1,46 @@
+OBJECT-ORIENTED PROGRAMMING:
+Da pocnemo sa odgovorom na pitanje sta je to objektno orijentisano programiranje? Objektno orijentisano programiranje ili skraceno OOP je programska paradigma koja je bazina na konceptu objekata. Paradigma prosto znaci stil ili nacin kodiranja, dakle kako mi pisemo i organizujemo kod. Mi koristimo objekte da bi napravili model odnosno opisali aspekte iz stvarnog sveta kao sto je npr korisnik (user) ili neka todo lista, ili neka apstraktna stvar, kao sto je html komponenta ili pak neka struktura podataka. Kao sto vec znamo objekti mogu da sadrze podatke koje nazivamo svojstva (properties) i takodje mogu da sadrze kod koji nazivamo metode. Mozemo da kazemo da koristeci objekte mi upakujemo sve podatke i odgovarajuce ponasanje u jedan veliki blok. U oop-u objekti su samo sadrzajuci delovi/blokovi koda, kao male aplikacije same za sebe. Mi onda koristimo ove objekte kao blokove da izgradimo nasu aplikaciju tako sto kazemo objektima da medjusobno komuniciraju. Ove interakcije (komuniciranje) se odvija preko neceg sto se zove API (public interface). Ovaj interfejs je prakticno puno metoda koje kod van objekta moze da pristupi i da koristi to da komunicira sa objektom. 
+
+Zasto oop upste postoji? Ova pardigma objektno-orijentisanog programiranja je nastala sa ciljem da se organizuje kod, da bude flexibilniji i laksi za odrzavanje. Pre oop-a imali bi kod koji je razban preko mnogo funkcija ili cak u globalnom opsegu bez bilo kakve strukture. Ovaj nacin koda zovemo "spaghetti code". Takav kod je naravno jako tezak za odrzavanje i uopste nije pregledan. Cela ideja oko objektno orijetnisaong programiranja je bila da se resi ovaj problem spaghetti koda. OOP je u tome uspeo jer je objetkno orijetnisaon programiranje jedno od najzastupljenijih programskih paradigmi. To naravno nije jedini nacin da se pise i organizuje kod. Postoje i druge paradigme koje su postale jako popularne a jedna od njih je funcionalno programiranje o kom cemo pricati nesto kasnije. 
+
+Mi smo do sada koristili objekte ali kao obicne kolekcije podataka, koje nisu imale interkaciju sa drugim objektima. Takodje nismo imali nacin da generisemo objekat programski. Sve sto smo radili do sad jeste da smo koristili objektne literale, ali u oop-u nama je potreban nacin da generisemo odnosno napravimo novi objekat iz naseg koda. Da bi postigili to u tradicionalnom objektno orijetnisanom programiranju koristimo nesto sto se zove KLASA. O klasama mozemo da razmisljamo kao o nekom nacrtu koji onda moze da se koristi da se napravi novi objekat baziran na pravilima koja su definisna u toj klasi. Bas kao u arhitekturi gde arihtekta razvija nacrt da bi tacno isplanirao  i opisao kucu. Ali taj nacrt je samo abstraktni plan. Dakle samo smer pravila, nista opipljivo. Medjutim iz tog nacrta mnoge kuce mogu da budu napravljene u stvarnom svetu. Sa klasama je isto. Ako pogledamo ovu fikcionalnu klasu korisnika (user), a kazemo fikcionalnu zato sto ovo zapravo nije prava javascript sintaksa, zato sto javascript zapravo ne podrzava prave klase. U jeziku postoji sintaksa klase ali i dalje funcionise malo drugacije od jezika koji poseduju prave klase. Ovo je samo pokazatelj kako oop funckonise generalno. 
+
+User {
+    user
+    password
+    email
+
+    loing(password) {
+        // login logic
+    }
+
+    sendMessage(str) {
+        // sending logic
+    }
+}
+
+Kao sto vidimo ova fikcionalna klasa opisuje korisnika (usera). Dakle poseduje ime korisnika, njegovu sifru i njegov email. To je opis podataka o korisniku, ali naravno to nisu pravi podaci korisnika. Setimo se da je klasa samo plan i nacrt. Takodje ispod imamo ponasanje koje je asocirano sa podacima. U ovom slucaju to je samo login metoda i metoda za slanje poruka. Dakle ova klasa poseduje sve vezano za korisnika, podatke i ponasanje, sve zapakovano u jedan blok. Sada mozemo da koristimo ovu klasu da stvorimo nove objekte iz ove klase. 
+
+new User('jonas')
+
+{
+    user: 'jonas'
+    password: 'dk23s'
+    email: 'hello@jonas.io'
+
+    loing(password) {
+        // login logic
+    }
+
+    sendMessage(str) {
+        // sending logic
+    }
+}
+
+Sada u ovom objetku imamo prave podatke o korisniku. Sve objekte stovrene iz neke klase instance te klase. Dakle instanca bi bila pravi objekat koji mozemo da koristimo u nasem kodu koji je bio stvoren iz klase. Klasa sama po sebi nije objekat! Ako se vratimo na poredjenje odozgo ova instanca bi bila kao prava kuca koja je stvorena od apstraktnog nacrta. Lepota ovoga je sto sada ovu klasu (User) mozemo da koristimo da napravimo koliko god instanca zelimo. Bas kao sto mozemo da napravimo vise kuca od jednog nacrta. Sve ove instance, odnosno ovi objekti naravno mogu da imaju razlicite podatke o njima ali svi dele istu funkcionalnost a to je da loginuju i da salju poruke. Sada kada znamo da mozemo da koristimo klase da generisemo objekte pitanje koje se postavlja kako dizajniramo klase? Odgovor na ovo pitanje nije bas prost, ne postoji tacno pravilo kako se tacno dizaniraju klase, medjutim postoje 4 fundamentalna principa koja mogu da nas vode do implementiranja i dizajniranja dobre klase. Ovi principi su: 
+1) Abstraction
+2) Encapsulation
+3) Inheritance
+4) Polymorphism
+
+// nastavi od 9:30
