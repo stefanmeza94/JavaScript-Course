@@ -1,9 +1,9 @@
 OBJECT-ORIENTED PROGRAMMING:
 Da pocnemo sa odgovorom na pitanje sta je to objektno orijentisano programiranje? Objektno orijentisano programiranje ili skraceno OOP je programska paradigma koja je bazina na konceptu objekata. Paradigma prosto znaci stil ili nacin kodiranja, dakle kako mi pisemo i organizujemo kod. Mi koristimo objekte da bi napravili model odnosno opisali aspekte iz stvarnog sveta kao sto je npr korisnik (user) ili neka todo lista, ili neka apstraktna stvar, kao sto je html komponenta ili pak neka struktura podataka. Kao sto vec znamo objekti mogu da sadrze podatke koje nazivamo svojstva (properties) i takodje mogu da sadrze kod koji nazivamo metode. Mozemo da kazemo da koristeci objekte mi upakujemo sve podatke i odgovarajuce ponasanje u jedan veliki blok. U oop-u objekti su samo sadrzajuci delovi/blokovi koda, kao male aplikacije same za sebe. Mi onda koristimo ove objekte kao blokove da izgradimo nasu aplikaciju tako sto kazemo objektima da medjusobno komuniciraju. Ove interakcije (komuniciranje) se odvija preko neceg sto se zove API (public interface). Ovaj interfejs je prakticno puno metoda koje kod van objekta moze da pristupi i da koristi to da komunicira sa objektom. 
 
-Zasto oop upste postoji? Ova pardigma objektno-orijentisanog programiranja je nastala sa ciljem da se organizuje kod, da bude flexibilniji i laksi za odrzavanje. Pre oop-a imali bi kod koji je razban preko mnogo funkcija ili cak u globalnom opsegu bez bilo kakve strukture. Ovaj nacin koda zovemo "spaghetti code". Takav kod je naravno jako tezak za odrzavanje i uopste nije pregledan. Cela ideja oko objektno orijetnisaong programiranja je bila da se resi ovaj problem spaghetti koda. OOP je u tome uspeo jer je objetkno orijetnisaon programiranje jedno od najzastupljenijih programskih paradigmi. To naravno nije jedini nacin da se pise i organizuje kod. Postoje i druge paradigme koje su postale jako popularne a jedna od njih je funcionalno programiranje o kom cemo pricati nesto kasnije. 
+Zasto oop upste postoji? Ova pardigma objektno-orijentisanog programiranja je nastala sa ciljem da se organizuje kod, da bude flexibilniji i laksi za odrzavanje. Pre oop-a imali bi kod koji je razbacan preko mnogo funkcija ili cak u globalnom opsegu bez bilo kakve strukture. Ovaj nacin koda zovemo "spaghetti code". Takav kod je naravno jako tezak za odrzavanje i uopste nije pregledan. Cela ideja oko objektno orijentisanog programiranja je bila da se resi ovaj problem spaghetti koda. OOP je u tome uspeo jer je objetkno orijetnisaon programiranje jedno od najzastupljenijih programskih paradigmi. To naravno nije jedini nacin da se pise i organizuje kod. Postoje i druge paradigme koje su postale jako popularne a jedna od njih je funcionalno programiranje o kom cemo pricati nesto kasnije. 
 
-Mi smo do sada koristili objekte ali kao obicne kolekcije podataka, koje nisu imale interkaciju sa drugim objektima. Takodje nismo imali nacin da generisemo objekat programski. Sve sto smo radili do sad jeste da smo koristili objektne literale, ali u oop-u nama je potreban nacin da generisemo odnosno napravimo novi objekat iz naseg koda. Da bi postigili to u tradicionalnom objektno orijetnisanom programiranju koristimo nesto sto se zove KLASA. O klasama mozemo da razmisljamo kao o nekom nacrtu koji onda moze da se koristi da se napravi novi objekat baziran na pravilima koja su definisna u toj klasi. Bas kao u arhitekturi gde arihtekta razvija nacrt da bi tacno isplanirao  i opisao kucu. Ali taj nacrt je samo abstraktni plan. Dakle samo smer pravila, nista opipljivo. Medjutim iz tog nacrta mnoge kuce mogu da budu napravljene u stvarnom svetu. Sa klasama je isto. Ako pogledamo ovu fikcionalnu klasu korisnika (user), a kazemo fikcionalnu zato sto ovo zapravo nije prava javascript sintaksa, zato sto javascript zapravo ne podrzava prave klase. U jeziku postoji sintaksa klase ali i dalje funcionise malo drugacije od jezika koji poseduju prave klase. Ovo je samo pokazatelj kako oop funckonise generalno. 
+Mi smo do sada koristili objekte ali kao obicne kolekcije podataka, koje nisu imale interkaciju sa drugim objektima. Takodje nismo imali nacin da generisemo objekat programski. Sve sto smo radili do sad jeste da smo koristili objektne literale, ali u oop-u nama je potreban nacin da generisemo odnosno napravimo novi objekat iz naseg koda. Da bi postigili to u tradicionalnom objektno orijentisanom programiranju koristimo nesto sto se zove KLASA. O klasama mozemo da razmisljamo kao o nekom nacrtu koji onda moze da se koristi da se napravi novi objekat baziran na pravilima koja su definisna u toj klasi. Bas kao u arhitekturi gde arihtekta razvija nacrt da bi tacno isplanirao  i opisao kucu. Ali taj nacrt je samo abstraktni plan. Dakle samo smer pravila, nista opipljivo. Medjutim iz tog nacrta mnoge kuce mogu da budu napravljene u stvarnom svetu. Sa klasama je isto. Ako pogledamo ovu fikcionalnu klasu korisnika (user), a kazemo fikcionalnu zato sto ovo zapravo nije prava javascript sintaksa, zato sto javascript zapravo ne podrzava prave klase. U jeziku postoji sintaksa klase ali i dalje funcionise malo drugacije od jezika koji poseduju prave klase. Ovo je samo pokazatelj kako oop funkcionise generalno. 
 
 User {
     user
@@ -37,10 +37,121 @@ new User('jonas')
     }
 }
 
-Sada u ovom objetku imamo prave podatke o korisniku. Sve objekte stovrene iz neke klase instance te klase. Dakle instanca bi bila pravi objekat koji mozemo da koristimo u nasem kodu koji je bio stvoren iz klase. Klasa sama po sebi nije objekat! Ako se vratimo na poredjenje odozgo ova instanca bi bila kao prava kuca koja je stvorena od apstraktnog nacrta. Lepota ovoga je sto sada ovu klasu (User) mozemo da koristimo da napravimo koliko god instanca zelimo. Bas kao sto mozemo da napravimo vise kuca od jednog nacrta. Sve ove instance, odnosno ovi objekti naravno mogu da imaju razlicite podatke o njima ali svi dele istu funkcionalnost a to je da loginuju i da salju poruke. Sada kada znamo da mozemo da koristimo klase da generisemo objekte pitanje koje se postavlja kako dizajniramo klase? Odgovor na ovo pitanje nije bas prost, ne postoji tacno pravilo kako se tacno dizaniraju klase, medjutim postoje 4 fundamentalna principa koja mogu da nas vode do implementiranja i dizajniranja dobre klase. Ovi principi su: 
-1) Abstraction
-2) Encapsulation
-3) Inheritance
-4) Polymorphism
+Sada u ovom objetku imamo prave podatke o korisniku. Sve objekte stovrene iz neke klase zovemo instance te klase. Dakle instanca bi bila pravi objekat koji mozemo da koristimo u nasem kodu koji je bio stvoren iz klase. Klasa sama po sebi nije objekat! Ako se vratimo na poredjenje odozgo ova instanca bi bila kao prava kuca koja je stvorena od apstraktnog nacrta. Lepota ovoga je sto sada ovu klasu (User) mozemo da koristimo da napravimo koliko god instanca zelimo. Bas kao sto mozemo da napravimo vise kuca od jednog nacrta. Sve ove instance, odnosno ovi objekti naravno mogu da imaju razlicite podatke o njima ali svi dele istu funkcionalnost a to je da loginuju i da salju poruke. Sada kada znamo da mozemo da koristimo klase da generisemo objekte pitanje koje se postavlja kako dizajniramo klase? Odgovor na ovo pitanje nije bas prost, ne postoji tacno pravilo kako se tacno dizaniraju klase, medjutim postoje 4 fundamentalna principa koja mogu da nas vode do implementiranja i dizajniranja dobre klase. Ovi principi su: 
+1) Abstraction; 2) Encapsulation; 3) Inheritance; 4) Polymorphism.
 
-// nastavi od 9:30
+1) Abstraction: Abstrakcija bukvalno znaci da ignorisemo ili da sakrijemo detalje koji nisu bitni. Ovo nam dozvoljava da imamo pregled perspektive bilo cega sto implementiramo, umesto da se zezamo sa detaljima koji zapravo nisu bitni u nasoj implementaciji. Recimo da impelementiramo telefon za korisnika da koristi. Bez apstrakcije mogli bi da dizajniramo nasu klasu da ukljucuje sve sto postoji u vezi telefona, ukljucujuci sve unutrasnje stvari, verifikovanje temperature telefona, voltazu, ukljucivanje motora za vibraciju, ukljucivanje speakera i ostale 'low level' detalje. Ali za korisnika koji koristi taj telefon da li su njemu zapravo potrebni svi ovi detalji? Mozemo da se slozimo da vrv nisu bitni. U stvarnosti kada koristimo pravi mobilni telefon svi ovi detalji su abstraktovani (sakriveni) od nas. Sve sto mi koristimo jeste sam telefon njegov ekran home button i dugmici za pojacavanje i smanjivanje zvuka. Sve ostalo je sklonjeno od korisnika, posto sve ostalo nije potrebno korisniku. Naravno telefon unutar mora i dalje da meri voltazu, pali vibracijski motor, pali zvucnike, pali/gasi kameru i ostali 'low level' detalji. Ali svi ti detalji kao sto smo rekli su sakriveni od korisnika i to je upravo ono sto abstrakcija znaci. Sto se tice primer od ranije (usera), mozemo da implemenitramo korisnikov broj telefona, mejl adresu, boju kose, velicinu obuce i mnogo drugih stvari koje nam mozda ne trebaju u aplikaciji. Tako da mi prosto ignorisemo ove detalje sto cini abstrakciju vrlo bitnom stavkom. 
+
+2) Encapsulation: Ovo znaci da drzimo odredjene propertije i metode privatne unutar klase. To znaci da ne budu dostpune van te klase gde su definisane. Odredjene metode naravno mogu da budu izlozene kao public interface, sto zovemo API. Kada smo rekli da se interakcija izmedju objekta obavlja preko public interface-a. Ako se vratimo na primer Usera ta privatna svojstva bi mogla da izgledaju ovako:  
+
+User {
+    user
+    private password
+    private email
+
+    loing(word) {
+        this.password === word
+    }
+
+    comment(text) {
+        this.checkSPAM(text)
+    }
+
+    private checkSPAM(text) {
+        // Verify logic
+    }
+}
+
+...ovo je samo hipoteticki primer, jer private kljucna rec ne postoji u javascriptu. Koriscenjem privatenih metoda bi znacilo da sada ovaj kod ne mozemo da koristimo van ove klase. Ali unutar klase mozemo da im pristpupimo. Mi ovim sprecavamo da vanjski kod slucajno manipulise nasim internalnim svojstvima i metodama. Ovo je jako bitno jer ako dostupimo vanjskom kodu da moze da manipulise i menja nasa svojstva u klasi moze da izazove mnoge bagove. Isto vazi i za metode, kao sto mozemo da primetimo stavili smo da i metoda checkSPAM bude privatna za ovu klasu to isto znaci da ona nece biti dostpuna van klase. Nju koristimo unutar klase da proverimo da li je komentar spam ili ne. Dakle ne zelimo da niko van ove klase bude u mogucnosti da koristi ovu metodu i onda je ne cini delom public interface-a. Public Interface su zapravo sve metode koje NISU privatne, koje nisu encapsulated. To sto cinimo metode privatnim cini da lakse menjamo nas kod bez da break-ujemo kod van te klase, jer taj vanjski kod mozda zavisi od nekih metoda unutar klase. 
+
+3) Inheritance: Recimo da imamo ovde dve klase User i Admin: 
+
+User {
+    user
+    password
+    email
+
+    loing(password) {
+        // login logic
+    }
+
+    sendMessage(str) {
+        // sending logic
+    }
+}
+
+Admin {
+    user
+    password
+    email
+    permissions
+
+    loing(password) {
+        // login logic
+    }
+
+    sendMessage(str) {
+        // sending logic
+    }
+
+    deleteUser(user) {
+        // deleting logic
+    }
+}
+
+...kao sto vidimo ove dve klase imaju dosta zajednickih svojstava i metoda. Zapravo ako bolje pogledamo Admin ima sva svojstva (properties) i metode koje ima User. To savrseno ima smisla jer ako razmislimo i ta Admin je zapravo User (korisnik). Dakle Admin isto treba da ima password, email, kao sto takodje treba da loginuje npr. Ali ako dizajniramo nase klase ovako, zavrsicemo sa dosta dupliranog koda. Tu inheritance dolazi u spas. U oop-u kada imamo dve klase koje su dosta povezane kao sto su User i Admin ovde, mozemo da imamo jednu klasu koja ce da nasledi drugu (ineritance). Dakle imali bi jednu parrent klasu i drugu child klasu. Ta child klasa ce da extenduje parrent klasu. Dakle child klasa ce da ima sve metode i svojstva koje ima parrent klasa, formalno receno Ineritance (nasledjivanje) cini sva svojstva i metode odredjene klase dostupnim child klasi sto onda obrazuje hijerarhiju izmedju ove dve klase. Cilj ineritenca jeste da se ponovo iskoristi (reuse) logiku koja je zajednicka za obe klase. Kao sto u nasem primeru i User i Admin moraju da se loginuju npr, umesto da pisemo tu logiku dva puta ima smisla da nasledimo login metodu od globalne klase (parrent klase) unutar child klase. Naravno child klasa onda moze da ima licno svoje metode i svojstva. Kao sto su nasem slucaju permissions svojstvo i metoda deleteUser. Tako da kazemo da je Admin takodje User ali extendovan User, sa nekim dodatim funkcionalnostima. 
+
+4) Polymorphism: polimorfizam dolazi iz grckog jezika i bukvalno znaci "vise oblika". U kontekstu oop-a u prostim crtama, polimorfizam znaci da child klasa moze da overwriteuje metode koje je nasledila od parrent klase. 
+
+User {
+    user
+    password
+    email
+
+    loing(password) {
+        // login logic
+    }
+
+    sendMessage(str) {
+        // sending logic
+    }
+}
+
+Admin {
+    user
+    password
+    email
+    permissions
+
+    loing(password, key) {
+        // DIFFERENT LOGIN
+    }
+
+    sendMessage(str) {
+        // sending logic
+    }
+
+    deleteUser(user) {
+        // deleting logic
+    }
+}
+
+Author {
+    user
+    password
+    email
+    posts
+
+    loing(password) {
+        // MORE DIFFERENT
+    }
+
+    writePost() {
+        // writing logic
+    }
+}
+
+...sada imamo i trecu klasu koju smo nazvali Author. Admin i Author klase su zapravo specijalne klase Usera. Sto onda ima smisla da obe naslede svojstva i metode od User klase. Sada cemo se skoncentrisati na login metodu. Recimo da Admin zahteva drugaciju logku za loginovanje. Npr sigurniji login koji ima dve faze autentifikacije. A recimo da nam treba poseban login metoda i za Author klasu. Kako da im damo razlicite login metode? Zapravo je vrlo prosto. U svakoj od tih klasa napisemo novu login metodu koja se takodje zove login samo sa drugacijom logikom unutar metode. I sada zahvaljujuci polimorfizmu te drugacije login metode ce da overwriteuju login metodu koju su nasledile od User klase. 
+
+
+OOP IN JAVASCRIPT: 
