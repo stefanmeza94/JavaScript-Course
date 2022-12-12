@@ -1,7 +1,7 @@
 OBJECT-ORIENTED PROGRAMMING:
 Da pocnemo sa odgovorom na pitanje sta je to objektno orijentisano programiranje? Objektno orijentisano programiranje ili skraceno OOP je programska paradigma koja je bazina na konceptu objekata. Paradigma prosto znaci stil ili nacin kodiranja, dakle kako mi pisemo i organizujemo kod. Mi koristimo objekte da bi napravili model odnosno opisali aspekte iz stvarnog sveta kao sto je npr korisnik (user) ili neka todo lista, ili neka apstraktna stvar, kao sto je html komponenta ili pak neka struktura podataka. Kao sto vec znamo objekti mogu da sadrze podatke koje nazivamo svojstva (properties) i takodje mogu da sadrze kod koji nazivamo metode. Mozemo da kazemo da koristeci objekte mi upakujemo sve podatke i odgovarajuce ponasanje u jedan veliki blok. U oop-u objekti su samo sadrzajuci delovi/blokovi koda, kao male aplikacije same za sebe. Mi onda koristimo ove objekte kao blokove da izgradimo nasu aplikaciju tako sto kazemo objektima da medjusobno komuniciraju. Ove interakcije (komuniciranje) se odvija preko neceg sto se zove API (public interface). Ovaj interfejs je prakticno puno metoda koje kod van objekta moze da pristupi i da koristi to da komunicira sa objektom. 
 
-Zasto oop upste postoji? Ova pardigma objektno-orijentisanog programiranja je nastala sa ciljem da se organizuje kod, da bude flexibilniji i laksi za odrzavanje. Pre oop-a imali bi kod koji je razbacan preko mnogo funkcija ili cak u globalnom opsegu bez bilo kakve strukture. Ovaj nacin koda zovemo "spaghetti code". Takav kod je naravno jako tezak za odrzavanje i uopste nije pregledan. Cela ideja oko objektno orijentisanog programiranja je bila da se resi ovaj problem spaghetti koda. OOP je u tome uspeo jer je objetkno orijetnisaon programiranje jedno od najzastupljenijih programskih paradigmi. To naravno nije jedini nacin da se pise i organizuje kod. Postoje i druge paradigme koje su postale jako popularne a jedna od njih je funcionalno programiranje o kom cemo pricati nesto kasnije. 
+Zasto oop upste postoji? Ova paradigma objektno-orijentisanog programiranja je nastala sa ciljem da se organizuje kod, da bude flexibilniji i laksi za odrzavanje. Pre oop-a imali bi kod koji je razbacan preko mnogo funkcija ili cak u globalnom opsegu bez bilo kakve strukture. Ovaj nacin koda zovemo "spaghetti code". Takav kod je naravno jako tezak za odrzavanje i uopste nije pregledan. Cela ideja oko objektno orijentisanog programiranja je bila da se resi ovaj problem spaghetti koda. OOP je u tome uspeo jer je objetkno orijentisano programiranje jedno od najzastupljenijih programskih paradigmi. To naravno nije jedini nacin da se pise i organizuje kod. Postoje i druge paradigme koje su postale jako popularne a jedna od njih je funcionalno programiranje o kom cemo pricati nesto kasnije. 
 
 Mi smo do sada koristili objekte ali kao obicne kolekcije podataka, koje nisu imale interkaciju sa drugim objektima. Takodje nismo imali nacin da generisemo objekat programski. Sve sto smo radili do sad jeste da smo koristili objektne literale, ali u oop-u nama je potreban nacin da generisemo odnosno napravimo novi objekat iz naseg koda. Da bi postigili to u tradicionalnom objektno orijentisanom programiranju koristimo nesto sto se zove KLASA. O klasama mozemo da razmisljamo kao o nekom nacrtu koji onda moze da se koristi da se napravi novi objekat baziran na pravilima koja su definisna u toj klasi. Bas kao u arhitekturi gde arihtekta razvija nacrt da bi tacno isplanirao  i opisao kucu. Ali taj nacrt je samo abstraktni plan. Dakle samo smer pravila, nista opipljivo. Medjutim iz tog nacrta mnoge kuce mogu da budu napravljene u stvarnom svetu. Sa klasama je isto. Ako pogledamo ovu fikcionalnu klasu korisnika (user), a kazemo fikcionalnu zato sto ovo zapravo nije prava javascript sintaksa, zato sto javascript zapravo ne podrzava prave klase. U jeziku postoji sintaksa klase ali i dalje funcionise malo drugacije od jezika koji poseduju prave klase. Ovo je samo pokazatelj kako oop funkcionise generalno. 
 
@@ -37,10 +37,10 @@ new User('jonas')
     }
 }
 
-Sada u ovom objetku imamo prave podatke o korisniku. Sve objekte stovrene iz neke klase zovemo instance te klase. Dakle instanca bi bila pravi objekat koji mozemo da koristimo u nasem kodu koji je bio stvoren iz klase. Klasa sama po sebi nije objekat! Ako se vratimo na poredjenje odozgo ova instanca bi bila kao prava kuca koja je stvorena od apstraktnog nacrta. Lepota ovoga je sto sada ovu klasu (User) mozemo da koristimo da napravimo koliko god instanca zelimo. Bas kao sto mozemo da napravimo vise kuca od jednog nacrta. Sve ove instance, odnosno ovi objekti naravno mogu da imaju razlicite podatke o njima ali svi dele istu funkcionalnost a to je da loginuju i da salju poruke. Sada kada znamo da mozemo da koristimo klase da generisemo objekte pitanje koje se postavlja kako dizajniramo klase? Odgovor na ovo pitanje nije bas prost, ne postoji tacno pravilo kako se tacno dizaniraju klase, medjutim postoje 4 fundamentalna principa koja mogu da nas vode do implementiranja i dizajniranja dobre klase. Ovi principi su: 
+Sada u ovom objetku imamo prave podatke o korisniku. Sve objekte stovrene iz neke klase zovemo instance te klase. Dakle instanca bi bila pravi objekat koji mozemo da koristimo u nasem kodu koji je bio stvoren iz klase. Klasa sama po sebi nije objekat! Ako se vratimo na poredjenje odozgo ova instanca bi bila kao prava kuca koja je stvorena od apstraktnog nacrta. Lepota ovoga je sto sada ovu klasu (User) mozemo da koristimo da napravimo koliko god instanci zelimo. Bas kao sto mozemo da napravimo vise kuca od jednog nacrta. Sve ove instance, odnosno ovi objekti naravno mogu da imaju razlicite podatke o njima ali svi dele istu funkcionalnost a to je da loginuju i da salju poruke. Sada kada znamo da mozemo da koristimo klase da generisemo objekte pitanje koje se postavlja kako dizajniramo klase? Odgovor na ovo pitanje nije bas prost, ne postoji tacno pravilo kako se tacno dizaniraju klase, medjutim postoje 4 fundamentalna principa koja mogu da nas vode do implementiranja i dizajniranja dobre klase. Ovi principi su: 
 1) Abstraction; 2) Encapsulation; 3) Inheritance; 4) Polymorphism.
 
-1) Abstraction: Abstrakcija bukvalno znaci da ignorisemo ili da sakrijemo detalje koji nisu bitni. Ovo nam dozvoljava da imamo pregled perspektive bilo cega sto implementiramo, umesto da se zezamo sa detaljima koji zapravo nisu bitni u nasoj implementaciji. Recimo da impelementiramo telefon za korisnika da koristi. Bez apstrakcije mogli bi da dizajniramo nasu klasu da ukljucuje sve sto postoji u vezi telefona, ukljucujuci sve unutrasnje stvari, verifikovanje temperature telefona, voltazu, ukljucivanje motora za vibraciju, ukljucivanje speakera i ostale 'low level' detalje. Ali za korisnika koji koristi taj telefon da li su njemu zapravo potrebni svi ovi detalji? Mozemo da se slozimo da vrv nisu bitni. U stvarnosti kada koristimo pravi mobilni telefon svi ovi detalji su abstraktovani (sakriveni) od nas. Sve sto mi koristimo jeste sam telefon njegov ekran home button i dugmici za pojacavanje i smanjivanje zvuka. Sve ostalo je sklonjeno od korisnika, posto sve ostalo nije potrebno korisniku. Naravno telefon unutar mora i dalje da meri voltazu, pali vibracijski motor, pali zvucnike, pali/gasi kameru i ostali 'low level' detalji. Ali svi ti detalji kao sto smo rekli su sakriveni od korisnika i to je upravo ono sto abstrakcija znaci. Sto se tice primer od ranije (usera), mozemo da implemenitramo korisnikov broj telefona, mejl adresu, boju kose, velicinu obuce i mnogo drugih stvari koje nam mozda ne trebaju u aplikaciji. Tako da mi prosto ignorisemo ove detalje sto cini abstrakciju vrlo bitnom stavkom. 
+1) Abstraction: Abstrakcija bukvalno znaci da ignorisemo ili da sakrijemo detalje koji nisu bitni. Ovo nam dozvoljava da imamo pregled perspektive bilo cega sto implementiramo, umesto da se zezamo sa detaljima koji zapravo nisu bitni u nasoj implementaciji. Recimo da impelementiramo telefon za korisnika da koristi. Bez apstrakcije mogli bi da dizajniramo nasu klasu da ukljucuje sve sto postoji u vezi telefona, ukljucujuci sve unutrasnje stvari, verifikovanje temperature telefona, voltazu, ukljucivanje motora za vibraciju, ukljucivanje speakera i ostale 'low level' detalje. Ali za korisnika koji koristi taj telefon da li su njemu zapravo potrebni svi ovi detalji? Mozemo da se slozimo da vrv nisu bitni. U stvarnosti kada koristimo pravi mobilni telefon svi ovi detalji su abstraktovani (sakriveni) od nas. Sve sto mi koristimo jeste sam telefon njegov ekran home button i dugmici za pojacavanje i smanjivanje zvuka. Sve ostalo je sklonjeno od korisnika, posto sve ostalo nije potrebno korisniku. Naravno telefon unutar mora i dalje da meri voltazu, pali vibracijski motor, pali zvucnike, pali/gasi kameru i ostali 'low level' detalji. Ali svi ti detalji kao sto smo rekli su sakriveni od korisnika i to je upravo ono sto abstrakcija znaci. Sto se tice primera od ranije (usera), mozemo da implemenitramo korisnikov broj telefona, mejl adresu, boju kose, velicinu obuce i mnogo drugih stvari koje nam mozda ne trebaju u aplikaciji. Tako da mi prosto ignorisemo ove detalje sto cini abstrakciju vrlo bitnom stavkom. 
 
 2) Encapsulation: Ovo znaci da drzimo odredjene propertije i metode privatne unutar klase. To znaci da ne budu dostpune van te klase gde su definisane. Odredjene metode naravno mogu da budu izlozene kao public interface, sto zovemo API. Kada smo rekli da se interakcija izmedju objekta obavlja preko public interface-a. Ako se vratimo na primer Usera ta privatna svojstva bi mogla da izgledaju ovako:  
 
@@ -62,7 +62,7 @@ User {
     }
 }
 
-...ovo je samo hipoteticki primer, jer private kljucna rec ne postoji u javascriptu. Koriscenjem privatenih metoda bi znacilo da sada ovaj kod ne mozemo da koristimo van ove klase. Ali unutar klase mozemo da im pristpupimo. Mi ovim sprecavamo da vanjski kod slucajno manipulise nasim internalnim svojstvima i metodama. Ovo je jako bitno jer ako dostupimo vanjskom kodu da moze da manipulise i menja nasa svojstva u klasi moze da izazove mnoge bagove. Isto vazi i za metode, kao sto mozemo da primetimo stavili smo da i metoda checkSPAM bude privatna za ovu klasu to isto znaci da ona nece biti dostpuna van klase. Nju koristimo unutar klase da proverimo da li je komentar spam ili ne. Dakle ne zelimo da niko van ove klase bude u mogucnosti da koristi ovu metodu i onda je ne cini delom public interface-a. Public Interface su zapravo sve metode koje NISU privatne, koje nisu encapsulated. To sto cinimo metode privatnim cini da lakse menjamo nas kod bez da break-ujemo kod van te klase, jer taj vanjski kod mozda zavisi od nekih metoda unutar klase. 
+...ovo je samo hipoteticki primer, jer private kljucna rec ne postoji u javascriptu. Koriscenjem privatnih metoda bi znacilo da sada ovaj kod ne mozemo da koristimo van ove klase. Ali unutar klase mozemo da im pristpupimo. Mi ovim sprecavamo da vanjski kod slucajno manipulise nasim internalnim svojstvima i metodama. Ovo je jako bitno jer ako dopustimo vanjskom kodu da moze da manipulise i menja nasa svojstva u klasi moze da izazove mnoge bagove. Isto vazi i za metode, kao sto mozemo da primetimo stavili smo da i metoda checkSPAM bude privatna za ovu klasu to isto znaci da ona nece biti dostpuna van klase. Nju koristimo unutar klase da proverimo da li je komentar spam ili ne. Dakle ne zelimo da niko van ove klase bude u mogucnosti da koristi ovu metodu i onda je ne cini delom public interface-a. Public Interface su zapravo sve metode koje NISU privatne, koje nisu encapsulated. To sto cinimo metode privatnim cini da lakse menjamo nas kod bez da break-ujemo kod van te klase, jer taj vanjski kod mozda zavisi od nekih metoda unutar klase. 
 
 3) Inheritance: Recimo da imamo ovde dve klase User i Admin: 
 
@@ -99,7 +99,7 @@ Admin {
     }
 }
 
-...kao sto vidimo ove dve klase imaju dosta zajednickih svojstava i metoda. Zapravo ako bolje pogledamo Admin ima sva svojstva (properties) i metode koje ima User. To savrseno ima smisla jer ako razmislimo i ta Admin je zapravo User (korisnik). Dakle Admin isto treba da ima password, email, kao sto takodje treba da loginuje npr. Ali ako dizajniramo nase klase ovako, zavrsicemo sa dosta dupliranog koda. Tu inheritance dolazi u spas. U oop-u kada imamo dve klase koje su dosta povezane kao sto su User i Admin ovde, mozemo da imamo jednu klasu koja ce da nasledi drugu (ineritance). Dakle imali bi jednu parrent klasu i drugu child klasu. Ta child klasa ce da extenduje parrent klasu. Dakle child klasa ce da ima sve metode i svojstva koje ima parrent klasa, formalno receno Ineritance (nasledjivanje) cini sva svojstva i metode odredjene klase dostupnim child klasi sto onda obrazuje hijerarhiju izmedju ove dve klase. Cilj ineritenca jeste da se ponovo iskoristi (reuse) logiku koja je zajednicka za obe klase. Kao sto u nasem primeru i User i Admin moraju da se loginuju npr, umesto da pisemo tu logiku dva puta ima smisla da nasledimo login metodu od globalne klase (parrent klase) unutar child klase. Naravno child klasa onda moze da ima licno svoje metode i svojstva. Kao sto su nasem slucaju permissions svojstvo i metoda deleteUser. Tako da kazemo da je Admin takodje User ali extendovan User, sa nekim dodatim funkcionalnostima. 
+...kao sto vidimo ove dve klase imaju dosta zajednickih svojstava i metoda. Zapravo ako bolje pogledamo Admin ima sva svojstva (properties) i metode koje ima User. To savrseno ima smisla jer ako razmislimo i taj Admin je zapravo User (korisnik). Dakle Admin isto treba da ima password, email, kao sto takodje treba da se loginuje npr. Ali ako dizajniramo nase klase ovako, zavrsicemo sa dosta dupliranog koda. Tu inheritance dolazi u spas. U oop-u kada imamo dve klase koje su dosta povezane kao sto su User i Admin ovde, mozemo da imamo jednu klasu koja ce da nasledi drugu (ineritance). Dakle imali bi jednu parrent klasu i drugu child klasu. Ta child klasa ce da extenduje parrent klasu. Dakle child klasa ce da ima sve metode i svojstva koje ima parrent klasa, formalno receno Ineritance (nasledjivanje) cini sva svojstva i metode odredjene klase dostupnim child klasi sto onda obrazuje hijerarhiju izmedju ove dve klase. Cilj ineritenca jeste da se ponovo iskoristi (reuse) logiku koja je zajednicka za obe klase. Kao sto u nasem primeru i User i Admin moraju da se loginuju npr, umesto da pisemo tu logiku dva puta ima smisla da nasledimo login metodu od globalne klase (parrent klase) unutar child klase. Naravno child klasa onda moze da ima licno svoje metode i svojstva. Kao sto su nasem slucaju permissions svojstvo i metoda deleteUser. Tako da kazemo da je Admin takodje User ali extendovan User, sa nekim dodatnim funkcionalnostima. 
 
 4) Polymorphism: polimorfizam dolazi iz grckog jezika i bukvalno znaci "vise oblika". U kontekstu oop-a u prostim crtama, polimorfizam znaci da child klasa moze da overwriteuje metode koje je nasledila od parrent klase. 
 
@@ -155,7 +155,7 @@ Author {
 
 
 OOP IN JAVASCRIPT: 
-Kao sto smo spomenuli, oop u javascript funkcionise malo drugacije od generalnog oop-a. U javascript postoji slican koncept klasa i instanca. Sto se tice oop-a u javascriptu: u javascriptu postoji nesto sto se zove prototype. Svi objekti u javascriptu su povezani za odredjeni prototype objekat. Kazemo da svaki objekat ima prototype. Prototype objekat sadrzi metode i svojstva i svi objekti koji su povezani za taj prototype objekat mogu da im pristupe i da ih koriste. Ovo ponasanje se obicno naziva prototypal ineritance. To prosto znaci da svi objekti koji su povezani za neki prototype objekat mogu da koriste metode i svojstva koja su definisna u tom prototype-u. Prakticno objekti nasledjuju metode i svojstva od prototype-a i zato se ovaj mehanizam naziva prototypal ineritance. Ovaj prototypal ineritance je razlicit od onog sto smo spominjali u prethodnoj lekciji. To je bilo kada jedna klasa nasledjuje drugu klasu, ali u ovom slucaju prakticno instanca nasledjuje klasu. To je vrlo razlicito! Pored naziva prototypal ineritance koristimo i naziv delegation. Ponasanje (metode) delegiraju na linkovani protoype objekat. U klasicnom OOP-u to ponasanje odnosno metode su ustvari kopirane od klase na objekat (tj instancu te klase). Dakle to je jos jedna razlika izmedju oop-a u javascript u generalnog oop-a. Ovo ponasanje smo videli do sada dosta puta ali nismo znali da se desava. Npr svaki put kada smo koristili neki array metodu npr map, bili smo u mogucnosti da je koristimo upravo zbog prototypal ineritance-a. Ako proverimo mdn dokumentaciju za map (ali i za svaku drugu array metodu) videcete da tamo stoji Array.protytpe.map(). Sta to zapravo znaci. Pa taj Array.prototype je protype objekat svih array-a koje kreiramo u javascriptu. 
+Kao sto smo spomenuli, oop u javascript funkcionise malo drugacije od generalnog oop-a. U javascript postoji slican koncept klasa i instanci. Sto se tice oop-a u javascriptu: u javascriptu postoji nesto sto se zove prototype. Svi objekti u javascriptu su povezani za odredjeni prototype objekat. Kazemo da svaki objekat ima prototype. Prototype objekat sadrzi metode i svojstva i svi objekti koji su povezani za taj prototype objekat mogu da im pristupe i da ih koriste. Ovo ponasanje se obicno naziva prototypal ineritance. To prosto znaci da svi objekti koji su povezani za neki prototype objekat mogu da koriste metode i svojstva koja su definisna u tom prototype-u. Prakticno objekti nasledjuju metode i svojstva od prototype-a i zato se ovaj mehanizam naziva prototypal ineritance. Ovaj prototypal ineritance je razlicit od onog sto smo spominjali u prethodnoj lekciji. To je bilo kada jedna klasa nasledjuje drugu klasu, ali u ovom slucaju prakticno instanca nasledjuje klasu. To je vrlo razlicito! Pored naziva prototypal ineritance koristimo i naziv delegation. Ponasanje (metode) delegiraju na linkovani protoype objekat. U klasicnom OOP-u to ponasanje odnosno metode su ustvari kopirane od klase na objekat (tj instancu te klase). Dakle to je jos jedna razlika izmedju oop-a u javascript u generalnog oop-a. Ovo ponasanje smo videli do sada dosta puta ali nismo znali da se desava. Npr svaki put kada smo koristili neku array metodu npr map, bili smo u mogucnosti da je koristimo upravo zbog prototypal ineritance-a. Ako proverimo mdn dokumentaciju za map (ali i za svaku drugu array metodu) videcete da tamo stoji Array.protytpe.map(). Sta to zapravo znaci. Pa taj Array.prototype je protype objekat svih array-a koje kreiramo u javascriptu. 
 
 const num = [1, 2, 3];
 num.map((v) => v * 2);
@@ -167,3 +167,117 @@ Postoje tacno tri razlicita nacina za implementiranje OOP-a u javascriptu:
 3) Object.create() to je najlaksi nacin za povezivanje objekta za neki prototype objekat. Medjutim ova metoda se ne koristi toliko cesto kao prve dve. 
 
 Na kraju da kazemo da 4 principa OOP-a koja smo spomenuli u prvoj lekciji su i dalje validna ovde u javascriptu. 
+
+
+CONSTRUCTOR FUNCTION AND THE "NEW" OPEARATOR:
+Mozemo da koristimo constructor funkcije da izgradimo objekat. Ta constructor funkcija je potpuno normalna funkcija. Jedina razlika izmedju obicne funkcije i funkcije koju zovemo constructor funkcija jeste sto constructor funkciju pozivamo sa 'new' operatorom. U oop-u postoji konvencija za iemnovanje constructor funkcija a to je da ih imenujemo velikim pocetnim slovom! Ono sto je bitno da napomenemo jeste da za izgradnju constructor funkcije mozemo da koristimo funkcijske deklaracije ili expression funkcije, dok arrow funkcije nece raditi, zato sto arrow funkcije ne dobijaju svoju this kljucnu rec prilikom izvrsavanja u callstack-u. Dakle pravljenjem konstruktor funkcije ce proizvesti objekat. Unutar zagrada gde pisemo parametre stavicemo sve sto zelimo da poseduje nas novi objekat kao svojstva. Na primer:
+
+const Person = function(firstName, birthYear) {
+
+}
+
+...kao sto smo rekli jedina razlika izmedju constructor funkcije i obicne funkcije jeste sto constructor funkciju pozivamo sa operatorom NEW ispred imena. Ovako:
+
+new Person('Jonas', 1991);
+
+...ovaj 'new' operator je veoma specijalan. Ono sto on radi sada jeste da poziva ovu Person funkciju ali takodje radi jos dosta stvari u pozadini! Sta se tacno sve desava kada pozovemo funkciju sa 'new' operatorom? Iza scene se desavaju tacno 4 stvari: 
+1) Prvo sto se desava jeste da se kreira novi prazan objekat. 
+2) Druga stvar jeste da se poziva ta Person funkcija i unutar ovog funkcijskog poziva THIS kljucna rec ce biti namestena na ovaj novo kreirani prazan objekat. Dakle u execution contextu ove funkcije Person this kljucna rec ce pokazivati na novo kreirani objekat koji je kreiran u koraku broj 1. 
+3) Ovaj novo kreirani prazan objekat je linkonvan (povezan) za prototype. 
+4) Poslednja stvar jeste da objekat koji je napravljen u pocetku je automatski vracen iz konstruktor funkcije. Dakle sam poziv new Person(some parameters) ce vratiti taj novi objekat. 
+
+Dakle ako sada znamo da ce poziv constructor funckije da vrati zapravo to THIS, tj taj novi prazan objekat, to mozemo da iskoristimo tako sto cemo postaviti sva svojstva koja zelimo da se nalaze u tom novo kreiranom objektu!
+
+const Person = function(firstName, birthYear) {
+    this.firstName = firstName;  // ono sto ovde radimo jeste da kazemo taj novi objekat (zato stavljamo this jer znamo da ce on da pokazuje ka tom novo kreiranom
+    this.birthYear = birthYear;     objektu) ce imati svojstvo firstName a za njegovu vrednost imace parametar firstName koji prima constructor funkcija, isto to radimo i za birthYear
+}
+
+...naravno da napomenemo jeste da imenovanja ovih svojstava koje ce da ima objekat ne mora da bude isto kao imena koje dobijamo kroz parametre, ali konvencija jeste da ih imenujemo isto i trebali bi da se pridrzavamo toga!
+
+Sva ova svojstva koja kreiramo unutar constructor funkcije bice dostupna u svim instancama objekta koje kreiramo iz ove Person constructor funkcije. 
+Sada mozemo da uskladistimo rezultat pozivanja constructor funckije unutar neke promenljive i ta promenljiva ce imati vrednost tog novo kreiranog objekta. 
+
+const jonas = new Person('jonas', 1991);
+
+...jonas ce sada biti objekat sa firstName i brithYear svojstvima a njihove vrednosti ce biti 'Jonas' i 1991.
+
+Sada iz ove Person constructor funkcije mozemo da napravimo koliko god zelimo objekata. 
+
+const matilda = new Person('Matilda', 1998);
+const jack = new Person('Jack', 1975);
+
+Kao sto znamo u tradicionalnom oop-u koristimo klase za pravljenje novih objekata i njih nazivamo instance te klase. Medjutim u js-u ne postoji koncept klasa, ali ono sto postoji jesu upravo constructor funckije uz pomoc kojih mozemo da napravimo objekat. I uprave te constructor funkcije jesu koriscene od pocetka jezika da simuliraju upravo OOP i klase. Tako da tehnicki mozemo da nazivamo ove objekte koje smo kreirali (jonas, matilda, jack) instance Person-e.
+
+Postoji operator uz pomoc kog mozemo da testiramo da li je neki objekat instanca necega:
+
+console.log(jack instanceof Person) // returns true
+
+
+Sve je ovo bilo vezano za svojstva, a sta je sa metodama? Prosto, bas kao sto smo dodavali sovjstva tako isto mozemo da dodajemo i metode: 
+
+const Person = function(firstName, birthYear) {
+    this.firstName = firstName;     
+    this.birthYear = birthYear;
+
+    this.caclAge = function() {
+        console.log(2037 - this.birthYear)
+    }
+}
+...opet koristimo this jer ona pokazuje na novo kreirani objekat i koristimo ime caclAge koje ce da postane metoda u tom novom objektu!
+
+OVO CE RADITI SUPER, ALI JE JAKO LOSA PRAKSA! TREBALO BI DA IZBEGAVAMO OVAJ NACIN PRAVLJENJA METODA! Zamislimo da kreiramo 10000 instanci iz ove Person constructor funkcije. Ono sto bi se desilo jeste da ce svaki od tih 10000 objekata nositi ovu metodu caclAge, u prevodu ako imamo 10000 objekta mi bi kreirali 10000 kopija ove metode caclAge. To bi naravno bilo jako lose za performanse koda. Da bi resili ovaj problem koristicemo protoype i protoype inheritance.   
+
+
+PROTOTYPES:
+Svaka funkcija u javascriptu automatski ima svojstvo (property) prototype. To naravno vazi i za constructor funckije. Svaki objekat kreiran uz pomoc neke konstruktor funkcije ce dobiti pristup svim metodama i svojstvima koje smo definisali nad constructor prototype svojstvom. 
+
+Prototype svojstvo constructor funkcije:
+Person.prototype
+
+...svi objekti kreirani iz ove Person constructor funkcije ce naslediti sve metode i sva svojstva nad ovim prototype svojstvom Person constructor funckije! 
+
+Person.prototype.caclAge = function() {
+    console.log(2037 - this.birthYear)
+}
+
+...sada mozemo da koristimo ovu calcAge() metodu nad recimo jonas objektom jer je jonas objekat kreiran uz pomoc Person constructor funkcije, iako metoda nije stavljena direktno na Person constructor funkciju vec na njegov prototype!
+
+jonas.calcAge();
+
+Sada smo resili onaj problem od pre, gde smo probali da definisemo metodu direktno u Person konstrutor funkciji. Sada ova metoda caclAge postoji samo na jednom mestu i mogu da je koriste sve instance objekta koje su nastale od Person konstruktor funkcije. This kljucna rec unutar calcAge funkcije ce uvek da pokazuje ka objektu koji poziva metodu! U slucaju jonas.calcAge() this unutar calcAge() ce pokazivati na jonas objekat, dok npr ako pozovemo metodu caclAge() nad matilda objetkom, onda ce this unutar calcAge da pokazuje ka matilda objektu!
+
+matilda.calcAge();
+
+Kako sve ovo funkcionise? Ovo funkcionise zato sto svaki objekat uvek ima pristup svim metodama i propertijima od svog prototype-a. Prototype jonas, matilda i jack objekta jeste Person.prototype , to mozemo da potvrdimo uz pomoc jednog svojstva, koji ima svaki objekat koji se naziva __proto__. 
+Prototype jonas objekta jeste prototype property Person constructor funkcije. 
+
+console.log(jonas.__proto__ === Person.prototype)
+
+Ovo deluje zbunjujuce jer bi logicno trebalo da bude da Person.prototype bude prototype Person-e. Medjutim to nije tako. Person.prototype ce biti koriscen kao prototype za sve instance objekta koje napravimo iz Person konstruktor funckije, u nasem slucaju jonas, matilda, jack. 
+
+To mozemo da proverimo sa jos jednom ugradjenom metodom:
+
+console.log(Person.prototype.isPrototypeOf(jonas)) // returns true
+
+Bas kao sto mozemo da proverimo da Person.prototype nije prototype Person-a.
+
+console.log(Person.prototype.isPrototypeOf(Person)) // return false
+
+Sada kad smo razaznali sta je sta, da se vratimo malo na __proto__ svojstvom, odakle dolazi? Ako se podsetimo new operatora koji stavljamo prilikom pozivanja constructor funkcije. Setimo se da korak broj 3 kaze da ce new operator da poveze taj novo napravljeni objekat sa prototype-om. Upravo taj korak 3 ce da napravi __proto__ svojstvo. Sem toga sto kreira __proto__ svojstvo, takodje setuje njegovu vrednost na prototype property funkcije koja je pozvana. 
+
+Ako konzol logujemo neki objekat npr jonas videcemo da se u njemu nalazi to svojstvo __proto__ koje kada otvorimo pokazuje upravo prototype svojtsvo Person constructor funckije. 
+
+Ono sto nismo spomenuli jeste da mozemo da kacimo i svojstva (pored matoda) nad prototype svojstvom. Npr:
+Person.prototype.species = 'Homo sapiens';
+
+Sada ako konzol logujemo jonas objekat videcemo ovo svojstvo species unutar __proto__ svojstva. Bas kao i calcAge funkciju. Ova svojstva koja definisemo nad Person.prototype se nasledjuju naravno isto kao i metode na objekte koje kreiramo uz pomoc ove Person constructor funkcije. 
+
+console.log(jonas.species) return 'Homo sapiens'
+
+Ono sto mozemo da primetimo jeste da __proto__ svojstvo nije zakaceno direktno kao svojsvto jonas objekta vec kao poseban property. Nije svojstvo jonas objekta direktno. Direknta svojstva jonas objekta su samo ona svojstva koja su deklarisana direktno nad samim objektom, ne ukljucujuci nasledjena svojstva. U javascriptu postoji nacin da proverimo to. 
+
+console.log(jonas.hasOwnProperty('firstName')) // returns true - zato sto firstName jeste direktno unutar jonas objekta!
+console.log(jonas.hasOwnProperty('species'))  // returns false - zato sto species nije direktno unutar jonas objekta!
+
+jonas ce imati pristup species svojstvu zbog prototype-a. 
