@@ -170,7 +170,7 @@ Na kraju da kazemo da 4 principa OOP-a koja smo spomenuli u prvoj lekciji su i d
 
 
 CONSTRUCTOR FUNCTION AND THE "NEW" OPEARATOR:
-Mozemo da koristimo constructor funkcije da izgradimo objekat. Ta constructor funkcija je potpuno normalna funkcija. Jedina razlika izmedju obicne funkcije i funkcije koju zovemo constructor funkcija jeste sto constructor funkciju pozivamo sa 'new' operatorom. U oop-u postoji konvencija za iemnovanje constructor funkcija a to je da ih imenujemo velikim pocetnim slovom! Ono sto je bitno da napomenemo jeste da za izgradnju constructor funkcije mozemo da koristimo funkcijske deklaracije ili expression funkcije, dok arrow funkcije nece raditi, zato sto arrow funkcije ne dobijaju svoju this kljucnu rec prilikom izvrsavanja u callstack-u. Dakle pravljenjem konstruktor funkcije ce proizvesti objekat. Unutar zagrada gde pisemo parametre stavicemo sve sto zelimo da poseduje nas novi objekat kao svojstva. Na primer:
+Mozemo da koristimo constructor funkcije da izgradimo objekat. Ta constructor funkcija je potpuno normalna funkcija. Jedina razlika izmedju obicne funkcije i funkcije koju zovemo constructor funkcija jeste sto constructor funkciju pozivamo sa 'new' operatorom. U oop-u postoji konvencija za iemnovanje constructor funkcija a to je da ih imenujemo velikim pocetnim slovom! Ono sto je bitno da napomenemo jeste da za izgradnju constructor funkcije mozemo da koristimo funkcijske deklaracije ili expression funkcije, dok arrow funkcije nece raditi, zato sto arrow funkcije ne dobijaju svoju this kljucnu rec prilikom izvrsavanja u callstack-u. Dakle pravljenjem konstruktor funkcije ce proizvesti objekat. Unutar zagrada gde pisemo parametre stavicemo sve sto zelimo da poseduje nas novi objekat kao vrednosti. Na primer:
 
 const Person = function(firstName, birthYear) {
 
@@ -182,7 +182,7 @@ new Person('Jonas', 1991);
 
 ...ovaj 'new' operator je veoma specijalan. Ono sto on radi sada jeste da poziva ovu Person funkciju ali takodje radi jos dosta stvari u pozadini! Sta se tacno sve desava kada pozovemo funkciju sa 'new' operatorom? Iza scene se desavaju tacno 4 stvari: 
 1) Prvo sto se desava jeste da se kreira novi prazan objekat. 
-2) Druga stvar jeste da se poziva ta Person funkcija i unutar ovog funkcijskog poziva THIS kljucna rec ce biti namestena na ovaj novo kreirani prazan objekat. Dakle u execution contextu ove funkcije Person this kljucna rec ce pokazivati na novo kreirani objekat koji je kreiran u koraku broj 1. 
+2) Druga stvar jeste da se poziva ta Person funkcija i unutar ovog funkcijskog poziva THIS kljucna rec ce biti namestena da pokazuje na ovaj novo kreirani prazan objekat. Dakle u execution contextu ove funkcije Person this kljucna rec ce pokazivati na novo kreirani objekat koji je kreiran u koraku broj 1. 
 3) Ovaj novo kreirani prazan objekat je linkonvan (povezan) za prototype. 
 4) Poslednja stvar jeste da objekat koji je napravljen u pocetku je automatski vracen iz konstruktor funkcije. Dakle sam poziv new Person(some parameters) ce vratiti taj novi objekat. 
 
@@ -281,3 +281,26 @@ console.log(jonas.hasOwnProperty('firstName')) // returns true - zato sto firstN
 console.log(jonas.hasOwnProperty('species'))  // returns false - zato sto species nije direktno unutar jonas objekta!
 
 jonas ce imati pristup species svojstvu zbog prototype-a. 
+
+PROTOTYPE CHAIN:
+Kao sto smo naucili do sada koristimo constructor funkciju za pravljenje novih objekata. To radimo tako sto pozivamo tu constructor funkciju sa 'new' operatorom. Dakle ako imamo kod:
+
+const Person = function(firstName, birthYear) {
+    this.firstName = firstName;     
+    this.birthYear = birthYear;
+}
+
+Person.prototype.caclAge = function() {
+    console.log(2037 - this.birthYear)
+}
+
+const jonas = new Person('Jonas', 1991);
+jonas.caclAge();
+
+Sada kada smo pozvali constructor funkciju sa new operatorom on je kreirao novi objekat, setovao this kljucnu rec da pokazuje ka tom novom objektu, povezao jonas objekat sa njegovim prototype-om (Person.prototype) preko __proto__ svojstva i konacno vratice taj novo kreirani objekat, tako da sad u jonas promenljivoj imamo taj novo kreirani objekat sa dva svojstva firstName i birthYear. Ono sto znamo jeste da je Person.prototype ustvari prototype ovog jonas objekta i on ce naslediti sve metode i propertije od svog prototype-a (Person.prototype). Mozemo da kazemo da oni obrazuju prototype lanac. Medjutim taj lanac se ne zavrsava na Person.prototype. Setimo se da je Person.prototype sam po sebi isto objekat, a znamo da svaki objekat u javascriptu ima svoj prorotype, pitanje koje se namece jeste ko je onda prototype Person.prototype objekta? Prototype objekat Person.prototype-a jeste Object.prototype! Zasto je to tako, pa Person.prototype je obican objekat sto znaci da je bio izgradjen uz pomoc ugradjene Object constructor funkcije. Object constructor funkcija jeste funkcija koja ce da bude pozvana uvek kada mi napravimo neki objektni literal u javascriptu. Dakle, posto Person.prototype ima svoj prototype jer je kreiran pomocu Object constructor funkcije, Object.prototype ce postati prototype Person.prototype. Ista logika kao za jonas objekat. Ovo je takozvani prorotype lanac, upravo taj Object.prototype je vrh tog prototype lanca sto znaci da je njegov prototype null! Njegov __proto__ property ce pokazivati na null, sto oznacava kraj prototype lanca. 
+
+Ako bi upotrebili metodu:
+
+jonas.hasOwnProperty('name')
+
+Javascript bi u ovom slucaju prvo pogledao u samom objektu jonas da vidi jel moze da nadje hasOwnProperty metodu. Medjutim ako ne uspe da nadje hasOwnProperty metodu krece dalje u tom lancu prototype-a i gleda u prototype objekat jonas objekta, a to je Person.prototype. Medjutim ni tu ga ne nalazi, sto znaci da ce trazenje hasOwnProperty metode ici korak dalje u tom prototype lancu i stici do Object.prototype-a, gde konacno nalazi metodu sa imenom hasOwnProperty, posto Object.prototype sadrzi dosta ugradjenih metoda za objekte. I sada uspevamo da pozovemo hasOwnProperty() metodu nad jonas objetkom kao da je bila direktno definisana u jonas objetku. Zapatimo da hasOwnProperty() metoda nije kopirana na jonas objekta, vec je nasledjena preko prototype lanca sve od Object.prototype-a do jonas objekta. 
