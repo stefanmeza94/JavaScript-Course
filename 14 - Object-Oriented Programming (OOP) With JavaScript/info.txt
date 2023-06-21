@@ -170,7 +170,7 @@ Na kraju da kazemo da 4 principa OOP-a koja smo spomenuli u prvoj lekciji su i d
 
 
 CONSTRUCTOR FUNCTION AND THE "NEW" OPEARATOR:
-Mozemo da koristimo constructor funkcije da izgradimo objekat. Ta constructor funkcija je potpuno normalna funkcija. Jedina razlika izmedju obicne funkcije i funkcije koju zovemo constructor funkcija jeste sto constructor funkciju pozivamo sa 'new' operatorom. U oop-u postoji konvencija za iemnovanje constructor funkcija a to je da ih imenujemo velikim pocetnim slovom! Ono sto je bitno da napomenemo jeste da za izgradnju constructor funkcije mozemo da koristimo funkcijske deklaracije ili expression funkcije, dok arrow funkcije nece raditi, zato sto arrow funkcije ne dobijaju svoju this kljucnu rec prilikom izvrsavanja u callstack-u. Dakle pravljenjem konstruktor funkcije ce proizvesti objekat. Unutar zagrada gde pisemo parametre stavicemo sve sto zelimo da poseduje nas novi objekat kao vrednosti. Na primer:
+Mozemo da koristimo constructor funkcije da izgradimo objekat. Ta constructor funkcija je potpuno normalna funkcija. Jedina razlika izmedju obicne funkcije i funkcije koju zovemo constructor funkcija jeste sto constructor funkciju pozivamo sa 'new' operatorom. U oop-u postoji konvencija za imenovanje constructor funkcija a to je da ih imenujemo velikim pocetnim slovom! Ono sto je bitno da napomenemo jeste da za izgradnju constructor funkcije mozemo da koristimo funkcijske deklaracije ili expression funkcije, dok arrow funkcije nece raditi, zato sto arrow funkcije ne dobijaju svoju this kljucnu rec prilikom izvrsavanja u callstack-u. Dakle pravljenjem konstruktor funkcije ce proizvesti objekat. Unutar zagrada gde pisemo parametre stavicemo sve sto zelimo da poseduje nas novi objekat kao vrednosti. Na primer:
 
 const Person = function(firstName, birthYear) {
 
@@ -207,7 +207,7 @@ Sada iz ove Person constructor funkcije mozemo da napravimo koliko god zelimo ob
 const matilda = new Person('Matilda', 1998);
 const jack = new Person('Jack', 1975);
 
-Kao sto znamo u tradicionalnom oop-u koristimo klase za pravljenje novih objekata i njih nazivamo instance te klase. Medjutim u js-u ne postoji koncept klasa, ali ono sto postoji jesu upravo constructor funckije uz pomoc kojih mozemo da napravimo objekat. I uprave te constructor funkcije jesu koriscene od pocetka jezika da simuliraju upravo OOP i klase. Tako da tehnicki mozemo da nazivamo ove objekte koje smo kreirali (jonas, matilda, jack) instance Person-e.
+Kao sto znamo u tradicionalnom oop-u koristimo klase za pravljenje novih objekata i njih nazivamo instance te klase. Medjutim u js-u ne postoji koncept klasa, ali ono sto postoji jesu upravo constructor funckije uz pomoc kojih mozemo da napravimo objekat. I upravo te constructor funkcije jesu koriscene od pocetka jezika da simuliraju upravo OOP i klase. Tako da tehnicki mozemo da nazivamo ove objekte koje smo kreirali (jonas, matilda, jack) instance Person-e.
 
 Postoji operator uz pomoc kog mozemo da testiramo da li je neki objekat instanca necega:
 
@@ -303,11 +303,11 @@ Ako bi upotrebili metodu:
 
 jonas.hasOwnProperty('name')
 
-Javascript bi u ovom slucaju prvo pogledao u samom objektu jonas da vidi jel moze da nadje hasOwnProperty metodu. Medjutim ako ne uspe da nadje hasOwnProperty metodu krece dalje u tom lancu prototype-a i gleda u prototype objekat jonas objekta, a to je Person.prototype. Medjutim ni tu ga ne nalazi, sto znaci da ce trazenje hasOwnProperty metode ici korak dalje u tom prototype lancu i stici do Object.prototype-a, gde konacno nalazi metodu sa imenom hasOwnProperty, posto Object.prototype sadrzi dosta ugradjenih metoda za objekte. I sada uspevamo da pozovemo hasOwnProperty() metodu nad jonas objetkom kao da je bila direktno definisana u jonas objetku. Zapatimo da hasOwnProperty() metoda nije kopirana na jonas objekta, vec je nasledjena preko prototype lanca sve od Object.prototype-a do jonas objekta. 
+Javascript bi u ovom slucaju prvo pogledao u samom objektu jonas da vidi jel moze da nadje hasOwnProperty metodu. Medjutim ako ne uspe da nadje hasOwnProperty metodu krece dalje u tom lancu prototype-a i gleda u prototype objekat jonas objekta, a to je Person.prototype. Medjutim ni tu ga ne nalazi, sto znaci da ce trazenje hasOwnProperty metode ici korak dalje u tom prototype lancu i stici do Object.prototype-a, gde konacno nalazi metodu sa imenom hasOwnProperty, posto Object.prototype sadrzi dosta ugradjenih metoda za objekte. I sada uspevamo da pozovemo hasOwnProperty() metodu nad jonas objektom kao da je bila direktno definisana u jonas objetku. Zapatimo da hasOwnProperty() metoda nije kopirana na jonas objekta, vec je nasledjena preko prototype lanca sve od Object.prototype-a do jonas objekta. 
 
 
 ES6 CLASSES: 
-ES6 klase nam omogucavaju da koristimo prototype ineritance ali na mnogo laksi nacin ali takodje i na slicniji nacin kako se to radi u jezicima koji stvarno podrzavaju klase. Ono sto je bitno opet da napomenemo jeste da klase u javascriptu ne rade kao u tradicionalnim jezicima koji poseduju klase, kao recimo JAVA ili C++. Umesto toga klase u javascriptu jesu samo jedan vid apstrakcije (syntatic sugar) preko constructor funkcija i prototype ineritenca. Dakle one i dalje koriste prototypal ineritance iza scene ali sa sintaksom koja je dosta bliza jezicima poput JAVE ili C++. To je zapravo bio cilj za uvodjenje klasa, da se primenjivanje oop-a u javascriptu priblizi ljudima koji dolaze iz drugih jezika koji podrzavaju klase. Ono sto je bitno odma na pocetku da razumemo jeste da mozemo da pisemo klase na dva nacina, kao function expression i kao function declaration.
+ES6 klase nam omogucavaju da koristimo prototype ineritance ali na mnogo laksi nacin, takodje i na slicniji nacin kako se to radi u jezicima koji stvarno podrzavaju klase. Ono sto je bitno opet da napomenemo jeste da klase u javascriptu ne rade kao u tradicionalnim jezicima koji poseduju klase, kao recimo JAVA ili C++. Umesto toga klase u javascriptu jesu samo jedan vid apstrakcije (syntatic sugar) preko constructor funkcija i prototype ineritenca. Dakle one i dalje koriste prototypal ineritance iza scene ali sa sintaksom koja je dosta bliza jezicima poput JAVE ili C++. To je zapravo bio cilj za uvodjenje klasa, da se primenjivanje oop-a u javascriptu priblizi ljudima koji dolaze iz drugih jezika koji podrzavaju klase. Ono sto je bitno odma na pocetku da razumemo jeste da mozemo da pisemo klase na dva nacina, kao function expression i kao function declaration.
 
 // class expression
 
@@ -335,7 +335,7 @@ class Person {
 const jessica = new Person('Jessica', 1996);
 
 ...kao sto vidimo pravljenje novog objekta funkcionise bas kao i pre kod constructor funkcija. Pozivamo klasu sa 'new' operatorom. Sto znaci da bas kao i pre THIS kljucna rec unutar constructor metode ce biti setovan novo kreirani prazan objekat. Tako da setujemo svojstva bas kao i pre a to je sa this.firstName = firstName. Kada kreiramo novu instancu kao ovde jessica, constructor metoda je ta koja ce da bude pozvana i vratice novi objekat sa ovim svojstvima koje smo setovali u klasi odnosno u constructor metodi Person klase. Tako da sada u jessica promenljivoj imamo taj novo kreirani objekat sa firstName i birthYear svojstvima. Sada kada smo resili svojstva vreme da je predjemo na metode. 
-Metode prosto pisemo u produzetku klase! Medjutim ono sto je JAKO BITNO  da razumemo jeste da sve ove metode koje smo smestili unutar klase, a van constructor metode, bice na prototype-u objekta, DAKLE NE DIREKTNO NA NOVO KREIRANI OBJEKAT, VEC NA NJEGOV PROTOTYPE!
+Metode prosto pisemo u produzetku klase! Medjutim ono sto je JAKO BITNO da razumemo jeste da sve ove metode koje smo smestili unutar klase, a van constructor metode, bice na prototype-u objekta, DAKLE NE DIREKTNO NA NOVO KREIRANI OBJEKAT, VEC NA NJEGOV PROTOTYPE!
 
 class Person {
     constructor(firstName, birthYear) {
@@ -357,7 +357,7 @@ class Person {
 const jessica = new Person('Jessica', 1996);
 console.log(jessica)
 
-...kada bi pogledali jessica objekat u konzoli videli bi da unutar samog jessica objekta postoje sam svojstva firstName i birthYear, dok se calcAge() metoda nalazi unutar __proto__ svojstva, a to znamo da je prototype jessica objekta. Naravno i dalje cemo biti u mogucnosti da pozovemo caclAge() metodu nad jessica.
+...kada bi pogledali jessica objekat u konzoli videli bi da unutar samog jessica objekta postoje samo svojstva firstName i birthYear, dok se calcAge() metoda nalazi unutar __proto__ svojstva, a to znamo da je prototype jessica objekta. Naravno i dalje cemo biti u mogucnosti da pozovemo caclAge() metodu nad jessica.
 
 jessica.calcAge();
 
@@ -382,3 +382,104 @@ Moramo da kazemo jos nekoliko bitnih stvari za klase.
 1) Kao prvo klase nisu hojstovane! Cak iako su napisane sa klasnom deklaracijom! 
 2) Klase su First-class citizes, sto znaci da mozemo da ih prosledjujemo u druge funkcije ali i da ih vracamo iz funkcija, ovo je moguce zato sto su klase samo specijalna vrsta funkcija. 
 3) Telo klase odnosno sav kod unutar klase se uvek izvrsava u strict modu! Cak iako nismo aktivirali 'use strict' mod za nasu scriptu!
+
+
+INHERITANCE WITH CONSTRUCTOR FUNCTIONS:
+Ako se vratimo na prethodni primer sa constructor funkcijama:
+
+const Person = function(firstName, birthYear) {
+    this.firstName = firstName;     
+    this.birthYear = birthYear;
+}
+
+Person.prototype.caclAge = function() {
+    console.log(2037 - this.birthYear)
+}
+
+...ukoliko bi sada zeleli da napravimo Student construct funkciju koj ce da nasledi Person konstrutor funkciju, jer uglavnom zelimo da child konstrutor funkcija (Student) ima iste funkcionalnosti kao i parrent konstruktor funkcija (Person) ali sa nekim dodatnim svojstvima i funkcionalnostima:
+
+const Student = function(firstYear, birthYear, course) {
+    this.firstName = firstName;     
+    this.birthYear = birthYear;
+    this.course = course;
+}
+
+Iz primera mozemo da vidimo da Student konstrutor funkcija ima ista svojstva kao i Person, ali ima i neka dodatna svojstva (course). Hajde sada da kreiramo novog studenta:
+
+Hajde da dodamo i metodu: 
+
+Student.prototype.introduce = function() {
+    console.log(`My name is ${this.firstName} and i study ${this.course}`)
+}
+
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+mike.introduce(); // 'My name is Mike and i study Computer Science
+
+Iako ce ovo raditi super, postoji jedna stvar unutar Student konstruktor funkcije koju mozemo da unapredimo. Ako pogledamo deo gde odredjujemo firstName i birthYear to je praticno isto kao u Person konstruktor funkciji. Kao sto znamo nikada nije dobra ideja da imamo dupli kod. Prvo zato sto ne bi ispostovali kodeks "Don't repeat yourself" aka DRY pristup. Druga stvar zamislite da se nekad u buducnosti ova person konstruktor funkcija promeni, to znaci da se te promena ne bi odrazila na Student konstruktor funkciju. Tako da umesto da imamo dupli kod gde odredjujemo firstName i birthYear mozemo da pozovemo Person() funkciju i zatim joj prosledimo firstName i birthYear. 
+
+const Student = function(firstYear, birthYear, course) {
+    Person(firstName, birthYear);
+    this.course = course;
+}
+
+...medjutim OVO NECE RADITI! Zato sto mi ovde pozivamo Person konstruktor funkciju kao obicnu funkciju, odnosno ne koristimo "new" operator da pozovemo Person konstruktor funkciju, tako da ce u ovom primeru iznad pozivanje Person() biti kao da smo pozvali obicnu funkciju. Setimo se da u obicnom funkcijsom pozivu THIS kljucna rec jeste setovana na undefined. Zato bi dobili gresku ako bi pokusali ovako nesto. 
+
+// Cannot set property firstName of undefined
+
+Umesto da pozivamo obicnu funkciju Person mi mozemo manuelno da postavimo THIS kljucnu rec. To mozemo dao uradimo pomocu tri ugradjene funkcije u javascriptu a to su: call(), bind(), apply(). U ovom primeru cemo koristiti call().
+
+const Student = function(firstYear, birthYear, course) {
+    Person.call(this, firstName, birthYear);
+    this.course = course;
+}
+
+Dakle call() metoda ce pozvati ovu Person funkciju ali cemo moci da odredimo THIS kljucnu rec kao prvi argument. U ovom konkretnom slucaju zelimo da THIS kljucna rec unutar Person konstrutor funkcije prosto da bude THIS kljucna rec unutar Student konstrutor funkcije. Kao sto znamo THIS kljucna rec ce biti u pocetku prazan objekat koji se kreira kada pozovemo konstrutor funkciju sa "new" operatorom. Na tom novo kreiranom objektu zelimo da postavimo firstName i birthYear svojstva. 
+
+// nastavi 8:50 - 218 Inheritance between classes - constructor functions
+
+
+
+INHERITANCE WITH ES6 CLASSES:
+Ukoliko pogledamo primer koji smo imali kod ES6 klasa:
+
+class Person {
+    constructor(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;  
+    }
+
+    caclAge() {
+        console.log(2037 - this.birthYear);
+    }
+
+    greet() {
+        console.log(`Hey ${this.firstName}`)
+    }
+}
+
+Hajde sada da implementiramo nasledjivanje uz pomoc klasa. Pocecemo od toga sto cemo da napravimo Student klasu. Da bi implementirali nasledjivanje uz pomoc ES6 klasa moramo da koristimo dve stvari a to su 'extends' kljucnu rec i super() funkcija. Ova kljucna rec 'extends' ce u pozadini da linkuje prototype iza scene, tj 'extends' ce da linkuje Student.prototype sa Person.prototype, tako da child klasa Student sada mozem da pristupi svim propertijima i metodama svog prototype-a, a to je Person.prototype. Dalje nam treba naravno constructor() funkcija koju moramo prvu da pozovemo unutar klase. Ta constructor() funkcija ce da prima argumente bas kao i parent klasa, sa jos nekim dodatnim naravno.  
+
+class Student extends Person {
+    constructor(firstName, birthYear, course) {
+        // ovde ne moramo manuelno da pozivamo parent klasu (Person) kao sto smo implementirali kod nasledjivanja sa konstruktor funkcijama (Person.call()), vec ono sto MORAMO da uradimo jeste da pozovemo super() metodu. Ta super() metoda je prakticno constructor funkcija parent klase (Person). Njoj prosledjujemo samo parametre koje prima nasa parent klasa (Person) a to su firstName i birthYear. Moramo da zapamtimo da kada pravimo nasledjivanje pomocu klasa ovu super() funkciju MORAMO DA POZOVEMO PRVO UNUTAR CONSTRUCTOR FUNKCIJE!!! Zato sto je upravo pozivanje super() metode odgovorno za pravljenje THIS kljucne reci u ovoj sub klasi (Student).
+
+        super(firstName, birthYear)
+        // bez pozivanja super() metode ne bi mogli da pristupimo THIS kjucnoj reci kao sto radimo ispod za this.course!!! Dakle uvek prvo pozivamo super() metodu posto se ona ponasa kao konstruktor funkcija parent kalse (u ovom slucaju Person) pa tek onda mozemo da pristupa THIS kljucnoj reci. Naravno mozemo i da nemamo vise nikakvih novih propertija. 
+        this.course = course; 
+    }
+}
+
+Sada ce ova Student klasa da nasledi sve propertije od svoje parent klase Person. Ukoliko ne bi imali dodatnih svojstava za nasu child klasu (kao sto je u primeru course property), onda bi unutar child klase Student mogli da izostavimo pozivanje constructor() funkcije. 
+
+class Student extends Person {
+
+}
+
+const martha = new Student('Martha', 2002);
+
+Ovo bi radilo bez problema. 
+
+console.log(martha) // Person {firstName: 'Martha', birthYear: 2002}
+
+// nastavi od 6:00 - 220 Ineritance between classes: ES6 CLASSES
