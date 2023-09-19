@@ -193,7 +193,7 @@ const Person = function(firstName, birthYear) {
     this.birthYear = birthYear;     objektu) ce imati svojstvo firstName a za njegovu vrednost imace parametar firstName koji prima constructor funkcija, isto to radimo i za birthYear
 }
 
-...naravno da napomenemo jeste da imenovanja ovih svojstava koje ce da ima objekat ne mora da bude isto kao imena koje dobijamo kroz parametre, ali konvencija jeste da ih imenujemo isto i trebali bi da se pridrzavamo toga!
+...naravno da napomenemo da imenovanja ovih svojstava koje ce da ima objekat ne mora da bude isto kao imena koje dobijamo kroz parametre, ali konvencija jeste da ih imenujemo isto i trebali bi da se pridrzavamo toga!
 
 Sva ova svojstva koja kreiramo unutar constructor funkcije bice dostupna u svim instancama objekta koje kreiramo iz ove Person constructor funkcije. 
 Sada mozemo da uskladistimo rezultat pozivanja constructor funckije unutar neke promenljive i ta promenljiva ce imati vrednost tog novo kreiranog objekta. 
@@ -458,14 +458,14 @@ class Person {
     }
 }
 
-Hajde sada da implementiramo nasledjivanje uz pomoc klasa. Pocecemo od toga sto cemo da napravimo Student klasu. Da bi implementirali nasledjivanje uz pomoc ES6 klasa moramo da koristimo dve stvari a to su 'extends' kljucnu rec i super() funkcija. Ova kljucna rec 'extends' ce u pozadini da linkuje prototype iza scene, tj 'extends' ce da linkuje Student.prototype sa Person.prototype, tako da child klasa Student sada mozem da pristupi svim propertijima i metodama svog prototype-a, a to je Person.prototype. Dalje nam treba naravno constructor() funkcija koju moramo prvu da pozovemo unutar klase. Ta constructor() funkcija ce da prima argumente bas kao i parent klasa, sa jos nekim dodatnim naravno.  
+Hajde sada da implementiramo nasledjivanje uz pomoc klasa. Pocecemo od toga sto cemo da napravimo Student klasu. Da bi implementirali nasledjivanje uz pomoc ES6 klasa moramo da koristimo dve stvari a to su 'extends' kljucnu rec i super() funkcija. Ova kljucna rec 'extends' ce u pozadini da linkuje prototype iza scene, tj 'extends' ce da linkuje Student.prototype sa Person.prototype, tako da child klasa Student sada moze da pristupi svim propertijima i metodama svog prototype-a, a to je Person.prototype. Dalje nam treba naravno constructor() funkcija koju moramo prvu da pozovemo unutar klase. Ta constructor() funkcija ce da prima argumente bas kao i parent klasa, sa jos nekim dodatnim naravno.  
 
 class Student extends Person {
     constructor(firstName, birthYear, course) {
         // ovde ne moramo manuelno da pozivamo parent klasu (Person) kao sto smo implementirali kod nasledjivanja sa konstruktor funkcijama (Person.call()), vec ono sto MORAMO da uradimo jeste da pozovemo super() metodu. Ta super() metoda je prakticno constructor funkcija parent klase (Person). Njoj prosledjujemo samo parametre koje prima nasa parent klasa (Person) a to su firstName i birthYear. Moramo da zapamtimo da kada pravimo nasledjivanje pomocu klasa ovu super() funkciju MORAMO DA POZOVEMO PRVO UNUTAR CONSTRUCTOR FUNKCIJE!!! Zato sto je upravo pozivanje super() metode odgovorno za pravljenje THIS kljucne reci u ovoj sub klasi (Student).
 
         super(firstName, birthYear)
-        // bez pozivanja super() metode ne bi mogli da pristupimo THIS kjucnoj reci kao sto radimo ispod za this.course!!! Dakle uvek prvo pozivamo super() metodu posto se ona ponasa kao konstruktor funkcija parent kalse (u ovom slucaju Person) pa tek onda mozemo da pristupa THIS kljucnoj reci. Naravno mozemo i da nemamo vise nikakvih novih propertija. 
+        // bez pozivanja super() metode ne bi mogli da pristupimo THIS kjucnoj reci kao sto radimo ispod za this.course!!! Dakle uvek prvo pozivamo super() metodu posto se ona ponasa kao konstruktor funkcija parent klase (u ovom slucaju Person) pa tek onda mozemo da pristupa THIS kljucnoj reci. Naravno mozemo i da nemamo vise nikakvih novih propertija. 
         this.course = course; 
     }
 }
