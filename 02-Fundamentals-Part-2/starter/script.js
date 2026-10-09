@@ -313,7 +313,7 @@ const interestedIn = prompt(
   jonas["twitter"] = "@jonasschmedtmann";
   
   console.log(`${jonas.firstName} has ${jonas.friends.length} friends, and his best friend is called ${jonas.friends[0]}`);
-  */
+
 
 const jonas = {
   firstName: "Jonas",
@@ -365,3 +365,100 @@ if (mark.bmi > john.bmi) {
     `${john.fullName}'s BMI (${john.calcBMI().toFixed(2)}) is higher than ${mark.fullName}'s (${mark.calcBMI().toFixed(2)})`,
   );
 }
+
+
+console.log("Lifiting weight repetition 1");
+console.log("Lifiting weight repetition 2");
+console.log("Lifiting weight repetition 3");
+console.log("Lifiting weight repetition 4");
+console.log("Lifiting weight repetition 5");
+
+for (let i = 0; i <= 10; i++) {
+  console.log(`Lifiting weight repetition ${i}`);
+}
+
+
+const jonas = ["Jonas", "Schmedtmann", 2037 - 1991, "teacher", ["Mihael", "Peter", "Steven"]];
+
+const types = [];
+
+for (let i = 0; i < jonas.length; i++) {
+  // types.push(typeof jonas[i]);
+  types[i] = typeof jonas[i];
+  }
+  
+  console.log(types);
+
+
+const years = [1991, 2007, 1969, 2020];
+const ages = [];
+
+for (let i = 0; i < years.length; i++) {
+  ages.push(2037 - years[i]);
+}
+
+console.log(ages);
+
+// continue and break
+const jonas = ["Jonas", "Schmedtmann", 2037 - 1991, "teacher", ["Mihael", "Peter", "Steven"]];
+
+const onlyStr = [];
+
+console.log("----ONLY STRINGS----");
+for (let i = 0; i < jonas.length; i++) {
+  if (typeof jonas[i] !== "string") {
+    continue;
+  }
+
+  onlyStr.push(jonas[i]);
+}
+
+console.log(onlyStr);
+
+console.log("----BREAK WITH NUMBER----");
+for (let i = 0; i < jonas.length; i++) {
+  if (typeof jonas[i] === "number") {
+    console.log(jonas[i]);
+    break;
+  }
+}
+
+
+const jonas = ["Jonas", "Schmedtmann", 2037 - 1991, "teacher", ["Mihael", "Peter", "Steven"]];
+
+for (let i = jonas.length - 1; i >= 0; i--) {
+  console.log(jonas[i]);
+}
+
+
+for (let exercise = 1; exercise <= 3; exercise++) {
+  console.log(`------ Starting exercise ${exercise}`);
+
+  for (let rep = 1; rep <= 5; rep++) {
+    console.log(`Exercise ${exercise}: Lifting weight repetition ${rep}`);
+  }
+}
+
+
+for (let i = 0; i <= 10; i++) {
+  console.log(`Lifiting weight repetition ${i}`);
+}
+
+console.log("---- SEPARATOR ----");
+
+let rep = 1;
+while (rep <= 10) {
+  console.log(`Lifting weight repetition ${rep}`);
+  rep++;
+}
+
+
+let dice = Math.trunc(Math.random() * 6) + 1;
+
+while (dice !== 6) {
+  console.log(`You rolled ${dice}`);
+  dice = Math.trunc(Math.random() * 6) + 1;
+
+  if (dice === 6) console.log("Loop is about to end...");
+}
+*/
