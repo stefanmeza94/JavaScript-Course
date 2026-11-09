@@ -39,3 +39,37 @@ function printForecast(arr) {
 printForecast([12, 5, -5, 0, 4]);
 
 */
+
+// challenge 2
+
+function calculateWeeklyHours(dailyHours) {
+    const totalHours = dailyHours.reduce((sum, hours) => sum + hours, 0);
+
+    const daysWorked = dailyHours.filter(hours => hours > 0).length;
+
+    const averageDailyHours = daysWorked > 0
+        ? totalHours / daysWorked
+        : 0;
+
+    const mostHours = Math.max(...dailyHours);
+    const dayWithMostHours = dailyHours.indexOf(mostHours);
+
+    const isFullTime = totalHours >= 35;
+
+    const days = [
+        "Monday", "Tuesday", "Wednesday",
+        "Thursday", "Friday", "Saturday", "Sunday"
+    ];
+
+    return {
+        totalHours,
+        averageDailyHours: Number(averageDailyHours.toFixed(2)),
+        dayWithMostHours: days[dayWithMostHours],
+        daysWorked,
+        isFullTime
+    };
+}
+
+const weeklyHours = [7.5, 8, 6.5, 0, 8.5, 4, 0];
+
+console.log(calculateWeeklyHours(weeklyHours));
